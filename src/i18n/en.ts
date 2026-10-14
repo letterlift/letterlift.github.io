@@ -63,7 +63,7 @@ export const en: Dict = {
     },
     free: {
       title: 'Free and open source',
-      body: 'No fees and no ads. The code is open under the MIT license, so anyone can check it.',
+      body: 'No fees and no ads. The code is open under the GPL license, so anyone can check it.',
     },
     adjust: {
       title: 'Adjustable to you',
@@ -73,7 +73,8 @@ export const en: Dict = {
   footer: {
     made: 'Made with ❤️ by Zem for ADHD Awareness Month 2026',
     github: 'Code on GitHub',
-    license: 'MIT license',
+    privacy: 'Privacy & terms',
+    license: 'GPL-3.0 license',
   },
   reader: {
     back: '← New text',
@@ -127,10 +128,46 @@ export const en: Dict = {
     privacyTitle: 'Privacy',
     privacy:
       'Your text never leaves your device. LetterLift has no server that receives it, uses no analytics and creates no accounts. The only things saved in your browser are your settings and your chosen language.',
-    creditsTitle: 'Credits',
-    credits:
-      'Fonts: Bricolage Grotesque and Atkinson Hyperlegible (Braille Institute), designed for legibility. File reading: mammoth (DOCX) and pdf.js (PDF). Code under the MIT license.',
-    author: 'LetterLift was created by Zem.',
-    source: 'Source code on GitHub',
+    techCaption: 'This paragraph uses the technique.',
+    authorTitle: 'About the author & contact',
+    author: 'LetterLift was created by Zem for ADHD Awareness Month 2026.',
+    ideaPrompt: 'Have an idea, or something not working?',
+    reportIssue: 'Report on GitHub',
+    messageMe: 'Message me on Facebook',
+    newTab: '(opens in a new tab)',
+    libs: 'Built with the help of open source libraries: pdf.js, mammoth.',
+    legalLink: 'Privacy & terms',
+  },
+  legal: {
+    back: '← Back',
+    title: 'Privacy & terms',
+    effective: 'Effective from 14 October 2026',
+    whoTitle: 'Who is behind this',
+    who: 'LetterLift is a free, non-commercial tool created by Zem. Contact:',
+    medicalTitle: 'Medical disclaimer',
+    medical:
+      'LetterLift is not a medical device. It is not meant to diagnose or treat ADHD or any other condition, and it does not replace consulting a specialist.',
+    privacyTitle: 'Privacy',
+    privacyItems: [
+      'We do not collect any personal data. There are no accounts, cookies, analytics or ads.',
+      'The text you paste or upload is processed only in your browser and is never sent anywhere.',
+      'On your device (in browser storage, localStorage) we save only your settings: text appearance, language and focus tools. You can remove them by clearing the site data in your browser.',
+      'The app stores its own files in the browser cache so it can work offline.',
+    ],
+    hosting: 'The site is hosted on GitHub Pages. GitHub may process technical data, such as your IP address, under its own privacy policy:',
+    hostingLink: 'GitHub privacy statement',
+    external: 'Links to GitHub and Facebook lead to external services that have their own privacy policies.',
+    termsTitle: 'Terms of use',
+    terms: [
+      'Using LetterLift is free and needs no registration.',
+      'Requirements: an up-to-date web browser with JavaScript enabled.',
+      'The tool is provided "as is", with no guarantee that it works correctly in every situation. We are not responsible for the consequences of using it.',
+      'You are responsible for the content you open in the app (it never leaves your device anyway).',
+      'Send feedback and complaints through GitHub or Facebook. We will reply as soon as we can.',
+      'These terms may change. The current version is always on this page, with its effective date.',
+    ],
+    licenseTitle: 'Licence',
+    license: 'The source code is open, under the GNU GPL v3 or later.',
+    repo: 'Source code on GitHub',
   },
 }

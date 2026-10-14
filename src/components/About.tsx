@@ -1,11 +1,13 @@
+import { DEFAULT_STRENGTH } from '../core';
 import { useI18n } from '../i18n';
+import { FACEBOOK_URL, ISSUES_URL } from '../links';
+import { BoldText } from './BoldText';
+import { ExternalLink } from './ExternalLink';
 import styles from './About.module.css';
 
-type Props = { onBack: () => void };
+type Props = { onBack: () => void; onPrivacy: () => void };
 
-export const REPO_URL = 'https://github.com/drogazem-design/letterlift';
-
-export function About({ onBack }: Props) {
+export function About({ onBack, onPrivacy }: Props) {
   const { t } = useI18n();
   const a = t.about;
 
@@ -19,7 +21,10 @@ export function About({ onBack }: Props) {
 
       <section>
         <h2>{a.whatTitle}</h2>
-        <p>{a.what}</p>
+        <p>
+          <BoldText text={a.what} strength={DEFAULT_STRENGTH} enabled />
+        </p>
+        <p className={styles.caption}>{a.techCaption}</p>
       </section>
       <section>
         <h2>{a.researchTitle}</h2>
@@ -38,15 +43,30 @@ export function About({ onBack }: Props) {
         <p>{a.privacy}</p>
       </section>
       <section>
-        <h2>{a.creditsTitle}</h2>
+        <h2>{a.authorTitle}</h2>
         <p>{a.author}</p>
-        <p>{a.credits}</p>
-        <p>
-          <a href={REPO_URL} rel="noopener noreferrer">
-            {a.source}
-          </a>
-        </p>
+        <p>{a.ideaPrompt}</p>
+        <div className={styles.actions}>
+          <ExternalLink href={ISSUES_URL} variant="button">
+            {a.reportIssue}
+          </ExternalLink>
+          <ExternalLink href={FACEBOOK_URL} variant="button">
+            {a.messageMe}
+          </ExternalLink>
+        </div>
+        <p className={styles.muted}>{a.libs}</p>
       </section>
+      <p>
+        <a
+          href="#privacy"
+          onClick={(e) => {
+            e.preventDefault();
+            onPrivacy();
+          }}
+        >
+          {a.legalLink}
+        </a>
+      </p>
     </article>
   );
 }

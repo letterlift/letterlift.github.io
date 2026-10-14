@@ -2,7 +2,7 @@ import { useI18n, type Lang } from '../i18n';
 import styles from './Header.module.css';
 
 type Props = {
-  current: 'home' | 'reader' | 'about';
+  current: 'home' | 'reader' | 'about' | 'privacy';
   onHome: () => void;
   onAbout: () => void;
 };

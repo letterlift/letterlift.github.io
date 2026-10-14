@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { resetLangForTests } from './i18n'
@@ -52,5 +52,27 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: /^(Read|Czytaj)$/ }))
     expect(scrollTo).toHaveBeenCalledWith(0, 0)
     vi.restoreAllMocks()
+  })
+
+  it('opens Privacy & terms from the footer, sets the title, and goes back', () => {
+    window.history.replaceState(null, '', '/')
+    render(<App />)
+    fireEvent.click(within(screen.getByRole('contentinfo')).getByRole('link', { name: /Privacy & terms|Prywatność i zasady/ }))
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Privacy & terms|Prywatność i zasady/)
+    expect(window.location.hash).toBe('#privacy')
+    expect(document.title).toMatch(/^(Privacy & terms|Prywatność i zasady) · LetterLift$/)
+    act(() => {
+      window.history.back()
+    })
+    return waitFor(() => {
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Read the way|Czytaj tak/)
+    })
+  })
+
+  it('opens Privacy & terms directly from the #privacy hash', () => {
+    window.history.replaceState(null, '', '/#privacy')
+    render(<App />)
+    expect(screen.getByRole('heading', { level: 2, name: /Medical disclaimer|Zastrzeżenie medyczne/ })).toBeInTheDocument()
+    window.history.replaceState(null, '', '/')
   })
 })

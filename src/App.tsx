@@ -3,29 +3,33 @@ import { About } from './components/About';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Home } from './components/Home';
+import { Privacy } from './components/Privacy';
 import { ReaderScreen } from './components/ReaderScreen';
 import { deriveTitle } from './docTitle';
 import { parsePlainText, type Block } from './ingest';
 import { readSharedText } from './share';
+import { useI18n } from './i18n';
 import { useSettings } from './settings/useSettings';
 import styles from './App.module.css';
 
-type Screen = 'home' | 'reader' | 'about';
+type Screen = 'home' | 'reader' | 'about' | 'privacy';
 type Doc = { title: string; blocks: Block[] };
 
 function screenFromLocation(state: unknown): Screen {
   const s = (state as { screen?: Screen } | null)?.screen;
-  if (s === 'home' || s === 'reader' || s === 'about') return s;
-  return window.location.hash === '#about' ? 'about' : 'home';
+  if (s === 'home' || s === 'reader' || s === 'about' || s === 'privacy') return s;
+  if (window.location.hash === '#about') return 'about';
+  return window.location.hash === '#privacy' ? 'privacy' : 'home';
 }
 
 function urlFor(screen: Screen): string {
   const base = window.location.pathname + window.location.search;
-  return screen === 'about' ? `${base}#about` : base;
+  return screen === 'about' || screen === 'privacy' ? `${base}#${screen}` : base;
 }
 
 export default function App() {
   // Single source of settings state: call useSettings() once and pass props down.
+  const { t } = useI18n();
   const [settings, patchSettings, resetSettings] = useSettings();
   const [screen, setScreen] = useState<Screen>(() => screenFromLocation(null));
   const [doc, setDoc] = useState<Doc | null>(null);
@@ -76,15 +80,18 @@ export default function App() {
   const shown: Screen = screen === 'reader' && !doc ? 'home' : screen;
 
   useEffect(() => {
-    document.title = shown === 'reader' && doc ? `${doc.title} · LetterLift` : 'LetterLift by Zem';
-  }, [shown, doc]);
+    if (shown === 'reader' && doc) document.title = `${doc.title} · LetterLift`;
+    else if (shown === 'privacy') document.title = `${t.legal.title} · LetterLift`;
+    else document.title = 'LetterLift by Zem';
+  }, [shown, doc, t.legal.title]);
 
   return (
     <div className={styles.app}>
       <Header current={shown} onHome={() => go('home')} onAbout={() => go('about')} />
       <main ref={mainRef} tabIndex={-1} className={styles.main}>
         {shown === 'home' && <Home onOpen={open} text={pasted} onTextChange={setPasted} />}
-        {shown === 'about' && <About onBack={() => go('home')} />}
+        {shown === 'about' && <About onBack={() => go('home')} onPrivacy={() => go('privacy')} />}
+        {shown === 'privacy' && <Privacy onBack={() => go('home')} />}
         {shown === 'reader' && doc && (
           <ReaderScreen
             blocks={doc.blocks}
@@ -96,7 +103,7 @@ export default function App() {
           />
         )}
       </main>
-      {shown !== 'reader' && <Footer />}
+      {shown !== 'reader' && <Footer onPrivacy={() => go('privacy')} />}
     </div>
   );
 }

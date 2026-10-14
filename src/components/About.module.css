@@ -58,3 +58,21 @@
   text-decoration-thickness: 2px;
   text-decoration-color: var(--accent);
 }
+
+.caption,
+.muted {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.about .actions a {
+  color: var(--on-accent);
+  text-decoration: none;
+}

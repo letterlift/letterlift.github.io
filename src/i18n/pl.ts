@@ -61,7 +61,7 @@ export const pl = {
     },
     free: {
       title: 'Za darmo i otwarte',
-      body: 'Bez opłat i reklam. Kod jest otwarty na licencji MIT, każdy może go sprawdzić.',
+      body: 'Bez opłat i reklam. Kod jest otwarty na licencji GPL, każdy może go sprawdzić.',
     },
     adjust: {
       title: 'Ustawisz pod siebie',
@@ -71,7 +71,8 @@ export const pl = {
   footer: {
     made: 'Zrobione z ❤️ przez Zem na Miesiąc Świadomości ADHD 2026',
     github: 'Kod na GitHubie',
-    license: 'Licencja MIT',
+    privacy: 'Prywatność i zasady',
+    license: 'Licencja GPL-3.0',
   },
   reader: {
     back: '← Nowy tekst',
@@ -125,10 +126,46 @@ export const pl = {
     privacyTitle: 'Prywatność',
     privacy:
       'Twój tekst nie opuszcza Twojego urządzenia. LetterLift nie ma serwera, który go odbiera, nie używa analityki i nie zakłada kont. W pamięci przeglądarki zapisujemy tylko Twoje ustawienia i wybrany język.',
-    creditsTitle: 'Podziękowania',
-    credits:
-      'Czcionki: Bricolage Grotesque oraz Atkinson Hyperlegible (Braille Institute), zaprojektowana z myślą o czytelności. Odczyt plików: mammoth (DOCX) i pdf.js (PDF). Kod na licencji MIT.',
-    author: 'LetterLift stworzyła Zem.',
-    source: 'Kod źródłowy na GitHubie',
+    techCaption: 'Ten akapit jest napisany tą techniką.',
+    authorTitle: 'O autorce i kontakt',
+    author: 'LetterLift stworzyła Zem na Miesiąc Świadomości ADHD 2026.',
+    ideaPrompt: 'Masz pomysł albo coś nie działa?',
+    reportIssue: 'Zgłoś na GitHubie',
+    messageMe: 'Napisz do mnie na Facebooku',
+    newTab: '(otwiera się w nowej karcie)',
+    libs: 'Zbudowane z pomocą bibliotek open source: pdf.js, mammoth.',
+    legalLink: 'Prywatność i zasady',
+  },
+  legal: {
+    back: '← Wróć',
+    title: 'Prywatność i zasady',
+    effective: 'Obowiązuje od 14 października 2026',
+    whoTitle: 'Kto za tym stoi',
+    who: 'LetterLift to darmowe, niekomercyjne narzędzie stworzone przez Zem. Kontakt:',
+    medicalTitle: 'Zastrzeżenie medyczne',
+    medical:
+      'LetterLift nie jest wyrobem medycznym. Nie służy do diagnozowania ani leczenia ADHD ani żadnych innych zaburzeń i nie zastępuje konsultacji ze specjalistą.',
+    privacyTitle: 'Prywatność',
+    privacyItems: [
+      'Nie zbieramy żadnych danych osobowych. Nie ma kont, ciasteczek (cookies), analityki ani reklam.',
+      'Tekst, który wklejasz lub wgrywasz, jest przetwarzany wyłącznie w Twojej przeglądarce i nigdzie nie jest wysyłany.',
+      'Na Twoim urządzeniu (w pamięci przeglądarki, localStorage) zapisujemy tylko Twoje ustawienia: wygląd tekstu, język i narzędzia skupienia. Możesz je usunąć, czyszcząc dane strony w przeglądarce.',
+      'Aplikacja zapisuje swoje pliki w pamięci podręcznej przeglądarki, żeby działała offline.',
+    ],
+    hosting: 'Strona jest hostowana na GitHub Pages. GitHub może przetwarzać dane techniczne, np. adres IP, zgodnie ze swoją polityką prywatności:',
+    hostingLink: 'Polityka prywatności GitHuba',
+    external: 'Linki do GitHuba i Facebooka prowadzą do zewnętrznych serwisów, które mają własne zasady prywatności.',
+    termsTitle: 'Zasady korzystania',
+    terms: [
+      'Korzystanie jest bezpłatne i nie wymaga rejestracji.',
+      'Wymagania: aktualna przeglądarka internetowa z włączonym JavaScriptem.',
+      'Narzędzie jest udostępniane „tak jak jest”, bez gwarancji poprawnego działania w każdej sytuacji. Nie odpowiadamy za skutki korzystania z niego.',
+      'Odpowiadasz za treści, które otwierasz w aplikacji (one i tak nie opuszczają Twojego urządzenia).',
+      'Uwagi i reklamacje zgłaszaj przez GitHub lub Facebook. Odpowiemy najszybciej, jak to możliwe.',
+      'Zasady mogą się zmienić. Aktualna wersja jest zawsze na tej stronie, z datą obowiązywania.',
+    ],
+    licenseTitle: 'Licencja',
+    license: 'Kod źródłowy jest otwarty, na licencji GNU GPL v3 lub nowszej.',
+    repo: 'Kod źródłowy na GitHubie',
   },
 }
