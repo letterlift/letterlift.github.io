@@ -27,4 +27,20 @@ describe('App', () => {
     expect(screen.getByRole('contentinfo')).toHaveTextContent(/by Zem|przez Zem/)
     expect(document.title).toBe('LetterLift by Zem')
   })
+
+  it('opens the reader with shared text from ?text= and strips the query', () => {
+    window.history.replaceState(null, '', '/?title=Hi&text=' + encodeURIComponent('Zażółć gęślą jaźń') + '&url=')
+    render(<App />)
+    expect(screen.getByRole('main')).toHaveTextContent(/Zażółć gęślą jaźń/)
+    expect(window.location.search).toBe('')
+    expect(document.title).toBe('Hi · LetterLift')
+    window.history.replaceState(null, '', '/')
+  })
+
+  it('stays on home when the query has no shared text', () => {
+    window.history.replaceState(null, '', '/?foo=bar')
+    render(<App />)
+    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
+    window.history.replaceState(null, '', '/')
+  })
 })

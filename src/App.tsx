@@ -5,7 +5,8 @@ import { Header } from './components/Header';
 import { Home } from './components/Home';
 import { ReaderScreen } from './components/ReaderScreen';
 import { deriveTitle } from './docTitle';
-import type { Block } from './ingest';
+import { parsePlainText, type Block } from './ingest';
+import { readSharedText } from './share';
 import { useSettings } from './settings/useSettings';
 import styles from './App.module.css';
 
@@ -60,6 +61,14 @@ export default function App() {
     },
     [go],
   );
+
+  // Android "Share -> LetterLift": open shared text straight in the reader, then drop the query.
+  useEffect(() => {
+    const shared = readSharedText(window.location.search);
+    if (!shared) return;
+    window.history.replaceState({ screen: 'home' }, '', window.location.pathname + window.location.hash);
+    open(parsePlainText(shared));
+  }, [open]);
 
   // A reader URL without a document (e.g. back after reload) falls back to home.
   const shown: Screen = screen === 'reader' && !doc ? 'home' : screen;
