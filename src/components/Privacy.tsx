@@ -24,7 +24,7 @@ export function Privacy({ onBack }: Props) {
         <p>{l.who}</p>
         <div className={styles.actions}>
           <ExternalLink href={ISSUES_URL}>{t.about.reportIssue}</ExternalLink>
-          <ExternalLink href={FEEDBACK_FORM_URL}>{t.about.messageMe}</ExternalLink>
+          <ExternalLink href={FEEDBACK_FORM_URL}>{t.about.surveyCta}</ExternalLink>
         </div>
       </section>
 

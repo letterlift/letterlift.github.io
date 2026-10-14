@@ -153,8 +153,8 @@ export const en: Dict = {
     author: 'LetterLift was created by Zem for ADHD Awareness Month 2026.',
     ideaPrompt: 'Have an idea, or something not working?',
     reportIssue: 'Report on GitHub',
-    messageMe: 'Write to me',
-    formNote: "The form is anonymous. If you'd like a reply, open an issue on GitHub.",
+    surveyCta: 'Vote in the survey',
+    formNote: "The survey is anonymous. If you'd like a reply, open an issue on GitHub.",
     newTab: '(opens in a new tab)',
     libs: 'Built with the help of open source libraries: pdf.js, mammoth.',
     legalLink: 'Privacy & terms',
@@ -178,7 +178,7 @@ export const en: Dict = {
     hosting: 'The site is hosted on GitHub Pages. GitHub may process technical data, such as your IP address, under its own privacy policy:',
     hostingLink: 'GitHub privacy statement',
     tally:
-      "The survey and contact form run on Tally. They don't ask for your name or email. If you type contact details into a comment yourself, I will use them only to reply, and I will delete them on request. Tally has its own privacy policy:",
+      "The survey runs on Tally. It doesn't ask for your name or email. If you type contact details into a comment yourself, I will use them only to reply, and I will delete them on request. Tally has its own privacy policy:",
     tallyLink: 'Tally privacy policy',
     external: 'Links to GitHub and Tally lead to external services that have their own privacy policies.',
     tipply:
@@ -190,7 +190,7 @@ export const en: Dict = {
       'Requirements: an up-to-date web browser with JavaScript enabled.',
       'The tool is provided "as is", with no guarantee that it works correctly in every situation. We are not responsible for the consequences of using it.',
       'You are responsible for the content you open in the app (it never leaves your device anyway).',
-      'Send feedback and complaints through GitHub or the anonymous form. We will reply as soon as we can.',
+      'Send feedback and complaints through GitHub or the anonymous survey. We will reply as soon as we can.',
       'These terms may change. The current version is always on this page, with its effective date.',
     ],
     licenseTitle: 'Licence',

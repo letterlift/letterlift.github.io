@@ -21,13 +21,13 @@ describe('Privacy', () => {
     expect(screen.getByText(/Financial support is entirely voluntary; using LetterLift always remains free/)).toBeInTheDocument()
   })
 
-  it('mentions Tally, links its policy and the form, and has no social link', () => {
+  it('mentions Tally, links its policy and the survey, and has no social link', () => {
     const { container } = render(<Privacy onBack={vi.fn()} />)
-    expect(screen.getByText(/run on Tally/)).toBeInTheDocument()
+    expect(screen.getByText(/survey runs on Tally/)).toBeInTheDocument()
     const policy = screen.getByRole('link', { name: /Tally privacy policy/ })
     expect(policy).toHaveAttribute('href', TALLY_PRIVACY_URL)
     expect(policy).toHaveAttribute('rel', 'noopener noreferrer')
-    expect(screen.getByRole('link', { name: /Write to me/ })).toHaveAttribute('href', FEEDBACK_FORM_URL)
+    expect(screen.getByRole('link', { name: /Vote in the survey/ })).toHaveAttribute('href', FEEDBACK_FORM_URL)
     expect(container.textContent).not.toMatch(new RegExp('face' + 'book', 'i'))
     expect(screen.getByText('Effective from 14 October 2026')).toBeInTheDocument()
   })

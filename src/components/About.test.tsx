@@ -26,7 +26,7 @@ describe('About', () => {
   it('has contact links that open safely in a new tab', () => {
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const issues = screen.getByRole('link', { name: /Report on GitHub|Zgłoś na GitHubie/ })
-    const forms = screen.getAllByRole('link', { name: /Write to me|Napisz do mnie/ })
+    const forms = screen.getAllByRole('link', { name: /Vote in the survey|Zagłosuj w ankiecie/ })
     expect(forms).toHaveLength(1)
     expect(issues).toHaveAttribute('href', 'https://github.com/drogazem-design/letterlift/issues/new')
     for (const f of forms) expect(f).toHaveAttribute('href', FEEDBACK_FORM_URL)
@@ -94,12 +94,12 @@ describe('About', () => {
     expect(section.textContent).not.toMatch(/track/i)
   })
 
-  it('says the form is anonymous and never names the old social channel, in both languages', () => {
+  it('says the survey is anonymous and never names the old social channel, in both languages', () => {
     for (const lang of ['en', 'pl']) {
       localStorage.setItem(LANG_KEY, lang)
       resetLangForTests()
       const { container, unmount } = render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
-      expect(container.textContent).toMatch(/form is anonymous|Formularz jest anonimowy/)
+      expect(container.textContent).toMatch(/survey is anonymous|Ankieta jest anonimowa/)
       expect(container.textContent).not.toMatch(new RegExp('face' + 'book', 'i'))
       unmount()
     }

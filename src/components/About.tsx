@@ -87,7 +87,7 @@ export function About({ onBack, onPrivacy }: Props) {
             {a.reportIssue}
           </ExternalLink>
           <ExternalLink href={FEEDBACK_FORM_URL} variant="button">
-            {a.messageMe}
+            {a.surveyCta}
           </ExternalLink>
         </div>
         <p className={styles.muted}>{a.formNote}</p>
