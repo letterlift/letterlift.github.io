@@ -1,0 +1,114 @@
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.sample {
+  font-size: clamp(1.25rem, 1rem + 1.2vw, 1.5rem);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  min-height: 6.8em;
+}
+
+.sample b {
+  font-weight: 700;
+}
+
+.controls {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.label {
+  font-weight: 700;
+}
+
+.range {
+  width: 100%;
+  min-height: 44px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.range:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+}
+
+.track {
+  flex: none;
+  width: 52px;
+  height: 32px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  border: 2px solid var(--ink-soft);
+  transition: background-color 200ms ease-out;
+}
+
+.thumb {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  transition:
+    transform 200ms ease-out,
+    background-color 200ms ease-out;
+}
+
+.toggle[aria-checked='true'] .track {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle[aria-checked='true'] .thumb {
+  transform: translateX(20px);
+  background: var(--on-accent);
+}
+
+.toggleText {
+  display: grid;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.state {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.hint {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}

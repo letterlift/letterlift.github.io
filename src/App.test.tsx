@@ -1,10 +1,23 @@
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import App from './App'
+import { resetLangForTests } from './i18n'
 
 describe('App', () => {
-  it('renders the LetterLift wordmark heading', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    resetLangForTests()
+  })
+  afterEach(() => {
+    localStorage.clear()
+    resetLangForTests()
+  })
+
+  it('shows the wordmark in the header and the headline as the page h1', () => {
     render(<App />)
-    expect(screen.getByRole('heading', { level: 1, name: 'LetterLift' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /LetterLift/ })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      /Read the way your brain likes it\.|Czytaj tak, jak lubi Twój mózg\./,
+    )
   })
 })

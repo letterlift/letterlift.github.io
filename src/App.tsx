@@ -1,9 +1,91 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { About } from './components/About';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
+import { Home } from './components/Home';
+import { ReaderView } from './components/ReaderView';
+import { deriveTitle } from './docTitle';
+import { useI18n } from './i18n';
+import type { Block } from './ingest';
+import { useSettings } from './settings/useSettings';
+import styles from './App.module.css';
+
+type Screen = 'home' | 'reader' | 'about';
+type Doc = { title: string; blocks: Block[] };
+
+function screenFromLocation(state: unknown): Screen {
+  const s = (state as { screen?: Screen } | null)?.screen;
+  if (s === 'home' || s === 'reader' || s === 'about') return s;
+  return window.location.hash === '#about' ? 'about' : 'home';
+}
+
+function urlFor(screen: Screen): string {
+  const base = window.location.pathname + window.location.search;
+  return screen === 'about' ? `${base}#about` : base;
+}
+
 export default function App() {
+  const { t } = useI18n();
+  // Single source of settings state: call useSettings() once and pass props down.
+  const [settings] = useSettings();
+  const [screen, setScreen] = useState<Screen>(() => screenFromLocation(null));
+  const [doc, setDoc] = useState<Doc | null>(null);
+  const mainRef = useRef<HTMLElement>(null);
+  const firstRender = useRef(true);
+
+  const go = useCallback((next: Screen) => {
+    window.history.pushState({ screen: next }, '', urlFor(next));
+    setScreen(next);
+  }, []);
+
+  useEffect(() => {
+    window.history.replaceState({ screen: screenFromLocation(null) }, '');
+    const onPop = (e: PopStateEvent) => setScreen(screenFromLocation(e.state));
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  // Move focus to the new screen so keyboard and screen reader users land at the top.
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    mainRef.current?.focus();
+  }, [screen]);
+
+  const open = useCallback(
+    (blocks: Block[]) => {
+      setDoc({ title: deriveTitle(blocks), blocks });
+      go('reader');
+    },
+    [go],
+  );
+
+  // A reader URL without a document (e.g. back after reload) falls back to home.
+  const shown: Screen = screen === 'reader' && !doc ? 'home' : screen;
+
+  useEffect(() => {
+    document.title = shown === 'reader' && doc ? `${doc.title} · LetterLift` : 'LetterLift';
+  }, [shown, doc]);
+
   return (
-    <main>
-      <h1 aria-label="LetterLift">
-        <b>Let</b>ter<b>Li</b>ft
-      </h1>
-    </main>
-  )
+    <div className={styles.app}>
+      <Header current={shown} onHome={() => go('home')} onAbout={() => go('about')} />
+      <main ref={mainRef} tabIndex={-1} className={styles.main}>
+        {shown === 'home' && <Home onOpen={open} />}
+        {shown === 'about' && <About onBack={() => go('home')} />}
+        {shown === 'reader' && doc && (
+          <div className={styles.reader}>
+            <button type="button" className={styles.back} onClick={() => go('home')}>
+              {t.reader.back}
+            </button>
+            <h1 className={styles.docTitle}>{doc.title || t.reader.untitled}</h1>
+            <ReaderView blocks={doc.blocks} settings={settings} />
+          </div>
+        )}
+      </main>
+      {shown !== 'reader' && <Footer />}
+    </div>
+  );
 }

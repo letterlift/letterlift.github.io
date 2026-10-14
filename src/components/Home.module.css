@@ -1,0 +1,238 @@
+.home {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-4) var(--space-7);
+  display: grid;
+  gap: var(--space-8);
+}
+
+/* ---- hero ---- */
+.hero {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.heroText {
+  display: grid;
+  gap: var(--space-4);
+  justify-items: start;
+}
+
+.headline {
+  font-size: clamp(2.5rem, 1.4rem + 5.2vw, 4.75rem);
+  font-weight: 300;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* The brand motif: bold word beginnings with a marker swash underneath. */
+.headline b {
+  font-weight: 800;
+  background-image: linear-gradient(var(--highlight), var(--highlight));
+  background-repeat: no-repeat;
+  background-size: 100% 0.16em;
+  background-position: 0 92%;
+}
+
+.sub {
+  max-width: 52ch;
+  font-size: 1.1875rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+}
+
+.privacy svg {
+  flex: none;
+  color: var(--accent);
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+}
+
+/* ---- input card ---- */
+.input {
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.inputHeading {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.tabs {
+  display: flex;
+  width: 100%;
+  padding: 3px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+}
+
+@media (min-width: 640px) {
+  .tabs {
+    width: fit-content;
+  }
+}
+
+.tab {
+  flex: 1;
+  min-height: 44px;
+  padding-inline: var(--space-5);
+  white-space: nowrap;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
+}
+
+.tab:not([aria-selected='true']):hover {
+  background: var(--line);
+}
+
+.tab[aria-selected='true'] {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 220px;
+  padding: var(--space-4);
+  background: var(--bg);
+  border: 2px solid var(--line);
+  border-radius: var(--radius-card);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.textarea::placeholder {
+  color: var(--ink-soft);
+}
+
+.textarea:focus-visible {
+  border-color: var(--focus);
+}
+
+.pasteFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.counter {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+.read {
+  min-width: 140px;
+  min-height: 48px;
+  padding-inline: var(--space-6);
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 150ms ease-out,
+    opacity 150ms ease-out;
+}
+
+.read:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.read:disabled {
+  background: var(--line);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- tiles ---- */
+.tiles {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.tilesHeading {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.tileList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.tile {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  padding-top: var(--space-4);
+  border-top: 2px solid var(--ink);
+}
+
+.tileIcon {
+  color: var(--accent);
+  margin-bottom: var(--space-1);
+}
+
+.tileTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.tileBody {
+  color: var(--ink-soft);
+  max-width: 40ch;
+}
+
+@media (min-width: 720px) {
+  .tileList {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+}

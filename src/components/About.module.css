@@ -1,0 +1,60 @@
+.about {
+  max-width: 68ch;
+  margin-inline: auto;
+  padding: var(--space-5) var(--space-4) var(--space-8);
+  display: grid;
+  gap: var(--space-6);
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.back {
+  justify-self: start;
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.back:hover {
+  background: var(--line);
+}
+
+.title {
+  font-size: clamp(2.25rem, 1.4rem + 4vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.lead {
+  font-size: 1.375rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.about section {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.about h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.about ul {
+  padding-inline-start: 1.25em;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.about a {
+  color: var(--ink);
+  font-weight: 700;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
+}
