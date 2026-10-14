@@ -7,7 +7,7 @@
 ## Co potrafi
 
 - Wklejasz tekst albo wgrywasz plik: TXT, MD, DOCX, PDF
-- Regulujesz siłę pogrubienia, krój i rozmiar pisma, odstępy, szerokość linii
+- Regulujesz liczbę pogrubionych liter, krój i rozmiar pisma, odstępy, szerokość linii
 - Motywy: jasny, ciemny, sepia
 - Linijka czytania i skupienie na akapicie
 - Aplikacja instalowana na telefonie (PWA), działa offline
@@ -69,7 +69,7 @@ Powstaje z okazji Miesiąca Świadomości ADHD (październik 2026).
 ## Features
 
 - Paste text or upload a file: TXT, MD, DOCX, PDF
-- Adjust bold strength, font, size, spacing, line width
+- Adjust the number of bold letters, font, size, spacing, line width
 - Themes: light, dark, sepia
 - Reading ruler and paragraph focus
 - Installable on your phone (PWA), works offline

@@ -16,7 +16,7 @@ export const pl = {
     title: 'Zobacz różnicę od razu',
     sample:
       'Przeczytaj to zdanie raz z pogrubieniem i raz bez, a potem zdecyduj, w której wersji łatwiej Ci utrzymać uwagę na linijce.',
-    strength: 'Siła pogrubienia',
+    strength: 'Liczba pogrubionych liter',
     toggle: 'Pogrubianie początków słów',
     on: 'Włączone',
     off: 'Wyłączone',
@@ -65,7 +65,7 @@ export const pl = {
     },
     adjust: {
       title: 'Ustawisz pod siebie',
-      body: 'Siła pogrubienia, rozmiar liter, odstępy i motyw. Zmieniaj, aż będzie Ci wygodnie.',
+      body: 'Liczba pogrubionych liter, rozmiar tekstu, odstępy i motyw. Zmieniaj, aż będzie Ci wygodnie.',
     },
   },
   footer: {
@@ -91,7 +91,7 @@ export const pl = {
     close: 'Zamknij ustawienia',
     intro: 'Zmieniaj, aż będzie Ci wygodnie. Tekst obok reaguje od razu.',
     bold: 'Pogrubianie początków słów',
-    strength: 'Siła pogrubienia',
+    strength: 'Liczba pogrubionych liter',
     textGroup: 'Tekst',
     fontSize: 'Rozmiar tekstu',
     lineHeight: 'Odstęp między liniami',

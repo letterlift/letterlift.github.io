@@ -18,7 +18,7 @@ export const en: Dict = {
     title: 'See the difference right away',
     sample:
       'Read this sentence once with bolding and once without, then decide which version makes it easier to stay on the line.',
-    strength: 'Bold strength',
+    strength: 'Number of bold letters',
     toggle: 'Bold word beginnings',
     on: 'On',
     off: 'Off',
@@ -67,7 +67,7 @@ export const en: Dict = {
     },
     adjust: {
       title: 'Adjustable to you',
-      body: 'Bold strength, letter size, spacing and theme. Change things until it feels comfortable.',
+      body: 'Number of bold letters, text size, spacing and theme. Change things until it feels comfortable.',
     },
   },
   footer: {
@@ -93,7 +93,7 @@ export const en: Dict = {
     close: 'Close settings',
     intro: 'Change things until it feels comfortable. The text beside it updates right away.',
     bold: 'Bold word beginnings',
-    strength: 'Bold strength',
+    strength: 'Number of bold letters',
     textGroup: 'Text',
     fontSize: 'Text size',
     lineHeight: 'Line spacing',

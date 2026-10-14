@@ -87,7 +87,7 @@ describe('ReaderScreen', () => {
       const toggle = screen.getByRole('switch', { name: 'Bold word beginnings' })
       await userEvent.click(toggle)
       expect(article().querySelectorAll('b')).toHaveLength(0)
-      expect(screen.getByLabelText('Bold strength')).toBeDisabled()
+      expect(screen.getByLabelText('Number of bold letters')).toBeDisabled()
     })
 
     it('picks theme and font from labelled swatches, and resets to defaults', async () => {
@@ -109,7 +109,7 @@ describe('ReaderScreen', () => {
       const trigger = screen.getByRole('button', { name: 'Settings' })
       await userEvent.click(trigger)
       expect(screen.getByLabelText('Text size')).toHaveAttribute('aria-valuetext', '20 px')
-      expect(screen.getByLabelText('Bold strength')).toHaveAttribute('aria-valuetext', '45%')
+      expect(screen.getByLabelText('Number of bold letters')).toHaveAttribute('aria-valuetext', '45%')
       expect(trigger.closest('[inert]')).not.toBeNull()
       await userEvent.keyboard('{Escape}')
       expect(trigger.closest('[inert]')).toBeNull()
