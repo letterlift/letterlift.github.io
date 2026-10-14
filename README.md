@@ -46,7 +46,7 @@ Chcesz, żeby coś powstało w pierwszej kolejności? Zagłosuj, zgłaszając to
 
 ## Wsparcie
 
-LetterLift jest i zostanie darmowy — żadna funkcja nie będzie zablokowana za płatnością. Jeśli chcesz, możesz dobrowolnie dorzucić się do kosztów narzędzi AI, z których korzystam: [Tipply](https://tipply.pl/@zem).
+LetterLift jest i zostanie darmowy. Żadna funkcja nie będzie zablokowana za płatnością. Jeśli chcesz, możesz dobrowolnie dorzucić się do kosztów narzędzi AI, z których korzystam: [Tipply](https://tipply.pl/@zem).
 
 ## Licencja
 
@@ -108,7 +108,7 @@ Want something built first? Vote by opening a [GitHub issue](https://github.com/
 
 ## Support
 
-LetterLift is and will stay free — no feature will ever be locked behind a payment. If you like, you can voluntarily chip in toward the AI tools I use: [Tipply](https://tipply.pl/@zem).
+LetterLift is and will stay free. No feature will ever be locked behind a payment. If you like, you can voluntarily chip in toward the AI tools I use: [Tipply](https://tipply.pl/@zem).
 
 ## Licence
 

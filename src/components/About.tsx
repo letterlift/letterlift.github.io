@@ -55,15 +55,17 @@ export function About({ onBack, onPrivacy }: Props) {
         </p>
       </section>
       <section>
-        <h2>{a.nextTitle}</h2>
-        <p>{a.nextIntro}</p>
+        <h2 className={styles.nextHead}>
+          {a.nextTitle} <span className={styles.tag}>{a.nextTag}</span>
+        </h2>
+        <p className={styles.muted}>{a.nextIntro}</p>
         <ul className={styles.plans}>
           {a.nextNames.map((name, i) => (
             <li key={name} className={styles.plan}>
-              <span className={styles.tag}>{a.nextTag}</span>
-              <h3>{name}</h3>
-              <p>{a.nextDescs[i]}</p>
-              <ExternalLink href={voteUrl(`${a.nextVotePrefix}: ${name}`, a.nextVoteBody)} variant="button">
+              <p className={styles.planText}>
+                <strong>{name}</strong> <span className={styles.planDesc}>{a.nextDescs[i]}</span>
+              </p>
+              <ExternalLink href={voteUrl(`${a.nextVotePrefix}: ${name}`, a.nextVoteBody)} variant="outline">
                 {a.nextCta}
                 <span className={styles.srOnly}> ({name})</span>
               </ExternalLink>
@@ -71,9 +73,8 @@ export function About({ onBack, onPrivacy }: Props) {
           ))}
         </ul>
         <p className={styles.muted}>
-          {a.nextNoGithub} <ExternalLink href={FACEBOOK_URL}>{a.messageMe}</ExternalLink>
+          {a.nextNoGithub} <ExternalLink href={FACEBOOK_URL}>{a.nextFbLink}</ExternalLink> {a.nextNoTracking}
         </p>
-        <p className={styles.muted}>{a.nextNoTracking}</p>
       </section>
       <section aria-labelledby="about-support">
         <h2 id="about-support">{a.supportTitle}</h2>

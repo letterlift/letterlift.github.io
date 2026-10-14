@@ -26,7 +26,8 @@ describe('About', () => {
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const issues = screen.getByRole('link', { name: /Report on GitHub|Zgłoś na GitHubie/ })
     const fbs = screen.getAllByRole('link', { name: /Message me on Facebook|Napisz do mnie na Facebooku/ })
-    expect(fbs).toHaveLength(2)
+    expect(fbs).toHaveLength(1)
+    
     expect(issues).toHaveAttribute('href', 'https://github.com/drogazem-design/letterlift/issues/new')
     for (const fb of fbs) expect(fb).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=1200145816')
     for (const a of [issues, ...fbs]) {
@@ -36,11 +37,11 @@ describe('About', () => {
     }
   })
 
-  it('marks every plan as planned and the privacy link as a 44px-class target', () => {
+  it('shows a single Planned pill and keeps the privacy link', () => {
     localStorage.setItem(LANG_KEY, 'en')
     resetLangForTests()
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
-    expect(screen.getAllByText('Planned')).toHaveLength(4)
+    expect(screen.getAllByText('Planned')).toHaveLength(1)
     expect(screen.getAllByRole('link', { name: 'Privacy & terms' })).toHaveLength(2)
   })
 
@@ -51,12 +52,16 @@ describe('About', () => {
     expect(screen.getByRole('heading', { name: 'O autorce i kontakt' })).toBeInTheDocument()
   })
 
-  it('lists four plans with prefilled vote links and no claim that they exist', () => {
+  it('lists four plans in a compact list with prefilled vote links and no claim that they exist', () => {
     localStorage.setItem(LANG_KEY, 'en')
     resetLangForTests()
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
-    const links = screen.getAllByRole('link', { name: /I want this!/ })
+    const links = screen.getAllByRole('link', { name: /I want this/ })
     expect(links).toHaveLength(4)
+    const list = links[0].closest('ul')!
+    expect(within(list).getAllByRole('listitem')).toHaveLength(4)
+    expect(links[1]).toHaveAccessibleName(/Text from a photo or scan/)
+    expect(links[1]).toHaveAccessibleName(/opens in a new tab/)
     const u = new URL(links[1].getAttribute('href')!)
     expect(u.origin + u.pathname).toBe('https://github.com/drogazem-design/letterlift/issues/new')
     expect(u.searchParams.get('title')).toBe('Vote: Text from a photo or scan')
@@ -64,7 +69,19 @@ describe('About', () => {
       expect(a).toHaveAttribute('target', '_blank')
       expect(a).toHaveAttribute('rel', 'noopener noreferrer')
     }
-    expect(screen.getByText(/None of these features exist yet/)).toBeInTheDocument()
+    expect(screen.getByText(/None of these exist yet/)).toBeInTheDocument()
+  })
+
+  it('offers a Facebook fallback link for people without GitHub', () => {
+    localStorage.setItem(LANG_KEY, 'en')
+    resetLangForTests()
+    render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
+    const section = screen.getByRole('heading', { level: 2, name: /What's next?/ }).closest('section')!
+    const fb = within(section).getByRole('link', { name: /Write on Facebook/ })
+    expect(fb).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=1200145816')
+    expect(fb).toHaveAttribute('target', '_blank')
+    expect(fb).toHaveAttribute('rel', 'noopener noreferrer')
+    expect(within(section).getByText(/I do not track votes/)).toBeInTheDocument()
   })
 
   it('shows a voluntary support block between the plans and the author section', () => {
@@ -79,7 +96,7 @@ describe('About', () => {
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
     const order = screen.getAllByRole('heading', { level: 2 }).map((x) => x.textContent)
-    expect(order.indexOf('Support development')).toBe(order.indexOf("What's next?") + 1)
+    expect(order.indexOf('Support development')).toBe(order.indexOf("What's next? Planned") + 1)
     expect(order.indexOf('About the author & contact')).toBe(order.indexOf('Support development') + 1)
   })
 })
