@@ -224,6 +224,12 @@ Acceptance: `npm run build` emits `manifest.webmanifest` with share_target and a
 2. README (bilingual PL first, then EN): what it is, live link https://drogazem-design.github.io/letterlift/, privacy statement, honest note about the technique, how to install as an app on Android (Add to Home screen → then "Share → LetterLift" from SMS/Gmail), iPhone note (copy & paste; Share target not supported in Safari), local development commands, licence, credit line for ADHD Awareness Month 2026.
 3. Do not include screenshots that contain third-party content.
 
+---
+
+## Phase 2 — later (not in current run)
+
+Tasks 9–14 are the roadmap after the basic release (Tasks 1–8). Keep them specified here; do not execute in the current run.
+
 ### Task 9: Local library and resume reading
 
 **Files:** `src/library/db.ts` (minimal IndexedDB wrapper, no dependency), `src/library/library.ts`, `src/library/library.test.ts` (use `fake-indexeddb` dev dep), `src/components/RecentList.tsx` (+ css), wire into `Home.tsx`, `ReaderScreen.tsx`, `SettingsPanel.tsx`.
