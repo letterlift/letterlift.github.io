@@ -119,7 +119,7 @@ export const en: Dict = {
     what: 'In every word we bold the first few letters. This may give your eye anchor points and make it easier to hop from word to word, though it does not help everyone. You choose how many letters are bold, and you can switch bolding off at any time.',
     researchTitle: 'What the research says',
     research:
-      'To be honest: the research is mixed. There is no evidence that it makes you read faster or understand more. Some people, including people with ADHD, say the emphasis helps them keep their place. Try it and see what works for your brain. If it does not help, that is fine too.',
+      'To be honest: the research is mixed. There is no evidence that it makes you read faster or understand more. Some people, including people with ADHD, say the emphasis helps them keep their place. Try it and see if it works for you.',
     privacyTitle: 'Privacy',
     privacy:
       'Your text never leaves your device. LetterLift has no server that receives it, uses no analytics and creates no accounts. The only things saved in your browser are your settings, chosen language and focus tools.',

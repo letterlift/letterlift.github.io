@@ -117,7 +117,7 @@ export const pl = {
     what: 'W każdym słowie pogrubiamy kilka pierwszych liter. Może to dać oku punkty zaczepienia i ułatwić przeskakiwanie od słowa do słowa, ale nie każdemu to pomaga. Możesz ustawić, ile liter ma być pogrubionych, i w każdej chwili wyłączyć pogrubianie.',
     researchTitle: 'Co mówią badania',
     research:
-      'Szczerze: wyniki badań są niejednoznaczne. Nie ma dowodów, że to przyspiesza czytanie albo poprawia zrozumienie. Część osób, także z ADHD, mówi jednak, że takie wyróżnienie pomaga im nie gubić linijki. Spróbuj i zobacz, co działa u Ciebie. Jeśli nie pomaga, to też w porządku.',
+      'Szczerze: wyniki badań są niejednoznaczne. Nie ma dowodów, że to przyspiesza czytanie albo poprawia zrozumienie. Część osób, także z ADHD, mówi jednak, że takie wyróżnienie pomaga im nie gubić linijki. Spróbuj i zobacz, czy działa dla Ciebie.',
     privacyTitle: 'Prywatność',
     privacy:
       'Twój tekst nie opuszcza Twojego urządzenia. LetterLift nie ma serwera, który go odbiera, nie używa analityki i nie zakłada kont. W pamięci przeglądarki zapisujemy tylko Twoje ustawienia, wybrany język i narzędzia skupienia.',
