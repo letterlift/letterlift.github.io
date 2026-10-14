@@ -71,7 +71,7 @@ export const en: Dict = {
     },
   },
   footer: {
-    made: 'Made with ❤️ for ADHD Awareness Month 2026',
+    made: 'Made with ❤️ by Zem for ADHD Awareness Month 2026',
     github: 'Code on GitHub',
     license: 'MIT license',
   },
@@ -101,6 +101,7 @@ export const en: Dict = {
     creditsTitle: 'Credits',
     credits:
       'Fonts: Bricolage Grotesque and Atkinson Hyperlegible (Braille Institute), designed for legibility. File reading: mammoth (DOCX) and pdf.js (PDF). Code under the MIT license.',
+    author: 'LetterLift was created by Zem.',
     source: 'Source code on GitHub',
   },
 }

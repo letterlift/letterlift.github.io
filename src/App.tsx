@@ -67,7 +67,7 @@ export default function App() {
   const shown: Screen = screen === 'reader' && !doc ? 'home' : screen;
 
   useEffect(() => {
-    document.title = shown === 'reader' && doc ? `${doc.title} · LetterLift` : 'LetterLift';
+    document.title = shown === 'reader' && doc ? `${doc.title} · LetterLift` : 'LetterLift by Zem';
   }, [shown, doc]);
 
   return (

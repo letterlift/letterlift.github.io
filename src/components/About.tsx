@@ -39,6 +39,7 @@ export function About({ onBack }: Props) {
       </section>
       <section>
         <h2>{a.creditsTitle}</h2>
+        <p>{a.author}</p>
         <p>{a.credits}</p>
         <p>
           <a href={REPO_URL} rel="noopener noreferrer">

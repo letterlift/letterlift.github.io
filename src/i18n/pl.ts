@@ -69,7 +69,7 @@ export const pl = {
     },
   },
   footer: {
-    made: 'Zrobione z ❤️ na Miesiąc Świadomości ADHD 2026',
+    made: 'Zrobione z ❤️ przez Zem na Miesiąc Świadomości ADHD 2026',
     github: 'Kod na GitHubie',
     license: 'Licencja MIT',
   },
@@ -99,6 +99,7 @@ export const pl = {
     creditsTitle: 'Podziękowania',
     credits:
       'Czcionki: Bricolage Grotesque oraz Atkinson Hyperlegible (Braille Institute), zaprojektowana z myślą o czytelności. Odczyt plików: mammoth (DOCX) i pdf.js (PDF). Kod na licencji MIT.',
+    author: 'LetterLift stworzyła Zem.',
     source: 'Kod źródłowy na GitHubie',
   },
 }

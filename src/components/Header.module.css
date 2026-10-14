@@ -9,6 +9,21 @@
   padding: var(--space-3) var(--space-4);
 }
 
+.brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.by {
+  margin-top: -10px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  line-height: 1;
+  color: var(--ink-soft);
+}
+
 .wordmark {
   display: inline-flex;
   align-items: center;
@@ -28,6 +43,8 @@
 
 .nav {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: var(--space-2);
 }
@@ -80,4 +97,28 @@
 
 .langBtn:not([aria-pressed='true']):hover {
   background: var(--line);
+}
+
+@media (max-width: 400px) {
+  .header {
+    gap: var(--space-1);
+  }
+
+  .wordmark {
+    font-size: 1.25rem;
+  }
+
+  .nav {
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  .link {
+    padding-inline: var(--space-1);
+    font-size: 0.9375rem;
+  }
+
+  .langBtn {
+    padding-inline: var(--space-2);
+  }
 }

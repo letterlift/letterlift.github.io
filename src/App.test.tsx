@@ -20,4 +20,11 @@ describe('App', () => {
       /Read the way your brain likes it\.|Czytaj tak, jak lubi Twój mózg\./,
     )
   })
+
+  it('signs the app as by Zem in the header, footer and title', () => {
+    render(<App />)
+    expect(screen.getByText('by Zem')).toBeInTheDocument()
+    expect(screen.getByRole('contentinfo')).toHaveTextContent(/by Zem|przez Zem/)
+    expect(document.title).toBe('LetterLift by Zem')
+  })
 })

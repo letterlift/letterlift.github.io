@@ -14,6 +14,7 @@ export function Header({ current, onHome, onAbout }: Props) {
 
   return (
     <header className={styles.header}>
+      <div className={styles.brand}>
       <a
         className={styles.wordmark}
         href="./"
@@ -25,6 +26,8 @@ export function Header({ current, onHome, onAbout }: Props) {
       >
         <b>Let</b>ter<b>Li</b>ft
       </a>
+      <span className={styles.by}>by Zem</span>
+      </div>
       <nav className={styles.nav} aria-label={t.nav.main}>
         <a
           className={styles.link}
