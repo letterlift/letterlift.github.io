@@ -15,8 +15,8 @@
 .sheet {
   position: absolute;
   inset: auto 0 0 0;
-  max-height: 80vh;
-  max-height: 80dvh;
+  max-height: 64vh;
+  max-height: 64dvh;
   display: flex;
   flex-direction: column;
   background: var(--surface);
@@ -286,7 +286,13 @@
 }
 
 .swatches[data-cols='4'] {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 440px) {
+  .swatches[data-cols='4'] {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .swatch {
@@ -330,8 +336,9 @@
 }
 
 .chip {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 52px;
   border-radius: 9px;
   font-size: 1.5rem;
