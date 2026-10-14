@@ -1,0 +1,106 @@
+import type { Dict } from './index'
+
+export const en: Dict = {
+  nav: {
+    home: 'LetterLift, home',
+    about: 'About',
+    langGroup: 'Language',
+    pl: 'Polski',
+    en: 'English',
+    main: 'Main navigation',
+  },
+  hero: {
+    headline: 'Read the way your brain likes it.',
+    sub: 'LetterLift bolds the start of every word so your eye has something to hold on to. Some people find that easier to follow. Try it and see if you do.',
+    privacy: 'Your text never leaves your device.',
+  },
+  demo: {
+    title: 'See the difference right away',
+    sample:
+      'Read this sentence once with bolding and once without, then decide which version makes it easier to stay on the line.',
+    strength: 'Bold strength',
+    toggle: 'Bold word beginnings',
+    on: 'On',
+    off: 'Off',
+    hint: 'Move the slider or switch bolding off and watch what changes.',
+  },
+  input: {
+    heading: 'Your text',
+    tablist: 'Where your text comes from',
+    tabPaste: 'Paste text',
+    tabUpload: 'Upload a file',
+    textareaLabel: 'Text to read',
+    placeholder:
+      'Paste an article, an email, a book chapter or your class notes here. For example: “Today’s meeting starts with a short recap of last week…”',
+    counter: (n: number) => `${n.toLocaleString('en-US')} characters`,
+    read: 'Read',
+  },
+  drop: {
+    label: 'Choose a file with text',
+    prompt: 'Drag a file here',
+    or: 'or click to choose one',
+    dragging: 'Drop the file to load it',
+    formats: 'Supported formats: TXT, MD, DOCX, PDF. Up to 20 MB.',
+    loading: 'Loading your file…',
+    errors: {
+      unsupported:
+        'This file type is not supported. Choose a TXT, MD, DOCX or PDF file, or paste your text.',
+      'too-large':
+        'This file is larger than 20 MB. Choose a smaller file or paste just the part you need.',
+      empty:
+        'There is no text in this file. Check that it is the right one, or paste the text instead.',
+      'no-text-in-pdf':
+        'This PDF looks like a scan, so there is no text to read. Try a version with selectable text or paste the content.',
+      'read-failed':
+        'The file could not be read. Try again, choose another file, or paste your text.',
+    },
+  },
+  tiles: {
+    heading: 'How it can help',
+    privacy: {
+      title: 'Stays with you',
+      body: 'Your text is processed in your browser. No account, no uploads to a server, no analytics.',
+    },
+    free: {
+      title: 'Free and open source',
+      body: 'No fees and no ads. The code is open under the MIT license, so anyone can check it.',
+    },
+    adjust: {
+      title: 'Adjustable to you',
+      body: 'Bold strength, letter size, spacing and theme. Change things until it feels comfortable.',
+    },
+  },
+  footer: {
+    made: 'Made with ❤️ for ADHD Awareness Month 2026',
+    github: 'Code on GitHub',
+    license: 'MIT license',
+  },
+  reader: {
+    back: '← New text',
+    untitled: 'Your text',
+  },
+  about: {
+    back: '← Back',
+    title: 'About',
+    lead: 'LetterLift is a free tool that bolds the beginnings of words so text is easier to follow with your eyes.',
+    whatTitle: 'How the technique works',
+    what: 'In every word we bold the first few letters. Your eye gets anchor points and hops from word to word more easily. You choose how many letters are bold, and you can switch bolding off at any time.',
+    researchTitle: 'What the research says',
+    research:
+      'To be honest: the research is mixed. There is no evidence that it makes you read faster or understand more. Some people, including people with ADHD, say the emphasis helps them keep their place. Try it and see what works for your brain. If it does not help, that is fine too.',
+    tipsTitle: 'Other things that help some people',
+    tips: [
+      'Larger text and more space between lines. The reader lets you adjust both.',
+      'Shorter sessions. A few minutes, a break, then back to it.',
+      'Audiobooks or reading aloud, if listening works better for you than reading.',
+      'Fewer distractions: close tabs, silence notifications.',
+    ],
+    privacyTitle: 'Privacy',
+    privacy:
+      'Your text never leaves your device. LetterLift has no server that receives it, uses no analytics and creates no accounts. The only things saved in your browser are your settings and your chosen language.',
+    creditsTitle: 'Credits',
+    credits:
+      'Fonts: Bricolage Grotesque and Atkinson Hyperlegible (Braille Institute), designed for legibility. File reading: mammoth (DOCX) and pdf.js (PDF). Code under the MIT license.',
+    source: 'Source code on GitHub',
+  },
+}
