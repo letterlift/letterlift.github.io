@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env*
+*.log
+.DS_Store
+
+# prywatne materiały referencyjne (zrzuty ekranu z cudzymi treściami)
+*.jpg
+*.jpeg
+*.png
+!public/**/*.png
