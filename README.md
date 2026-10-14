@@ -2,7 +2,7 @@
 
 **Let**ter**Li**ft pogrubia początki słów, żeby łatwiej było prowadzić wzrok po tekście. Darmowe, bez konta, bez reklam.
 
-**Otwórz: https://drogazem-design.github.io/letterlift/**
+**Otwórz: https://letterlift.github.io/**
 
 ## Co potrafi
 
@@ -42,7 +42,7 @@ Deploy: każdy push na `main` uruchamia GitHub Actions (testy, build, publikacja
 
 Planowane, jeszcze niedostępne: rozszerzenie do przeglądarki, OCR (zdjęcia tekstu), EPUB, biblioteka tekstów.
 
-Chcesz, żeby coś powstało w pierwszej kolejności? Zagłosuj, zgłaszając to w [GitHub Issues](https://github.com/drogazem-design/letterlift/issues/new) albo w [anonimowej ankiecie](https://tally.so/r/KpQQ0V) (bez konta).
+Chcesz, żeby coś powstało w pierwszej kolejności? Zagłosuj, zgłaszając to w [GitHub Issues](https://github.com/letterlift/letterlift.github.io/issues/new) albo w [anonimowej ankiecie](https://tally.so/r/KpQQ0V) (bez konta).
 
 ## Wsparcie
 
@@ -52,7 +52,7 @@ LetterLift jest i zostanie darmowy. Żadna funkcja nie będzie zablokowana za p�
 
 GPL-3.0-or-later, zobacz [LICENSE](LICENSE). Możesz używać, zmieniać i udostępniać kod; jeśli rozpowszechniasz zmienioną wersję, musisz udostępnić jej kod na tej samej licencji.
 
-Copyright (C) 2026 Zem (drogazem-design)
+Copyright (C) 2026 Zem
 
 Zasady korzystania i informacje o prywatności są na stronie „Prywatność i zasady” w aplikacji (`#privacy`). LetterLift nie jest wyrobem medycznym. Nie służy do diagnozowania ani leczenia ADHD ani żadnych innych zaburzeń i nie zastępuje konsultacji ze specjalistą.
 
@@ -64,7 +64,7 @@ Powstaje z okazji Miesiąca Świadomości ADHD (październik 2026).
 
 **Let**ter**Li**ft bolds the beginnings of words to help your eyes follow the text. Free, no account, no ads.
 
-**Open: https://drogazem-design.github.io/letterlift/**
+**Open: https://letterlift.github.io/**
 
 ## Features
 
@@ -104,7 +104,7 @@ Deploy: every push to `main` runs GitHub Actions (tests, build, publish to GitHu
 
 Planned, not available yet: browser extension, OCR (photos of text), EPUB, text library.
 
-Want something built first? Vote by opening a [GitHub issue](https://github.com/drogazem-design/letterlift/issues/new) or using the [anonymous survey](https://tally.so/r/KpQQ0V) (no account needed).
+Want something built first? Vote by opening a [GitHub issue](https://github.com/letterlift/letterlift.github.io/issues/new) or using the [anonymous survey](https://tally.so/r/KpQQ0V) (no account needed).
 
 ## Support
 
@@ -114,7 +114,7 @@ LetterLift is and will stay free. No feature will ever be locked behind a paymen
 
 GPL-3.0-or-later, see [LICENSE](LICENSE). You can use, change and share the code; if you distribute a modified version, you must make its source available under the same licence.
 
-Copyright (C) 2026 Zem (drogazem-design)
+Copyright (C) 2026 Zem
 
 Terms and privacy information live on the "Privacy & terms" page in the app (`#privacy`). LetterLift is not a medical device. It is not meant to diagnose or treat ADHD or any other condition and does not replace consulting a specialist.
 

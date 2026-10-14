@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  base: '/letterlift/',
+  base: '/',
   plugins: [
     react(),
     VitePWA({
@@ -14,8 +14,8 @@ export default defineConfig({
         short_name: 'LetterLift',
         description:
           'Free, private reading helper: bolds the start of each word so text is easier to follow. Your text never leaves your device.',
-        start_url: '/letterlift/',
-        scope: '/letterlift/',
+        start_url: '/',
+        scope: '/',
         display: 'standalone',
         background_color: '#FBF7F0',
         theme_color: '#FF6B4A',
@@ -26,7 +26,7 @@ export default defineConfig({
           { src: 'icon.svg', sizes: 'any', type: 'image/svg+xml' },
         ],
         share_target: {
-          action: '/letterlift/',
+          action: '/',
           method: 'GET',
           params: { title: 'title', text: 'text', url: 'url' },
         },
@@ -35,7 +35,7 @@ export default defineConfig({
         // pdf.js worker is ~1.3 MB; precache it so PDFs work offline.
         maximumFileSizeToCacheInBytes: 3 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff,woff2,webmanifest}', '**/*.mjs'],
-        navigateFallback: '/letterlift/index.html',
+        navigateFallback: '/index.html',
         // Share-target URLs carry ?query; ignore it when matching the precached shell.
         ignoreURLParametersMatching: [/^title$/, /^text$/, /^url$/],
       },

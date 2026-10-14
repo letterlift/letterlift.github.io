@@ -1,5 +1,5 @@
-export const REPO_URL = 'https://github.com/drogazem-design/letterlift';
-export const ISSUES_URL = 'https://github.com/drogazem-design/letterlift/issues/new';
+export const REPO_URL = 'https://github.com/letterlift/letterlift.github.io';
+export const ISSUES_URL = 'https://github.com/letterlift/letterlift.github.io/issues/new';
 export const SURVEY_URL = 'https://tally.so/r/KpQQ0V';
 export const TALLY_PRIVACY_URL = 'https://tally.so/help/privacy-policy';
 export const TIPPLY_URL = 'https://tipply.pl/@zem';

@@ -28,7 +28,7 @@ describe('About', () => {
     const issues = screen.getByRole('link', { name: /Report on GitHub|Zgłoś na GitHubie/ })
     const surveys = screen.getAllByRole('link', { name: /Vote in the survey|Zagłosuj w ankiecie/ })
     expect(surveys).toHaveLength(1)
-    expect(issues).toHaveAttribute('href', 'https://github.com/drogazem-design/letterlift/issues/new')
+    expect(issues).toHaveAttribute('href', 'https://github.com/letterlift/letterlift.github.io/issues/new')
     for (const f of surveys) expect(f).toHaveAttribute('href', SURVEY_URL)
     for (const a of [issues, ...surveys]) {
       expect(a).toHaveAttribute('target', '_blank')
@@ -95,7 +95,7 @@ describe('About', () => {
     expect(links[1]).toHaveAccessibleName(/Text from a photo or scan/)
     expect(links[1]).toHaveAccessibleName(/opens in a new tab/)
     const u = new URL(links[1].getAttribute('href')!)
-    expect(u.origin + u.pathname).toBe('https://github.com/drogazem-design/letterlift/issues/new')
+    expect(u.origin + u.pathname).toBe('https://github.com/letterlift/letterlift.github.io/issues/new')
     expect(u.searchParams.get('title')).toBe('Vote: Text from a photo or scan')
     for (const a of links) {
       expect(a).toHaveAttribute('target', '_blank')

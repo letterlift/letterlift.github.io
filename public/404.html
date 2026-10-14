@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LetterLift</title>
     <script>
-      // Unknown path under /letterlift/ -> go to the app, keeping ?query and #hash
+      // Unknown path -> go to the app, keeping ?query and #hash
       // (so Android share-target URLs survive).
-      if (location.pathname !== '/letterlift/') {
-        location.replace('/letterlift/' + location.search + location.hash);
+      if (location.pathname !== '/') {
+        location.replace('/' + location.search + location.hash);
       }
     </script>
-    <noscript><meta http-equiv="refresh" content="0; url=/letterlift/" /></noscript>
+    <noscript><meta http-equiv="refresh" content="0; url=/" /></noscript>
   </head>
   <body>
-    <p><a href="/letterlift/">LetterLift</a></p>
+    <p><a href="/">LetterLift</a></p>
   </body>
 </html>
