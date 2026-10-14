@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { About } from './About'
 import { LANG_KEY, resetLangForTests } from '../i18n'
+import { FEEDBACK_FORM_URL } from '../links'
 
 describe('About', () => {
   beforeEach(() => {
@@ -25,12 +26,11 @@ describe('About', () => {
   it('has contact links that open safely in a new tab', () => {
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const issues = screen.getByRole('link', { name: /Report on GitHub|Zgłoś na GitHubie/ })
-    const fbs = screen.getAllByRole('link', { name: /Message me on Facebook|Napisz do mnie na Facebooku/ })
-    expect(fbs).toHaveLength(1)
-    
+    const forms = screen.getAllByRole('link', { name: /Write to me|Napisz do mnie/ })
+    expect(forms).toHaveLength(1)
     expect(issues).toHaveAttribute('href', 'https://github.com/drogazem-design/letterlift/issues/new')
-    for (const fb of fbs) expect(fb).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=1200145816')
-    for (const a of [issues, ...fbs]) {
+    for (const f of forms) expect(f).toHaveAttribute('href', FEEDBACK_FORM_URL)
+    for (const a of [issues, ...forms]) {
       expect(a).toHaveAttribute('target', '_blank')
       expect(a).toHaveAttribute('rel', 'noopener noreferrer')
       expect(a).toHaveTextContent(/opens in a new tab|otwiera się w nowej karcie/)
@@ -72,16 +72,27 @@ describe('About', () => {
     expect(screen.getByText(/None of these exist yet/)).toBeInTheDocument()
   })
 
-  it('offers a Facebook fallback link for people without GitHub', () => {
+  it('offers an anonymous survey link for people without GitHub', () => {
     localStorage.setItem(LANG_KEY, 'en')
     resetLangForTests()
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const section = screen.getByRole('heading', { level: 2, name: /What's next?/ }).closest('section')!
-    const fb = within(section).getByRole('link', { name: /Write on Facebook/ })
-    expect(fb).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=1200145816')
-    expect(fb).toHaveAttribute('target', '_blank')
-    expect(fb).toHaveAttribute('rel', 'noopener noreferrer')
-    expect(within(section).getByText(/I do not track votes/)).toBeInTheDocument()
+    const link = within(section).getByRole('link', { name: /Vote in a short survey/ })
+    expect(link).toHaveAttribute('href', FEEDBACK_FORM_URL)
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    expect(within(section).getByText(/I don't track votes/)).toBeInTheDocument()
+  })
+
+  it('says the form is anonymous and never names the old social channel, in both languages', () => {
+    for (const lang of ['en', 'pl']) {
+      localStorage.setItem(LANG_KEY, lang)
+      resetLangForTests()
+      const { container, unmount } = render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
+      expect(container.textContent).toMatch(/form is anonymous|Formularz jest anonimowy/)
+      expect(container.textContent).not.toMatch(new RegExp('face' + 'book', 'i'))
+      unmount()
+    }
   })
 
   it('shows a voluntary support block between the plans and the author section', () => {

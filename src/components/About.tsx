@@ -1,6 +1,6 @@
 import { DEFAULT_STRENGTH } from '../core';
 import { useI18n } from '../i18n';
-import { FACEBOOK_URL, ISSUES_URL, TIPPLY_URL, voteUrl } from '../links';
+import { FEEDBACK_FORM_URL, ISSUES_URL, TIPPLY_URL, voteUrl } from '../links';
 import { BoldText } from './BoldText';
 import { ExternalLink } from './ExternalLink';
 import styles from './About.module.css';
@@ -73,7 +73,8 @@ export function About({ onBack, onPrivacy }: Props) {
           ))}
         </ul>
         <p className={styles.muted}>
-          {a.nextNoGithub} <ExternalLink href={FACEBOOK_URL}>{a.nextFbLink}</ExternalLink> {a.nextNoTracking}
+          {a.nextNoGithub} <ExternalLink href={FEEDBACK_FORM_URL}>{a.nextSurveyLink}</ExternalLink>
+          {a.nextSurveyRest}
         </p>
       </section>
       <section aria-labelledby="about-support">
@@ -94,10 +95,11 @@ export function About({ onBack, onPrivacy }: Props) {
           <ExternalLink href={ISSUES_URL} variant="button">
             {a.reportIssue}
           </ExternalLink>
-          <ExternalLink href={FACEBOOK_URL} variant="button">
+          <ExternalLink href={FEEDBACK_FORM_URL} variant="button">
             {a.messageMe}
           </ExternalLink>
         </div>
+        <p className={styles.muted}>{a.formNote}</p>
         <p className={styles.muted}>{a.libs}</p>
       </section>
       <p>

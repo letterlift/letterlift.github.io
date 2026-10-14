@@ -117,6 +117,14 @@
   text-decoration: none;
 }
 
+@media (max-width: 479px) {
+  .plan {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: var(--space-2);
+  }
+}
+
 .nextHead {
   display: flex;
   flex-wrap: wrap;

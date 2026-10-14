@@ -1,5 +1,5 @@
 import { useI18n } from '../i18n';
-import { FACEBOOK_URL, GITHUB_PRIVACY_URL, ISSUES_URL, REPO_URL } from '../links';
+import { FEEDBACK_FORM_URL, GITHUB_PRIVACY_URL, ISSUES_URL, REPO_URL, TALLY_PRIVACY_URL } from '../links';
 import { ExternalLink } from './ExternalLink';
 import styles from './Privacy.module.css';
 
@@ -24,7 +24,7 @@ export function Privacy({ onBack }: Props) {
         <p>{l.who}</p>
         <div className={styles.actions}>
           <ExternalLink href={ISSUES_URL}>{t.about.reportIssue}</ExternalLink>
-          <ExternalLink href={FACEBOOK_URL}>{t.about.messageMe}</ExternalLink>
+          <ExternalLink href={FEEDBACK_FORM_URL}>{t.about.messageMe}</ExternalLink>
         </div>
       </section>
 
@@ -41,6 +41,9 @@ export function Privacy({ onBack }: Props) {
           ))}
           <li>
             {l.hosting} <ExternalLink href={GITHUB_PRIVACY_URL}>{l.hostingLink}</ExternalLink>
+          </li>
+          <li>
+            {l.tally} <ExternalLink href={TALLY_PRIVACY_URL}>{l.tallyLink}</ExternalLink>
           </li>
           <li>{l.external}</li>
           <li>{l.tipply}</li>

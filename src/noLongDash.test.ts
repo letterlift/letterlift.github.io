@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 const EM = '\u2014'
 const EN = '\u2013'
 
-const sources = import.meta.glob(['./i18n/*.ts', '../README.md', '../index.html'], {
+const sources = import.meta.glob(['./i18n/*.ts', './**/*.tsx', '../public/*.html', '../README.md', '../index.html'], {
   query: '?raw',
   import: 'default',
   eager: true,
