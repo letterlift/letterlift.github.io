@@ -55,6 +55,25 @@ describe('About', () => {
     }
   })
 
+  it('opens with the "Why this exists" section containing both paragraphs, in both languages', () => {
+    const cases = [
+      ['en', 'Why this exists', /Ever read a whole page/, /follow the thread and read with less effort/],
+      ['pl', 'Dlaczego to powstało', /Zdarza Ci się przeczytać całą stronę/, /nie zgubić wątku i czytać z mniejszym wysiłkiem/],
+    ] as const
+    for (const [lang, title, p1, p2] of cases) {
+      localStorage.setItem(LANG_KEY, lang)
+      resetLangForTests()
+      const { unmount } = render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
+      const h2s = screen.getAllByRole('heading', { level: 2 })
+      expect(h2s[0]).toHaveTextContent(title)
+      const section = h2s[0].closest('section')!
+      expect(within(section).getByText(p1)).toBeInTheDocument()
+      expect(within(section).getByText(p2)).toBeInTheDocument()
+      expect(section.querySelectorAll('b')).toHaveLength(0)
+      unmount()
+    }
+  })
+
   it('has the Polish heading in Polish', () => {
     localStorage.setItem(LANG_KEY, 'pl')
     resetLangForTests()

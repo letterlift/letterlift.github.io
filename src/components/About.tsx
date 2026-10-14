@@ -20,6 +20,11 @@ export function About({ onBack, onPrivacy }: Props) {
       <p className={styles.lead}>{a.lead}</p>
 
       <section>
+        <h2>{a.whyTitle}</h2>
+        <p>{a.why1}</p>
+        <p>{a.why2}</p>
+      </section>
+      <section>
         <h2>{a.whatTitle}</h2>
         <p>
           <BoldText text={a.what} strength={DEFAULT_STRENGTH} enabled />
