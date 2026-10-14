@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { About } from './About'
 import { LANG_KEY, resetLangForTests } from '../i18n'
-import { FEEDBACK_FORM_URL } from '../links'
+import { SURVEY_URL } from '../links'
 
 describe('About', () => {
   beforeEach(() => {
@@ -26,11 +26,11 @@ describe('About', () => {
   it('has contact links that open safely in a new tab', () => {
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const issues = screen.getByRole('link', { name: /Report on GitHub|Zgłoś na GitHubie/ })
-    const forms = screen.getAllByRole('link', { name: /Vote in the survey|Zagłosuj w ankiecie/ })
-    expect(forms).toHaveLength(1)
+    const surveys = screen.getAllByRole('link', { name: /Vote in the survey|Zagłosuj w ankiecie/ })
+    expect(surveys).toHaveLength(1)
     expect(issues).toHaveAttribute('href', 'https://github.com/drogazem-design/letterlift/issues/new')
-    for (const f of forms) expect(f).toHaveAttribute('href', FEEDBACK_FORM_URL)
-    for (const a of [issues, ...forms]) {
+    for (const f of surveys) expect(f).toHaveAttribute('href', SURVEY_URL)
+    for (const a of [issues, ...surveys]) {
       expect(a).toHaveAttribute('target', '_blank')
       expect(a).toHaveAttribute('rel', 'noopener noreferrer')
       expect(a).toHaveTextContent(/opens in a new tab|otwiera się w nowej karcie/)
@@ -88,7 +88,7 @@ describe('About', () => {
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const section = screen.getByRole('heading', { level: 2, name: /What's next?/ }).closest('section')!
     const link = within(section).getByRole('link', { name: /Vote in a short, anonymous survey/ })
-    expect(link).toHaveAttribute('href', FEEDBACK_FORM_URL)
+    expect(link).toHaveAttribute('href', SURVEY_URL)
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
     expect(section.textContent).not.toMatch(/track/i)

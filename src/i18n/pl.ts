@@ -152,7 +152,7 @@ export const pl = {
     ideaPrompt: 'Masz pomysł albo coś nie działa?',
     reportIssue: 'Zgłoś na GitHubie',
     surveyCta: 'Zagłosuj w ankiecie',
-    formNote: 'Ankieta jest anonimowa. Jeśli chcesz odpowiedzi, zgłoś sprawę na GitHubie.',
+    surveyNote: 'Ankieta jest anonimowa. Jeśli chcesz odpowiedzi, zgłoś sprawę na GitHubie.',
     newTab: '(otwiera się w nowej karcie)',
     libs: 'Zbudowane z pomocą bibliotek open source: pdf.js, mammoth.',
     legalLink: 'Prywatność i zasady',
@@ -177,6 +177,7 @@ export const pl = {
     hostingLink: 'Polityka prywatności GitHuba',
     tally:
       'Ankieta działa w serwisie Tally. Nie pytamy w niej o imię ani e-mail. Jeśli sam(a) wpiszesz w komentarzu dane kontaktowe, użyję ich tylko po to, żeby odpowiedzieć, a na prośbę je usunę. Tally ma własną politykę prywatności:',
+    contactSurvey: 'Anonimowa ankieta',
     tallyLink: 'Polityka prywatności Tally',
     external: 'Linki do GitHuba i Tally prowadzą do zewnętrznych serwisów, które mają własne zasady prywatności.',
     tipply:
@@ -188,7 +189,7 @@ export const pl = {
       'Wymagania: aktualna przeglądarka internetowa z włączonym JavaScriptem.',
       'Narzędzie jest udostępniane „tak jak jest”, bez gwarancji poprawnego działania w każdej sytuacji. Nie odpowiadamy za skutki korzystania z niego.',
       'Odpowiadasz za treści, które otwierasz w aplikacji (one i tak nie opuszczają Twojego urządzenia).',
-      'Uwagi i reklamacje zgłaszaj przez GitHub lub anonimową ankietę. Odpowiemy najszybciej, jak to możliwe.',
+      'Uwagi i reklamacje zgłaszaj przez GitHub lub anonimową ankietę. Na zgłoszenia z GitHuba odpowiem najszybciej, jak to możliwe.',
       'Zasady mogą się zmienić. Aktualna wersja jest zawsze na tej stronie, z datą obowiązywania.',
     ],
     licenseTitle: 'Licencja',

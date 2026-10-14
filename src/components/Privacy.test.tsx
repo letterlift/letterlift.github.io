@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { Privacy } from './Privacy'
 import { LANG_KEY, resetLangForTests } from '../i18n'
-import { FEEDBACK_FORM_URL, TALLY_PRIVACY_URL } from '../links'
+import { SURVEY_URL, TALLY_PRIVACY_URL } from '../links'
 
 describe('Privacy', () => {
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('Privacy', () => {
     const policy = screen.getByRole('link', { name: /Tally privacy policy/ })
     expect(policy).toHaveAttribute('href', TALLY_PRIVACY_URL)
     expect(policy).toHaveAttribute('rel', 'noopener noreferrer')
-    expect(screen.getByRole('link', { name: /Vote in the survey/ })).toHaveAttribute('href', FEEDBACK_FORM_URL)
+    expect(screen.getByRole('link', { name: /anonymous survey/i })).toHaveAttribute('href', SURVEY_URL)
     expect(container.textContent).not.toMatch(new RegExp('face' + 'book', 'i'))
     expect(screen.getByText('Effective from 14 October 2026')).toBeInTheDocument()
   })

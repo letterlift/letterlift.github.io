@@ -1,5 +1,5 @@
 import { useI18n } from '../i18n';
-import { FEEDBACK_FORM_URL, GITHUB_PRIVACY_URL, ISSUES_URL, REPO_URL, TALLY_PRIVACY_URL } from '../links';
+import { SURVEY_URL, GITHUB_PRIVACY_URL, ISSUES_URL, REPO_URL, TALLY_PRIVACY_URL } from '../links';
 import { ExternalLink } from './ExternalLink';
 import styles from './Privacy.module.css';
 
@@ -24,7 +24,7 @@ export function Privacy({ onBack }: Props) {
         <p>{l.who}</p>
         <div className={styles.actions}>
           <ExternalLink href={ISSUES_URL}>{t.about.reportIssue}</ExternalLink>
-          <ExternalLink href={FEEDBACK_FORM_URL}>{t.about.surveyCta}</ExternalLink>
+          <ExternalLink href={SURVEY_URL}>{l.contactSurvey}</ExternalLink>
         </div>
       </section>
 

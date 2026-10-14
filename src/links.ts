@@ -1,6 +1,6 @@
 export const REPO_URL = 'https://github.com/drogazem-design/letterlift';
 export const ISSUES_URL = 'https://github.com/drogazem-design/letterlift/issues/new';
-export const FEEDBACK_FORM_URL = 'https://tally.so/r/KpQQ0V';
+export const SURVEY_URL = 'https://tally.so/r/KpQQ0V';
 export const TALLY_PRIVACY_URL = 'https://tally.so/help/privacy-policy';
 export const TIPPLY_URL = 'https://tipply.pl/@zem';
 export const GITHUB_PRIVACY_URL =

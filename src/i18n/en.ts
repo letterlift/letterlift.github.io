@@ -154,7 +154,7 @@ export const en: Dict = {
     ideaPrompt: 'Have an idea, or something not working?',
     reportIssue: 'Report on GitHub',
     surveyCta: 'Vote in the survey',
-    formNote: "The survey is anonymous. If you'd like a reply, open an issue on GitHub.",
+    surveyNote: "The survey is anonymous. If you'd like a reply, open an issue on GitHub.",
     newTab: '(opens in a new tab)',
     libs: 'Built with the help of open source libraries: pdf.js, mammoth.',
     legalLink: 'Privacy & terms',
@@ -179,6 +179,7 @@ export const en: Dict = {
     hostingLink: 'GitHub privacy statement',
     tally:
       "The survey runs on Tally. It doesn't ask for your name or email. If you type contact details into a comment yourself, I will use them only to reply, and I will delete them on request. Tally has its own privacy policy:",
+    contactSurvey: 'Anonymous survey',
     tallyLink: 'Tally privacy policy',
     external: 'Links to GitHub and Tally lead to external services that have their own privacy policies.',
     tipply:
@@ -190,7 +191,7 @@ export const en: Dict = {
       'Requirements: an up-to-date web browser with JavaScript enabled.',
       'The tool is provided "as is", with no guarantee that it works correctly in every situation. We are not responsible for the consequences of using it.',
       'You are responsible for the content you open in the app (it never leaves your device anyway).',
-      'Send feedback and complaints through GitHub or the anonymous survey. We will reply as soon as we can.',
+      'Send feedback and complaints through GitHub or the anonymous survey. I will reply to GitHub issues as soon as I can.',
       'These terms may change. The current version is always on this page, with its effective date.',
     ],
     licenseTitle: 'Licence',
