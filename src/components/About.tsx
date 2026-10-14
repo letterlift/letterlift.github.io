@@ -66,7 +66,6 @@ export function About({ onBack, onPrivacy }: Props) {
         </ul>
         <p className={styles.muted}>
           {a.nextNoGithub} <ExternalLink href={FEEDBACK_FORM_URL}>{a.nextSurveyLink}</ExternalLink>
-          {a.nextSurveyRest}
         </p>
       </section>
       <section aria-labelledby="about-support">

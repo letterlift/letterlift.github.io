@@ -143,8 +143,7 @@ export const en: Dict = {
     nextVotePrefix: 'Vote',
     nextVoteBody: 'I want this feature because… (optionally, tell me how you would use it)',
     nextNoGithub: 'No GitHub account?',
-    nextSurveyLink: 'Vote in a short survey',
-    nextSurveyRest: ", no account needed. I don't track votes.",
+    nextSurveyLink: 'Vote in a short, anonymous survey',
     supportTitle: 'Support development',
     support:
       'LetterLift is and will stay free. No feature will ever be locked behind a payment. If you like, you can chip in toward the AI tools I use to build it.',

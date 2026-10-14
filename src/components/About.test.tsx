@@ -87,11 +87,11 @@ describe('About', () => {
     resetLangForTests()
     render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const section = screen.getByRole('heading', { level: 2, name: /What's next?/ }).closest('section')!
-    const link = within(section).getByRole('link', { name: /Vote in a short survey/ })
+    const link = within(section).getByRole('link', { name: /Vote in a short, anonymous survey/ })
     expect(link).toHaveAttribute('href', FEEDBACK_FORM_URL)
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-    expect(within(section).getByText(/I don't track votes/)).toBeInTheDocument()
+    expect(section.textContent).not.toMatch(/track/i)
   })
 
   it('says the form is anonymous and never names the old social channel, in both languages', () => {

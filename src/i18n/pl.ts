@@ -141,8 +141,7 @@ export const pl = {
     nextVotePrefix: 'Głos',
     nextVoteBody: 'Chcę tę funkcję, bo… (opcjonalnie napisz, jak byś jej używał/a)',
     nextNoGithub: 'Nie masz GitHuba?',
-    nextSurveyLink: 'Zagłosuj w krótkiej ankiecie',
-    nextSurveyRest: ', bez konta. Nie śledzę głosów.',
+    nextSurveyLink: 'Zagłosuj w krótkiej, anonimowej ankiecie',
     supportTitle: 'Wesprzyj rozwój',
     support:
       'LetterLift jest i zostanie darmowy. Żadna funkcja nie będzie zablokowana za płatnością. Jeśli chcesz, możesz dorzucić się do kosztów narzędzi AI, z których korzystam przy jego tworzeniu.',
