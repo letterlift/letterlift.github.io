@@ -75,4 +75,17 @@ describe('App', () => {
     expect(screen.getByRole('heading', { level: 2, name: /Medical disclaimer|Zastrzeżenie medyczne/ })).toBeInTheDocument()
     window.history.replaceState(null, '', '/')
   })
+
+  it('Back on Privacy returns to About when we came from About', async () => {
+    window.history.replaceState(null, '', '/')
+    render(<App />)
+    fireEvent.click(screen.getByRole('link', { name: /About|O projekcie/ }))
+    fireEvent.click(screen.getAllByRole('link', { name: /Privacy & terms|Prywatność i zasady/ })[0])
+    expect(window.location.hash).toBe('#privacy')
+    fireEvent.click(screen.getByRole('button', { name: /Back|Wróć/ }))
+    await waitFor(() => expect(window.location.hash).toBe('#about'))
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/About|O projekcie/)
+    fireEvent.click(screen.getByRole('button', { name: /Back|Wróć/ }))
+    await waitFor(() => expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(/Read the way|Czytaj tak/))
+  })
 })

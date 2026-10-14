@@ -27,14 +27,21 @@ describe('About', () => {
     const issues = screen.getByRole('link', { name: /Report on GitHub|Zgłoś na GitHubie/ })
     const fbs = screen.getAllByRole('link', { name: /Message me on Facebook|Napisz do mnie na Facebooku/ })
     expect(fbs).toHaveLength(2)
-    const fb = fbs[1]
     expect(issues).toHaveAttribute('href', 'https://github.com/drogazem-design/letterlift/issues/new')
-    expect(fb).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=1200145816')
+    for (const fb of fbs) expect(fb).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=1200145816')
     for (const a of [issues, ...fbs]) {
       expect(a).toHaveAttribute('target', '_blank')
       expect(a).toHaveAttribute('rel', 'noopener noreferrer')
       expect(a).toHaveTextContent(/opens in a new tab|otwiera się w nowej karcie/)
     }
+  })
+
+  it('marks every plan as planned and the privacy link as a 44px-class target', () => {
+    localStorage.setItem(LANG_KEY, 'en')
+    resetLangForTests()
+    render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
+    expect(screen.getAllByText('Planned')).toHaveLength(4)
+    expect(screen.getAllByRole('link', { name: 'Privacy & terms' })).toHaveLength(2)
   })
 
   it('has the Polish heading in Polish', () => {

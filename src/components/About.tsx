@@ -41,6 +41,18 @@ export function About({ onBack, onPrivacy }: Props) {
       <section>
         <h2>{a.privacyTitle}</h2>
         <p>{a.privacy}</p>
+        <p>
+          {a.privacyMore} <a
+            className={styles.legal}
+            href="#privacy"
+            onClick={(e) => {
+              e.preventDefault();
+              onPrivacy();
+            }}
+          >
+            {a.legalLink}
+          </a>
+        </p>
       </section>
       <section>
         <h2>{a.nextTitle}</h2>
@@ -48,6 +60,7 @@ export function About({ onBack, onPrivacy }: Props) {
         <ul className={styles.plans}>
           {a.nextNames.map((name, i) => (
             <li key={name} className={styles.plan}>
+              <span className={styles.tag}>{a.nextTag}</span>
               <h3>{name}</h3>
               <p>{a.nextDescs[i]}</p>
               <ExternalLink href={voteUrl(`${a.nextVotePrefix}: ${name}`, a.nextVoteBody)} variant="button">
@@ -78,6 +91,7 @@ export function About({ onBack, onPrivacy }: Props) {
       </section>
       <p>
         <a
+          className={styles.legal}
           href="#privacy"
           onClick={(e) => {
             e.preventDefault();

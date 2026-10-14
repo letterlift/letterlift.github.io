@@ -38,14 +38,22 @@ export default function App() {
   const firstRender = useRef(true);
 
   const go = useCallback((next: Screen) => {
-    window.history.pushState({ screen: next }, '', urlFor(next));
+    const idx = ((window.history.state as { idx?: number } | null)?.idx ?? 0) + 1;
+    window.history.pushState({ screen: next, idx }, '', urlFor(next));
     // Forward navigation starts at the top; popstate leaves scroll to the browser.
     window.scrollTo(0, 0);
     setScreen(next);
   }, []);
 
+  // Back from About/Privacy returns to the in-app screen we came from, else home.
+  const back = useCallback(() => {
+    const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+    if (idx > 0) window.history.back();
+    else go('home');
+  }, [go]);
+
   useEffect(() => {
-    window.history.replaceState({ screen: screenFromLocation(null) }, '');
+    window.history.replaceState({ screen: screenFromLocation(null), idx: 0 }, '');
     const onPop = (e: PopStateEvent) => setScreen(screenFromLocation(e.state));
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
@@ -90,8 +98,8 @@ export default function App() {
       <Header current={shown} onHome={() => go('home')} onAbout={() => go('about')} />
       <main ref={mainRef} tabIndex={-1} className={styles.main}>
         {shown === 'home' && <Home onOpen={open} text={pasted} onTextChange={setPasted} />}
-        {shown === 'about' && <About onBack={() => go('home')} onPrivacy={() => go('privacy')} />}
-        {shown === 'privacy' && <Privacy onBack={() => go('home')} />}
+        {shown === 'about' && <About onBack={back} onPrivacy={() => go('privacy')} />}
+        {shown === 'privacy' && <Privacy onBack={back} />}
         {shown === 'reader' && doc && (
           <ReaderScreen
             blocks={doc.blocks}
