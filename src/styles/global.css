@@ -75,3 +75,24 @@ h3 {
     scroll-behavior: auto !important;
   }
 }
+
+@media print {
+  :root:root:root {
+    --bg: #fff;
+    --surface: #fff;
+    --ink: #000;
+    --ink-soft: #333;
+    --line: #ccc;
+  }
+
+  header,
+  footer,
+  [data-no-print] {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

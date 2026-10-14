@@ -1,0 +1,196 @@
+.screen {
+  position: relative;
+}
+
+/* ---- sticky top bar ---- */
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.barInner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'back actions'
+    'meta meta';
+  align-items: center;
+  column-gap: var(--space-2);
+  max-width: 1120px;
+  margin-inline: auto;
+  padding: var(--space-1) var(--space-4) var(--space-1);
+}
+
+.back {
+  grid-area: back;
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.meta {
+  grid-area: meta;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  min-width: 0;
+  padding-bottom: var(--space-1);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+.docName {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.time {
+  flex: none;
+  white-space: nowrap;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  gap: var(--space-1);
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 11px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
+}
+
+.iconBtn:hover {
+  background: var(--surface);
+}
+
+.iconBtn[data-state='ok'] {
+  color: var(--ink);
+  background: var(--highlight);
+}
+
+.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.primary:hover {
+  background: var(--accent);
+  filter: brightness(0.96);
+}
+
+/* Icon-only on phones; the accessible name stays in the DOM. */
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 720px) {
+  .barInner {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'back meta actions';
+    column-gap: var(--space-5);
+  }
+
+  .meta {
+    padding-bottom: 0;
+    font-size: 0.875rem;
+  }
+
+  .label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    font-size: 0.9375rem;
+  }
+
+  .iconBtn {
+    padding: 0 14px;
+  }
+}
+
+/* ---- text ---- */
+
+.content {
+  padding: var(--space-5) var(--space-4) var(--space-8);
+}
+
+.titleBox {
+  /* Same font metrics as the article, so the title column lines up with the text. */
+  max-width: var(--reader-measure, 62ch);
+  margin: 0 auto var(--space-5);
+  font-family: var(--reader-font, var(--font-body));
+  font-size: var(--reader-size, 20px);
+}
+
+.docTitle {
+  font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Paragraph focus: only the block nearest the centre stays at full strength. */
+.dimming [data-block-index] {
+  opacity: 0.35;
+  transition: opacity 200ms ease-out;
+}
+
+.dimming [data-block-index][data-focus-active] {
+  opacity: 1;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media print {
+  .content {
+    padding: 0;
+  }
+
+  .dimming [data-block-index] {
+    opacity: 1 !important;
+  }
+}

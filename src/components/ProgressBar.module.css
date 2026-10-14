@@ -1,0 +1,15 @@
+.track {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 4px;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.bar {
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+}

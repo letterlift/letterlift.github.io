@@ -3,9 +3,8 @@ import { About } from './components/About';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Home } from './components/Home';
-import { ReaderView } from './components/ReaderView';
+import { ReaderScreen } from './components/ReaderScreen';
 import { deriveTitle } from './docTitle';
-import { useI18n } from './i18n';
 import type { Block } from './ingest';
 import { useSettings } from './settings/useSettings';
 import styles from './App.module.css';
@@ -25,9 +24,8 @@ function urlFor(screen: Screen): string {
 }
 
 export default function App() {
-  const { t } = useI18n();
   // Single source of settings state: call useSettings() once and pass props down.
-  const [settings] = useSettings();
+  const [settings, patchSettings, resetSettings] = useSettings();
   const [screen, setScreen] = useState<Screen>(() => screenFromLocation(null));
   const [doc, setDoc] = useState<Doc | null>(null);
   const [pasted, setPasted] = useState('');
@@ -77,13 +75,14 @@ export default function App() {
         {shown === 'home' && <Home onOpen={open} text={pasted} onTextChange={setPasted} />}
         {shown === 'about' && <About onBack={() => go('home')} />}
         {shown === 'reader' && doc && (
-          <div className={styles.reader}>
-            <button type="button" className={styles.back} onClick={() => go('home')}>
-              {t.reader.back}
-            </button>
-            <h1 className={styles.docTitle}>{doc.title || t.reader.untitled}</h1>
-            <ReaderView blocks={doc.blocks} settings={settings} />
-          </div>
+          <ReaderScreen
+            blocks={doc.blocks}
+            title={doc.title}
+            settings={settings}
+            patch={patchSettings}
+            reset={resetSettings}
+            onBack={() => go('home')}
+          />
         )}
       </main>
       {shown !== 'reader' && <Footer />}
