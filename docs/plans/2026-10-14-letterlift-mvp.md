@@ -1,4 +1,4 @@
-# LetterLift MVP — implementation plan
+# LetterLift v1 — implementation plan (full product)
 
 Spec: `PLAN.md` (repo root) + this file. This file is the binding detail.
 
@@ -223,3 +223,62 @@ Acceptance: `npm run build` emits `manifest.webmanifest` with share_target and a
 1. Workflow on push to `main` and `workflow_dispatch`: checkout, setup-node (Node 22, npm cache), `npm ci`, `npm test`, `npm run build`, `actions/upload-pages-artifact` (path `dist`), `actions/deploy-pages`. Permissions `pages: write`, `id-token: write`, `contents: read`; concurrency group `pages`.
 2. README (bilingual PL first, then EN): what it is, live link https://drogazem-design.github.io/letterlift/, privacy statement, honest note about the technique, how to install as an app on Android (Add to Home screen → then "Share → LetterLift" from SMS/Gmail), iPhone note (copy & paste; Share target not supported in Safari), local development commands, licence, credit line for ADHD Awareness Month 2026.
 3. Do not include screenshots that contain third-party content.
+
+### Task 9: Local library and resume reading
+
+**Files:** `src/library/db.ts` (minimal IndexedDB wrapper, no dependency), `src/library/library.ts`, `src/library/library.test.ts` (use `fake-indexeddb` dev dep), `src/components/RecentList.tsx` (+ css), wire into `Home.tsx`, `ReaderScreen.tsx`, `SettingsPanel.tsx`.
+
+1. `LibraryDoc = { id: string; title: string; blocks: Block[]; createdAt: number; lastOpenedAt: number; progress: number /* 0–1 */; source: 'paste' | 'file' | 'share' | 'ocr'; fileName?: string }`.
+2. API: `saveDoc`, `getDoc`, `listDocs()` (sorted by `lastOpenedAt` desc), `updateProgress(id, progress)` (throttled by caller to ≤ 1 write/s), `deleteDoc`, `clearLibrary`. Cap 50 docs: saving the 51st evicts the least recently opened. All functions resolve gracefully (return empty/no-op) when IndexedDB is unavailable.
+3. Setting `rememberDocs: boolean` (default `true`) added to settings with a toggle in SettingsPanel: "Zapamiętuj teksty na tym urządzeniu" — when switched off, offer to clear the library.
+4. Home shows "Ostatnio czytane"/"Recently read" (up to 6, with title, relative date, progress ring, delete button with undo toast) above the input card when non-empty, plus "Zobacz wszystkie" expanding the full list.
+5. Reader restores scroll position from `progress` when reopening and saves progress on scroll.
+6. Privacy copy: library lives only in this browser.
+
+### Task 10: OCR for images and scanned PDFs (on-device)
+
+**Files:** `src/ingest/ocr.ts`, `src/components/OcrProgress.tsx` (+ css), updates to `src/ingest/index.ts`, `DropZone.tsx`, i18n. Install `tesseract.js`.
+
+1. Accept `.png,.jpg,.jpeg,.webp` and camera capture on mobile (`<input accept="image/*" capture="environment">` as a secondary "Zrób zdjęcie"/"Take a photo" button).
+2. OCR runs fully in the browser. Worker, core wasm and language data (`pol` + `eng`, "fast" models) are self-hosted under `public/ocr/` (copied by a `postinstall`/`npm run ocr-assets` script, not committed if > 5 MB each — document the script) and precached lazily (runtime cache), never fetched from a third-party CDN.
+3. `no-text-in-pdf` now offers "Rozpoznaj tekst (OCR)": render each PDF page to canvas via pdfjs and OCR it.
+4. Progress UI with page X/Y and percentage, cancel button. Result goes through `parsePlainText`, `source: 'ocr'`, and the reader shows a dismissible note "Tekst rozpoznany automatycznie — mogą być literówki."
+5. Tests: unit-test the pure parts (language selection from UI lang, result post-processing); OCR engine itself mocked at the module boundary.
+
+### Task 11: EPUB import and export
+
+**Files:** `src/ingest/epub.ts`, `src/export/exportHtml.ts`, `src/export/exportEpub.ts`, tests, buttons in ReaderScreen top bar ("Pobierz"/"Download" menu). Install `jszip`.
+
+1. Import `.epub`: read `META-INF/container.xml` → OPF → spine order → each XHTML through `htmlToBlocks`; title from OPF `dc:title`. DRM-protected/invalid → `IngestError('read-failed')` with message explaining DRM books can't be opened.
+2. Export standalone `.html`: self-contained file with bold baked in (`<b>`), current reader typography as inline CSS, no external requests.
+3. Export `.epub` (EPUB 3, single chapter per heading section) with bold baked in, so people can read on e-readers/Kindle (via Send to Kindle).
+4. Tests: EPUB round trip (export then import yields equal block texts); HTML export contains `<b>` and no `http` URLs except the project credit link.
+
+### Task 12: Browser extension (Chrome + Firefox) — Gmail, Outlook web, any site
+
+**Files:** `extension/` folder with its own `package.json` using WXT, importing `../src/core` (bolden) — no code duplication. Popup, content script, options.
+
+1. Popup: big on/off toggle "LetterLift na tej stronie", strength slider, "zawsze na tej stronie" per-site memory (`chrome.storage.sync`), link to the web app.
+2. Content script bolds text nodes inside readable content (skip `input`, `textarea`, `[contenteditable]`, `code`, `pre`, `script`, `style`, `svg`, already-processed nodes), wraps results in `<span data-letterlift>`; toggling off restores original nodes exactly. Uses `MutationObserver` so newly opened emails in Gmail/Outlook web get processed; work batched with `requestIdleCallback`.
+3. Keyboard shortcut Alt+Shift+L toggles on the current tab.
+4. Permissions minimal: `storage`, `activeTab`, `scripting`; no host permissions beyond what "always on this site" requests at the moment the user opts in (`optional_host_permissions`).
+5. Same visual identity (icon, colours) as the web app.
+6. `npm run build` / `npm run zip` produce Chrome and Firefox packages; README section on loading unpacked and store submission (done manually by the owner).
+7. Tests: text-node walker + restore round trip in jsdom (DOM after on→off equals the original `innerHTML`).
+
+### Task 13: End-to-end, accessibility and offline quality gate
+
+**Files:** `playwright.config.ts`, `e2e/*.spec.ts`, CI job in `.github/workflows/deploy.yml` (tests must pass before deploy). Dev deps: `@playwright/test`, `@axe-core/playwright`.
+
+1. E2E against `vite preview` on Chromium, Firefox and WebKit, plus a mobile viewport (Pixel 7): paste → read shows bold; upload TXT and DOCX fixtures (`e2e/fixtures/`); settings persist after reload; theme switch; share-target URL `/?text=...` opens reader; library resume; app loads offline after first visit (Chromium only).
+2. axe scan of Home, Reader, Settings panel open, About in light and dark: zero serious/critical violations.
+3. Fix any defects found in this task (report them in the report file).
+
+### Task 14: Feedback, trust and release polish
+
+**Files:** `.github/ISSUE_TEMPLATE/bug.yml`, `.github/ISSUE_TEMPLATE/idea.yml`, `CHANGELOG.md`, `src/components/Feedback.tsx`, About/Privacy section, version in footer (from `package.json`).
+
+1. In-app "Podziel się opinią"/"Share feedback" opening a prefilled GitHub issue (new tab), and a short "Czy to Ci pomaga?" one-tap Tak/Nie/Nie wiem that just opens the same prefilled issue — no tracking, no backend.
+2. Privacy section: plain-language list of what is stored (settings, optional library — locally only), what is never collected.
+3. Open Graph / social share meta (title, description, a generated 1200×630 `og.png` made from an SVG in the brand style) so links shared on social media look good.
+4. CHANGELOG `1.0.0` entry; `package.json` version `1.0.0`.
