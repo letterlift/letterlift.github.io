@@ -117,13 +117,6 @@ export const pl = {
     researchTitle: 'Co mówią badania',
     research:
       'Szczerze: wyniki badań są niejednoznaczne. Nie ma dowodów, że to przyspiesza czytanie albo poprawia zrozumienie. Część osób, także z ADHD, mówi jednak, że takie wyróżnienie pomaga im nie gubić linijki. Spróbuj i zobacz, co działa u Ciebie. Jeśli nie pomaga, to też w porządku.',
-    tipsTitle: 'Inne rzeczy, które pomagają niektórym',
-    tips: [
-      'Większy tekst i większe odstępy między liniami. W czytniku możesz je dopasować.',
-      'Krótsze sesje. Kilkanaście minut, przerwa, potem dalej.',
-      'Audiobooki albo czytanie na głos, jeśli słuchanie idzie Ci lepiej niż czytanie.',
-      'Mniej bodźców wokół: zamknięte karty, wyciszone powiadomienia.',
-    ],
     privacyTitle: 'Prywatność',
     privacy:
       'Twój tekst nie opuszcza Twojego urządzenia. LetterLift nie ma serwera, który go odbiera, nie używa analityki i nie zakłada kont. W pamięci przeglądarki zapisujemy tylko Twoje ustawienia, wybrany język i narzędzia skupienia.',

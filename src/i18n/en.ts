@@ -119,13 +119,6 @@ export const en: Dict = {
     researchTitle: 'What the research says',
     research:
       'To be honest: the research is mixed. There is no evidence that it makes you read faster or understand more. Some people, including people with ADHD, say the emphasis helps them keep their place. Try it and see what works for your brain. If it does not help, that is fine too.',
-    tipsTitle: 'Other things that help some people',
-    tips: [
-      'Larger text and more space between lines. The reader lets you adjust both.',
-      'Shorter sessions. A few minutes, a break, then back to it.',
-      'Audiobooks or reading aloud, if listening works better for you than reading.',
-      'Fewer distractions: close tabs, silence notifications.',
-    ],
     privacyTitle: 'Privacy',
     privacy:
       'Your text never leaves your device. LetterLift has no server that receives it, uses no analytics and creates no accounts. The only things saved in your browser are your settings, chosen language and focus tools.',

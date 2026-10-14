@@ -31,14 +31,6 @@ export function About({ onBack, onPrivacy }: Props) {
         <p>{a.research}</p>
       </section>
       <section>
-        <h2>{a.tipsTitle}</h2>
-        <ul>
-          {a.tips.map((tip) => (
-            <li key={tip}>{tip}</li>
-          ))}
-        </ul>
-      </section>
-      <section>
         <h2>{a.privacyTitle}</h2>
         <p>{a.privacy}</p>
         <p>

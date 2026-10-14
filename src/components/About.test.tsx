@@ -45,6 +45,16 @@ describe('About', () => {
     expect(screen.getAllByRole('link', { name: 'Privacy & terms' })).toHaveLength(2)
   })
 
+  it('no longer has the "other things that help" tips section', () => {
+    for (const lang of ['en', 'pl']) {
+      localStorage.setItem(LANG_KEY, lang)
+      resetLangForTests()
+      const { container, unmount } = render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
+      expect(container.textContent).not.toMatch(/Other things that help|Inne rzeczy, które pomagają|Audiobooks|Audiobooki/)
+      unmount()
+    }
+  })
+
   it('has the Polish heading in Polish', () => {
     localStorage.setItem(LANG_KEY, 'pl')
     resetLangForTests()
