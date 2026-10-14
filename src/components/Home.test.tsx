@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../App'
@@ -127,10 +127,48 @@ describe('upload race', () => {
 
     await userEvent.click(screen.getByRole('tab', { name: 'Paste text' }))
     resolve([{ type: 'paragraph', text: 'Late arrival' }])
-    await Promise.resolve()
+    // Flush the resolved promise and any resulting React updates.
+    await act(() => new Promise((r) => setTimeout(r, 50)))
 
     expect(screen.queryByRole('heading', { level: 1, name: 'Late arrival' })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Read' })).toBeInTheDocument()
+  })
+})
+
+describe('newer file supersedes an older one', () => {
+  it('ignores the older in-flight result and opens the newer one', async () => {
+    setNavigatorLanguage('en-US')
+    const resolvers: ((b: ingest.Block[]) => void)[] = []
+    vi.mocked(ingest.ingestFile).mockImplementation(
+      () => new Promise<ingest.Block[]>((r) => resolvers.push(r)),
+    )
+    try {
+      render(<App />)
+      await userEvent.click(screen.getByRole('tab', { name: 'Upload a file' }))
+      const input = screen.getByTestId('file-input')
+      fireEvent.change(input, {
+        target: { files: [new File(['a'], 'old.pdf', { type: 'application/pdf' })] },
+      })
+      fireEvent.change(input, {
+        target: { files: [new File(['b'], 'new.pdf', { type: 'application/pdf' })] },
+      })
+      expect(resolvers).toHaveLength(2)
+
+      // Older file finishes first: must not open the reader.
+      resolvers[0]([{ type: 'heading', text: 'Old document' }])
+      await act(() => new Promise((r) => setTimeout(r, 50)))
+      expect(screen.queryByRole('heading', { level: 1, name: 'Old document' })).not.toBeInTheDocument()
+      expect(screen.getByRole('status')).toHaveTextContent('Loading your file')
+
+      resolvers[1]([{ type: 'heading', text: 'New document' }])
+      expect(
+        await screen.findByRole('heading', { level: 1, name: 'New document' }),
+      ).toBeInTheDocument()
+    } finally {
+      vi.mocked(ingest.ingestFile).mockReset()
+      const actual = await vi.importActual<typeof import('../ingest')>('../ingest')
+      vi.mocked(ingest.ingestFile).mockImplementation(actual.ingestFile)
+    }
   })
 })
 
