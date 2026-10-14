@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LetterLift</title>
+    <script>
+      // Unknown path under /letterlift/ -> go to the app, keeping ?query and #hash
+      // (so Android share-target URLs survive).
+      location.replace('/letterlift/' + location.search + location.hash);
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/letterlift/" /></noscript>
+  </head>
+  <body>
+    <p><a href="/letterlift/">LetterLift</a></p>
+  </body>
+</html>
