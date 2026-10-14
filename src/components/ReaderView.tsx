@@ -4,7 +4,7 @@ import type { FontChoice, ReaderSettings } from '../settings/settings';
 import { BoldText } from './BoldText';
 import styles from './ReaderView.module.css';
 
-const FONT_STACKS: Record<FontChoice, string> = {
+export const FONT_STACKS:Record<FontChoice, string> = {
   atkinson: 'var(--font-body)',
   system:
     "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
@@ -31,14 +31,18 @@ function group(blocks: Block[]): Group[] {
   return groups;
 }
 
-export function ReaderView({ blocks, settings }: Props) {
-  const style = {
+export function readerStyle(settings: ReaderSettings): CSSProperties {
+  return {
     '--reader-size': `${settings.fontSize}px`,
     '--reader-leading': String(settings.lineHeight),
     '--reader-measure': `${settings.maxWidth}ch`,
     '--reader-tracking': `${settings.letterSpacing}em`,
     '--reader-font': FONT_STACKS[settings.font],
   } as CSSProperties;
+}
+
+export function ReaderView({ blocks, settings }: Props) {
+  const style = readerStyle(settings);
 
   const bold = (text: string) => (
     <BoldText

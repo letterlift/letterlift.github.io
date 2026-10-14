@@ -28,14 +28,14 @@ export const SETTINGS_KEY = 'letterlift:settings:v1';
 const THEMES: readonly Theme[] = ['system', 'light', 'dark', 'sepia'];
 const FONTS: readonly FontChoice[] = ['atkinson', 'system', 'serif'];
 
-type NumericKey =
+export type NumericKey =
   | 'strength'
   | 'fontSize'
   | 'lineHeight'
   | 'maxWidth'
   | 'letterSpacing';
 
-const RANGES: Record<NumericKey, { min: number; max: number }> = {
+export const RANGES: Record<NumericKey, { min: number; max: number }> = {
   strength: { min: 0.2, max: 0.7 },
   fontSize: { min: 16, max: 32 },
   lineHeight: { min: 1.4, max: 2.2 },

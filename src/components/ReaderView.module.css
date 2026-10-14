@@ -21,9 +21,15 @@
 
 .reader h2 {
   font-family: var(--font-display, var(--reader-font));
-  font-weight: 700;
+  /* Light weight + heavy <b> keeps the technique visible in headings
+     (Bricolage Grotesque is a variable font, wght 200-800). */
+  font-weight: 450;
   line-height: 1.25;
   margin-block: 1.5em 0.5em;
+}
+
+.reader h2 b {
+  font-weight: 800;
 }
 
 .reader ul {
