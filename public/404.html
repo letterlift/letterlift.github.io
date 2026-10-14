@@ -7,7 +7,9 @@
     <script>
       // Unknown path under /letterlift/ -> go to the app, keeping ?query and #hash
       // (so Android share-target URLs survive).
-      location.replace('/letterlift/' + location.search + location.hash);
+      if (location.pathname !== '/letterlift/') {
+        location.replace('/letterlift/' + location.search + location.hash);
+      }
     </script>
     <noscript><meta http-equiv="refresh" content="0; url=/letterlift/" /></noscript>
   </head>
