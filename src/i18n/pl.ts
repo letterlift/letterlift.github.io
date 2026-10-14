@@ -122,7 +122,6 @@ export const pl = {
     privacy:
       'Twój tekst nie opuszcza Twojego urządzenia. LetterLift nie ma serwera, który go odbiera, nie używa analityki i nie zakłada kont. W pamięci przeglądarki zapisujemy tylko Twoje ustawienia, wybrany język i narzędzia skupienia.',
     privacyMore: 'Szczegóły:',
-    techCaption: 'Ten akapit jest napisany tą techniką.',
     nextTitle: 'Co dalej?',
     nextIntro: 'Tego jeszcze nie ma. Zagłosuj, co mam zrobić najpierw.',
     nextNames: [

@@ -14,11 +14,10 @@ describe('About', () => {
     resetLangForTests()
   })
 
-  it('renders the technique paragraph with bolded word beginnings and a caption', () => {
+  it('renders the technique paragraph with bolded word beginnings', () => {
     const { container } = render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
     const section = screen.getByRole('heading', { level: 2, name: /How the technique works|Na czym polega/ }).closest('section')!
     expect(section.querySelectorAll('b').length).toBeGreaterThan(5)
-    expect(within(section).getByText(/uses the technique|tą techniką/)).toBeInTheDocument()
     // the rest of About stays plain
     expect(container.querySelectorAll('b').length).toBe(section.querySelectorAll('b').length)
   })

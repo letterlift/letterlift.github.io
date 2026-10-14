@@ -124,7 +124,6 @@ export const en: Dict = {
     privacy:
       'Your text never leaves your device. LetterLift has no server that receives it, uses no analytics and creates no accounts. The only things saved in your browser are your settings, chosen language and focus tools.',
     privacyMore: 'Details:',
-    techCaption: 'This paragraph uses the technique.',
     nextTitle: "What's next?",
     nextIntro: 'None of these exist yet. Vote for what I should build first.',
     nextNames: [

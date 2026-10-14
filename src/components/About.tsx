@@ -27,7 +27,6 @@ export function About({ onBack, onPrivacy }: Props) {
         <p>
           <BoldText text={a.what} strength={DEFAULT_STRENGTH} enabled />
         </p>
-        <p className={styles.caption}>{a.techCaption}</p>
       </section>
       <section>
         <h2>{a.researchTitle}</h2>

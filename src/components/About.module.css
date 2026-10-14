@@ -65,7 +65,6 @@
   text-decoration-color: var(--accent);
 }
 
-.caption,
 .muted {
   font-size: 0.9375rem;
   line-height: 1.5;
