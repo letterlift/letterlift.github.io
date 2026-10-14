@@ -76,3 +76,52 @@
   color: var(--on-accent);
   text-decoration: none;
 }
+
+.about .plans {
+  list-style: none;
+  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.plan {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.plan h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.plan p {
+  color: var(--ink-soft);
+}
+
+.plan a {
+  justify-self: start;
+  margin-top: var(--space-2);
+}
+
+.about .plan a {
+  color: var(--on-accent);
+  text-decoration: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

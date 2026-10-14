@@ -127,6 +127,26 @@ export const pl = {
     privacy:
       'Twój tekst nie opuszcza Twojego urządzenia. LetterLift nie ma serwera, który go odbiera, nie używa analityki i nie zakłada kont. W pamięci przeglądarki zapisujemy tylko Twoje ustawienia i wybrany język.',
     techCaption: 'Ten akapit jest napisany tą techniką.',
+    nextTitle: 'Co dalej?',
+    nextIntro:
+      'LetterLift dopiero startuje. Daj znać, co mam zrobić w następnej kolejności. To Ty decydujesz, co powstanie najpierw.',
+    nextNames: [
+      'Rozszerzenie do przeglądarki',
+      'Tekst ze zdjęcia lub skanu',
+      'E-booki i czytniki',
+      'Biblioteka i wznawianie',
+    ],
+    nextDescs: [
+      'Pogrubianie w Gmailu, Outlooku i na dowolnej stronie.',
+      'Zrób zdjęcie kartki, a tekst rozpozna się w telefonie, bez wysyłania gdziekolwiek.',
+      'Otwieranie plików EPUB i wysyłanie pogrubionego tekstu na Kindle lub inny czytnik.',
+      'Aplikacja zapamięta Twoje teksty i miejsce, w którym skończyłaś/eś czytać.',
+    ],
+    nextCta: 'Chcę to!',
+    nextVotePrefix: 'Głos',
+    nextVoteBody: 'Chcę tę funkcję, bo… (opcjonalnie napisz, jak byś jej używał/a)',
+    nextNoGithub: 'Nie masz konta na GitHubie?',
+    nextNoTracking: 'Nie śledzimy głosów, po prostu czytam zgłoszenia. Żadna z tych funkcji jeszcze nie istnieje.',
     authorTitle: 'O autorce i kontakt',
     author: 'LetterLift stworzyła Zem na Miesiąc Świadomości ADHD 2026.',
     ideaPrompt: 'Masz pomysł albo coś nie działa?',

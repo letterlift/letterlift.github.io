@@ -42,6 +42,8 @@ Deploy: każdy push na `main` uruchamia GitHub Actions (testy, build, publikacja
 
 Planowane, jeszcze niedostępne: rozszerzenie do przeglądarki, OCR (zdjęcia tekstu), EPUB, biblioteka tekstów.
 
+Chcesz, żeby coś powstało w pierwszej kolejności? Zagłosuj, zgłaszając to w [GitHub Issues](https://github.com/drogazem-design/letterlift/issues/new).
+
 ## Licencja
 
 GPL-3.0-or-later, zobacz [LICENSE](LICENSE). Możesz używać, zmieniać i udostępniać kod; jeśli rozpowszechniasz zmienioną wersję, musisz udostępnić jej kod na tej samej licencji.
@@ -97,6 +99,8 @@ Deploy: every push to `main` runs GitHub Actions (tests, build, publish to GitHu
 ## Roadmap
 
 Planned, not available yet: browser extension, OCR (photos of text), EPUB, text library.
+
+Want something built first? Vote by opening a [GitHub issue](https://github.com/drogazem-design/letterlift/issues/new).
 
 ## Licence
 

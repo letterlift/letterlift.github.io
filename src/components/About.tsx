@@ -1,6 +1,6 @@
 import { DEFAULT_STRENGTH } from '../core';
 import { useI18n } from '../i18n';
-import { FACEBOOK_URL, ISSUES_URL } from '../links';
+import { FACEBOOK_URL, ISSUES_URL, voteUrl } from '../links';
 import { BoldText } from './BoldText';
 import { ExternalLink } from './ExternalLink';
 import styles from './About.module.css';
@@ -41,6 +41,26 @@ export function About({ onBack, onPrivacy }: Props) {
       <section>
         <h2>{a.privacyTitle}</h2>
         <p>{a.privacy}</p>
+      </section>
+      <section>
+        <h2>{a.nextTitle}</h2>
+        <p>{a.nextIntro}</p>
+        <ul className={styles.plans}>
+          {a.nextNames.map((name, i) => (
+            <li key={name} className={styles.plan}>
+              <h3>{name}</h3>
+              <p>{a.nextDescs[i]}</p>
+              <ExternalLink href={voteUrl(`${a.nextVotePrefix}: ${name}`, a.nextVoteBody)} variant="button">
+                {a.nextCta}
+                <span className={styles.srOnly}> ({name})</span>
+              </ExternalLink>
+            </li>
+          ))}
+        </ul>
+        <p className={styles.muted}>
+          {a.nextNoGithub} <ExternalLink href={FACEBOOK_URL}>{a.messageMe}</ExternalLink>
+        </p>
+        <p className={styles.muted}>{a.nextNoTracking}</p>
       </section>
       <section>
         <h2>{a.authorTitle}</h2>

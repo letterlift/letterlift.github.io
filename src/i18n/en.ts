@@ -129,6 +129,26 @@ export const en: Dict = {
     privacy:
       'Your text never leaves your device. LetterLift has no server that receives it, uses no analytics and creates no accounts. The only things saved in your browser are your settings and your chosen language.',
     techCaption: 'This paragraph uses the technique.',
+    nextTitle: "What's next?",
+    nextIntro:
+      'LetterLift is just getting started. Tell me what to build next. You decide what comes first.',
+    nextNames: [
+      'Browser extension',
+      'Text from a photo or scan',
+      'E-books and e-readers',
+      'Library and resume',
+    ],
+    nextDescs: [
+      'Bolding in Gmail, Outlook and on any web page.',
+      'Take a photo of a page and the text is recognised on your phone, without being sent anywhere.',
+      'Open EPUB files and send bolded text to a Kindle or another e-reader.',
+      'The app remembers your texts and where you stopped reading.',
+    ],
+    nextCta: 'I want this!',
+    nextVotePrefix: 'Vote',
+    nextVoteBody: 'I want this feature because… (optionally, tell me how you would use it)',
+    nextNoGithub: 'No GitHub account?',
+    nextNoTracking: 'We do not track votes, I just read the issues. None of these features exist yet.',
     authorTitle: 'About the author & contact',
     author: 'LetterLift was created by Zem for ADHD Awareness Month 2026.',
     ideaPrompt: 'Have an idea, or something not working?',
