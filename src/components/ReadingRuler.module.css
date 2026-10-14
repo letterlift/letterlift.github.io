@@ -2,11 +2,12 @@
   position: fixed;
   inset: 0 0 auto 0;
   /* Behind the text, above the page background (#root is an isolated stacking context),
-     so glyphs keep full ink contrast: 14.5:1 light, 10.5:1 sepia, 9.5:1 dark. */
+     so glyphs keep full ink contrast. Dedicated --ruler token per theme:
+     ink on band 11.9 / 8.1 / 7.2:1, band vs page 1.35 / 1.36 / 2.15:1 (light / sepia / dark). */
   z-index: -1;
   pointer-events: none;
-  background: color-mix(in srgb, var(--highlight) 55%, transparent);
-  border-block: 1px solid color-mix(in srgb, var(--highlight) 90%, var(--ink) 10%);
+  background: var(--ruler);
+  border-block: 1px solid color-mix(in srgb, var(--ruler) 65%, var(--ink));
   will-change: transform;
   transition: transform 90ms ease-out;
 }

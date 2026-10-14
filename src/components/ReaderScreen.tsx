@@ -253,15 +253,10 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
       )}
 
       {/* Always mounted so screen readers pick up changes; visible for everyone while it has text. */}
-      <div
-        className={styles.toast}
-        role="status"
-        aria-live="polite"
-        data-state={status ? copyState : 'idle'}
-        data-no-print
-      >
+      {/* The region itself is never hidden or removed; only the visual chrome inside it comes and goes. */}
+      <div className={styles.toastRegion} role="status" aria-live="polite" data-no-print>
         {status && (
-          <>
+          <div className={styles.toast} data-state={copyState}>
             <svg {...icon} width={20} height={20}>
               {copyState === 'ok' ? (
                 <path d="M5 12.5l4.5 4.5L19 7.5" />
@@ -270,7 +265,7 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
               )}
             </svg>
             <span>{status}</span>
-          </>
+          </div>
         )}
       </div>
     </div>

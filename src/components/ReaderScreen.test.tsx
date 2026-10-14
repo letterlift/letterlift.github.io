@@ -222,7 +222,34 @@ describe('ReaderScreen', () => {
       const status = screen.getByRole('status')
       await waitFor(() => expect(status).toHaveTextContent('Copied'))
       expect(status).toBeVisible()
-      expect(status).toHaveAttribute('data-state', 'ok')
+      expect(status.querySelector('[data-state="ok"]')).not.toBeNull()
+    })
+
+    it('keeps the status live region mounted and unhidden before, during and after a message', async () => {
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText: vi.fn().mockResolvedValue(undefined) },
+        configurable: true,
+      })
+      render(<Harness />)
+      const status = screen.getByRole('status')
+      const stillThere = () => {
+        expect(status.isConnected).toBe(true)
+        expect(screen.getByRole('status')).toBe(status)
+        expect(status).toBeVisible()
+        expect(status).not.toHaveAttribute('hidden')
+        expect(status).not.toHaveAttribute('aria-hidden')
+      }
+      stillThere()
+      expect(status).toBeEmptyDOMElement()
+      await userEvent.click(screen.getByRole('button', { name: 'Copy text' }))
+      stillThere() // cleared, waiting to be refilled
+      await waitFor(() => expect(status).toHaveTextContent('Copied'))
+      stillThere()
+    })
+
+    it('never gives the body wrapper an undefined class', () => {
+      render(<Harness />)
+      expect(screen.getByTestId('reader-body').className).not.toMatch(/undefined/)
     })
 
     it('says what to do when copying fails', async () => {
@@ -236,7 +263,7 @@ describe('ReaderScreen', () => {
       const status = screen.getByRole('status')
       await waitFor(() => expect(status).toHaveTextContent(/Couldn't copy/))
       expect(status).toBeVisible()
-      expect(status).toHaveAttribute('data-state', 'fail')
+      expect(status.querySelector('[data-state="fail"]')).not.toBeNull()
     })
 
     it('print calls window.print', async () => {

@@ -35,6 +35,7 @@
   --accent-ink: #1f1b16;
   --on-accent: #1f1b16;
   --highlight: #ffe27a;
+  --ruler: #ffd24a;
   --focus: #2b59ff;
 }
 
@@ -49,6 +50,7 @@
   --accent-ink: #17150f;
   --on-accent: #17150f;
   --highlight: #6b5a12;
+  --ruler: #5a4c11;
   --focus: #8aa6ff;
 }
 
@@ -64,6 +66,7 @@
     --accent-ink: #17150f;
     --on-accent: #17150f;
     --highlight: #6b5a12;
+    --ruler: #5a4c11;
     --focus: #8aa6ff;
   }
 }
@@ -79,5 +82,6 @@
   --accent-ink: #1f1b16;
   --on-accent: #1f1b16;
   --highlight: #ffe27a;
+  --ruler: #f0c84e;
   --focus: #2b59ff;
 }
