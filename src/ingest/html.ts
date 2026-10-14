@@ -17,6 +17,7 @@ function typeOf(el: Element): BlockType | null {
 export function htmlToBlocks(html: string): Block[] {
   const doc = new DOMParser().parseFromString(html, 'text/html');
   doc.querySelectorAll('script, style').forEach((el) => el.remove());
+  doc.querySelectorAll('br').forEach((br) => br.replaceWith(' '));
 
   const blocks: Block[] = [];
   const push = (type: BlockType, text: string | null) => {
@@ -24,22 +25,36 @@ export function htmlToBlocks(html: string): Block[] {
     if (t) blocks.push({ type, text: t });
   };
 
+  const isBlockish = (el: Element) =>
+    typeOf(el) !== null || el.tagName === 'UL' || el.tagName === 'OL' || !!el.querySelector(BLOCK_SELECTOR);
+
+  const handle = (el: Element) => {
+    const type = typeOf(el);
+    if (type) {
+      // Own inline text first, then nested blocks as separate blocks.
+      let buf = '';
+      el.childNodes.forEach((child) => {
+        if (child.nodeType === Node.ELEMENT_NODE && isBlockish(child as Element)) {
+          push(type, buf);
+          buf = '';
+          handle(child as Element);
+        } else {
+          buf += child.textContent ?? '';
+        }
+      });
+      push(type, buf);
+    } else if (el.querySelector(BLOCK_SELECTOR)) {
+      walk(el);
+    } else {
+      // Container or inline element without block children (div, span, td...).
+      push('paragraph', el.textContent);
+    }
+  };
+
   const walk = (node: Node) => {
     node.childNodes.forEach((child) => {
-      if (child.nodeType === Node.TEXT_NODE) {
-        push('paragraph', child.textContent);
-      } else if (child.nodeType === Node.ELEMENT_NODE) {
-        const el = child as Element;
-        const type = typeOf(el);
-        if (type) {
-          push(type, el.textContent);
-        } else if (el.querySelector(BLOCK_SELECTOR)) {
-          walk(el);
-        } else {
-          // Container or inline element without block children (div, span, td...).
-          push('paragraph', el.textContent);
-        }
-      }
+      if (child.nodeType === Node.TEXT_NODE) push('paragraph', child.textContent);
+      else if (child.nodeType === Node.ELEMENT_NODE) handle(child as Element);
     });
   };
 

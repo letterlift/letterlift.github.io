@@ -9,15 +9,16 @@ type Kind = 'text' | 'docx' | 'pdf';
 
 function detectKind(file: File): Kind | null {
   const name = file.name.toLowerCase();
+  // Extension wins over MIME (browsers may report odd types).
+  if (name.endsWith('.txt') || name.endsWith('.md')) return 'text';
+  if (name.endsWith('.docx')) return 'docx';
+  if (name.endsWith('.pdf')) return 'pdf';
   const mime = file.type.toLowerCase();
-  if (name.endsWith('.txt') || name.endsWith('.md') || mime === 'text/plain') return 'text';
-  if (
-    name.endsWith('.docx') ||
-    mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-  ) {
+  if (mime === 'text/plain') return 'text';
+  if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
     return 'docx';
   }
-  if (name.endsWith('.pdf') || mime === 'application/pdf') return 'pdf';
+  if (mime === 'application/pdf') return 'pdf';
   return null;
 }
 

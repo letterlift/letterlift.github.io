@@ -74,4 +74,11 @@ describe('parsePlainText', () => {
   it('drops empty blocks (bare markers)', () => {
     expect(parsePlainText('# \n\n- \n\nok')).toEqual([{ type: 'paragraph', text: 'ok' }]);
   });
+
+  it('treats NBSP like a space', () => {
+    expect(parsePlainText('a\u00a0\u00a0b\n\n-\u00a0x\u00a0 y')).toEqual([
+      { type: 'paragraph', text: 'a b' },
+      { type: 'list-item', text: 'x y' },
+    ]);
+  });
 });

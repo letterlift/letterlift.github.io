@@ -1,10 +1,10 @@
 import type { Block } from './types';
 
-const HEADING = /^#{1,6}[ \t]+(.*)$/;
-const LIST_ITEM = /^(?:[-*•]|\d+[.)])[ \t]+(.*)$/;
+const HEADING = /^#{1,6}[ \t ]+(.*)$/;
+const LIST_ITEM = /^(?:[-*•]|\d+[.)])[ \t ]+(.*)$/;
 
 function clean(s: string): string {
-  return s.replace(/[ \t]+/g, ' ').trim();
+  return s.replace(/[ \t ]+/g, ' ').trim();
 }
 
 /** Appends a line to a paragraph buffer, undoing end-of-line hyphenation. */

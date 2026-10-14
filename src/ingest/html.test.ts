@@ -63,4 +63,29 @@ describe('htmlToBlocks', () => {
   it('returns [] for empty input', () => {
     expect(htmlToBlocks('')).toEqual([]);
   });
+
+  it('keeps nested list items separate from the parent', () => {
+    expect(htmlToBlocks('<ul><li>Parent<ul><li>Child</li></ul></li></ul>')).toEqual([
+      { type: 'list-item', text: 'Parent' },
+      { type: 'list-item', text: 'Child' },
+    ]);
+  });
+
+  it('treats <br> as a space', () => {
+    expect(htmlToBlocks('<p>line one<br />line two</p>')).toEqual([
+      { type: 'paragraph', text: 'line one line two' },
+    ]);
+  });
+
+  it('splits paragraphs nested in a blockquote', () => {
+    expect(htmlToBlocks('<blockquote><p>one</p><p>two</p></blockquote>')).toEqual([
+      { type: 'paragraph', text: 'one' },
+      { type: 'paragraph', text: 'two' },
+    ]);
+  });
+
+  it('does not fuse paragraphs nested in a list item', () => {
+    const texts = htmlToBlocks('<ul><li><p>a</p><p>b</p></li></ul>').map((b) => b.text);
+    expect(texts).toEqual(['a', 'b']);
+  });
 });

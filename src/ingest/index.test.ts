@@ -40,4 +40,10 @@ describe('ingestFile', () => {
     const file = new File(['- a'], 'NOTES.MD');
     expect(await ingestFile(file)).toEqual([{ type: 'list-item', text: 'a' }]);
   });
+
+  it('prefers the extension over a misleading MIME type', async () => {
+    // Not a real PDF: if routed to the PDF adapter it fails with read-failed, not text parsing.
+    const file = new File(['hello'], 'x.pdf', { type: 'text/plain' });
+    expect(await codeOf(ingestFile(file))).toBe('read-failed');
+  });
 });

@@ -8,8 +8,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = workerUrl;
 export async function pdfToBlocks(file: File): Promise<Block[]> {
   const data = new Uint8Array(await file.arrayBuffer());
   const task = pdfjs.getDocument({ data });
-  const pdf = await task.promise;
   try {
+    const pdf = await task.promise;
     const pages: string[] = [];
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
