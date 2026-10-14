@@ -17,13 +17,11 @@ export function About({ onBack, onPrivacy }: Props) {
         {a.back}
       </button>
       <h1 className={styles.title}>{a.title}</h1>
-      <p className={styles.lead}>{a.lead}</p>
 
-      <section>
-        <h2>{a.whyTitle}</h2>
+      <div className={styles.intro}>
         <p>{a.why1}</p>
         <p>{a.why2}</p>
-      </section>
+      </div>
       <section>
         <h2>{a.whatTitle}</h2>
         <p>

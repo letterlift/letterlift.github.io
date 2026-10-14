@@ -113,8 +113,6 @@ export const en: Dict = {
   about: {
     back: '← Back',
     title: 'About',
-    lead: 'LetterLift is a free tool that bolds the beginnings of words so text is easier to follow with your eyes.',
-    whyTitle: 'Why this exists',
     why1: "Ever read a whole page and not remember how it started? Sometimes it's hard to keep your attention on a text, even when you really want to read it. That's why LetterLift exists.",
     why2: "The app bolds the beginnings of words, helping your eyes find the next word and move through the text more smoothly. See whether it makes it easier to keep your place, follow the thread and read with less effort.",
     whatTitle: 'How the technique works',

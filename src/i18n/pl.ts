@@ -111,8 +111,6 @@ export const pl = {
   about: {
     back: '← Wróć',
     title: 'O projekcie',
-    lead: 'LetterLift to darmowe narzędzie, które pogrubia początki słów, żeby łatwiej było śledzić tekst wzrokiem.',
-    whyTitle: 'Dlaczego to powstało',
     why1: 'Zdarza Ci się przeczytać całą stronę i nie pamiętać, co było na początku? Czasem trudno utrzymać uwagę na tekście, nawet gdy bardzo chcemy go przeczytać. Dlatego powstał LetterLift.',
     why2: 'Aplikacja pogrubia początki słów, pomagając Ci odnajdywać wzrokiem kolejne wyrazy i płynniej przesuwać się przez tekst. Sprawdź, czy dzięki temu łatwiej będzie Ci utrzymać miejsce podczas czytania, nie zgubić wątku i czytać z mniejszym wysiłkiem.',
     whatTitle: 'Na czym polega ta technika',

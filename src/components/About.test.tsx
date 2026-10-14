@@ -55,21 +55,24 @@ describe('About', () => {
     }
   })
 
-  it('opens with the "Why this exists" section containing both paragraphs, in both languages', () => {
+  it('opens with the why paragraphs right under the h1, with no heading, lead or bold', () => {
     const cases = [
-      ['en', 'Why this exists', /Ever read a whole page/, /follow the thread and read with less effort/],
-      ['pl', 'Dlaczego to powstało', /Zdarza Ci się przeczytać całą stronę/, /nie zgubić wątku i czytać z mniejszym wysiłkiem/],
+      ['en', /Ever read a whole page/, /follow the thread and read with less effort/, /How the technique works/, /free tool that bolds/],
+      ['pl', /Zdarza Ci się przeczytać całą stronę/, /nie zgubić wątku i czytać z mniejszym wysiłkiem/, /Na czym polega ta technika/, /darmowe narzędzie, które pogrubia/],
     ] as const
-    for (const [lang, title, p1, p2] of cases) {
+    for (const [lang, p1, p2, firstH2, oldLead] of cases) {
       localStorage.setItem(LANG_KEY, lang)
       resetLangForTests()
-      const { unmount } = render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
+      const { container, unmount } = render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
       const h2s = screen.getAllByRole('heading', { level: 2 })
-      expect(h2s[0]).toHaveTextContent(title)
-      const section = h2s[0].closest('section')!
-      expect(within(section).getByText(p1)).toBeInTheDocument()
-      expect(within(section).getByText(p2)).toBeInTheDocument()
-      expect(section.querySelectorAll('b')).toHaveLength(0)
+      expect(h2s[0]).toHaveTextContent(firstH2)
+      const para1 = screen.getByText(p1)
+      const para2 = screen.getByText(p2)
+      expect(para1.parentElement).toBe(para2.parentElement)
+      expect(para1.parentElement!.previousElementSibling).toBe(screen.getByRole('heading', { level: 1 }))
+      expect(para1.parentElement!.querySelectorAll('b')).toHaveLength(0)
+      expect(container.textContent).not.toMatch(oldLead)
+      expect(screen.queryByRole('heading', { name: /Why this exists|Dlaczego to powstało/ })).toBeNull()
       unmount()
     }
   })
