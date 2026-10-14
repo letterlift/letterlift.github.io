@@ -43,6 +43,7 @@ export function Privacy({ onBack }: Props) {
             {l.hosting} <ExternalLink href={GITHUB_PRIVACY_URL}>{l.hostingLink}</ExternalLink>
           </li>
           <li>{l.external}</li>
+          <li>{l.tipply}</li>
         </ul>
       </section>
 

@@ -75,6 +75,7 @@ export const en: Dict = {
     github: 'Code on GitHub',
     privacy: 'Privacy & terms',
     license: 'GPL-3.0+ license',
+    support: 'Support',
   },
   reader: {
     back: '← New text',
@@ -151,6 +152,11 @@ export const en: Dict = {
     nextVoteBody: 'I want this feature because… (optionally, tell me how you would use it)',
     nextNoGithub: 'No GitHub account?',
     nextNoTracking: 'We do not track votes — I just read the issues. None of these features exist yet.',
+    supportTitle: 'Support development',
+    support:
+      'LetterLift is and will stay free — no feature will ever be locked behind a payment. If you like, you can chip in toward the AI tools I use to build it.',
+    supportCta: 'Support on Tipply',
+    supportNote: 'Tipply is an external service with its own rules. LetterLift does not receive any of your data.',
     authorTitle: 'About the author & contact',
     author: 'LetterLift was created by Zem for ADHD Awareness Month 2026.',
     ideaPrompt: 'Have an idea, or something not working?',
@@ -165,7 +171,7 @@ export const en: Dict = {
     title: 'Privacy & terms',
     effective: 'Effective from 14 October 2026',
     whoTitle: 'Who is behind this',
-    who: 'LetterLift is a free, non-commercial tool created by Zem. Contact:',
+    who: 'LetterLift is a free tool you can support voluntarily, created by Zem. Contact:',
     medicalTitle: 'Medical disclaimer',
     medical:
       'LetterLift is not a medical device. It is not meant to diagnose or treat ADHD or any other condition, and it does not replace consulting a specialist.',
@@ -179,9 +185,12 @@ export const en: Dict = {
     hosting: 'The site is hosted on GitHub Pages. GitHub may process technical data, such as your IP address, under its own privacy policy:',
     hostingLink: 'GitHub privacy statement',
     external: 'Links to GitHub and Facebook lead to external services that have their own privacy policies.',
+    tipply:
+      'The Tipply link leads to an external service with its own privacy policy. Donations are voluntary and do not unlock any features.',
     termsTitle: 'Terms of use',
     terms: [
       'Using LetterLift is free and needs no registration.',
+      'Financial support is entirely voluntary; using LetterLift always remains free.',
       'Requirements: an up-to-date web browser with JavaScript enabled.',
       'The tool is provided "as is", with no guarantee that it works correctly in every situation. We are not responsible for the consequences of using it.',
       'You are responsible for the content you open in the app (it never leaves your device anyway).',

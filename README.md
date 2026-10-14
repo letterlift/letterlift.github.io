@@ -44,6 +44,10 @@ Planowane, jeszcze niedostępne: rozszerzenie do przeglądarki, OCR (zdjęcia te
 
 Chcesz, żeby coś powstało w pierwszej kolejności? Zagłosuj, zgłaszając to w [GitHub Issues](https://github.com/drogazem-design/letterlift/issues/new).
 
+## Wsparcie
+
+LetterLift jest i zostanie darmowy — żadna funkcja nie będzie zablokowana za płatnością. Jeśli chcesz, możesz dobrowolnie dorzucić się do kosztów narzędzi AI, z których korzystam: [Tipply](https://tipply.pl/@zem).
+
 ## Licencja
 
 GPL-3.0-or-later, zobacz [LICENSE](LICENSE). Możesz używać, zmieniać i udostępniać kod; jeśli rozpowszechniasz zmienioną wersję, musisz udostępnić jej kod na tej samej licencji.
@@ -101,6 +105,10 @@ Deploy: every push to `main` runs GitHub Actions (tests, build, publish to GitHu
 Planned, not available yet: browser extension, OCR (photos of text), EPUB, text library.
 
 Want something built first? Vote by opening a [GitHub issue](https://github.com/drogazem-design/letterlift/issues/new).
+
+## Support
+
+LetterLift is and will stay free — no feature will ever be locked behind a payment. If you like, you can voluntarily chip in toward the AI tools I use: [Tipply](https://tipply.pl/@zem).
 
 ## Licence
 

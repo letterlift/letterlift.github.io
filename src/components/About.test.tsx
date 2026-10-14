@@ -66,4 +66,20 @@ describe('About', () => {
     }
     expect(screen.getByText(/None of these features exist yet/)).toBeInTheDocument()
   })
+
+  it('shows a voluntary support block between the plans and the author section', () => {
+    localStorage.setItem(LANG_KEY, 'en')
+    resetLangForTests()
+    render(<About onBack={vi.fn()} onPrivacy={vi.fn()} />)
+    const h = screen.getByRole('heading', { level: 2, name: 'Support development' })
+    const section = h.closest('section')!
+    expect(within(section).getByText(/will stay free/)).toBeInTheDocument()
+    const link = within(section).getByRole('link', { name: /Support on Tipply/ })
+    expect(link).toHaveAttribute('href', 'https://tipply.pl/@zem')
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    const order = screen.getAllByRole('heading', { level: 2 }).map((x) => x.textContent)
+    expect(order.indexOf('Support development')).toBe(order.indexOf("What's next?") + 1)
+    expect(order.indexOf('About the author & contact')).toBe(order.indexOf('Support development') + 1)
+  })
 })

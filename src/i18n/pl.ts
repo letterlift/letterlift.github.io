@@ -73,6 +73,7 @@ export const pl = {
     github: 'Kod na GitHubie',
     privacy: 'Prywatność i zasady',
     license: 'Licencja GPL-3.0+',
+    support: 'Wesprzyj',
   },
   reader: {
     back: '← Nowy tekst',
@@ -149,6 +150,11 @@ export const pl = {
     nextVoteBody: 'Chcę tę funkcję, bo… (opcjonalnie napisz, jak byś jej używał/a)',
     nextNoGithub: 'Nie masz konta na GitHubie?',
     nextNoTracking: 'Nie śledzimy głosów — po prostu czytam zgłoszenia. Żadna z tych funkcji jeszcze nie istnieje.',
+    supportTitle: 'Wesprzyj rozwój',
+    support:
+      'LetterLift jest i zostanie darmowy — żadna funkcja nie będzie zablokowana za płatnością. Jeśli chcesz, możesz dorzucić się do kosztów narzędzi AI, z których korzystam przy jego tworzeniu.',
+    supportCta: 'Wesprzyj na Tipply',
+    supportNote: 'Tipply to zewnętrzny serwis z własnymi zasadami. LetterLift nie dostaje żadnych Twoich danych.',
     authorTitle: 'O autorce i kontakt',
     author: 'LetterLift stworzyła Zem na Miesiąc Świadomości ADHD 2026.',
     ideaPrompt: 'Masz pomysł albo coś nie działa?',
@@ -163,7 +169,7 @@ export const pl = {
     title: 'Prywatność i zasady',
     effective: 'Obowiązuje od 14 października 2026',
     whoTitle: 'Kto za tym stoi',
-    who: 'LetterLift to darmowe, niekomercyjne narzędzie stworzone przez Zem. Kontakt:',
+    who: 'LetterLift to darmowe narzędzie, które możesz dobrowolnie wesprzeć, stworzone przez Zem. Kontakt:',
     medicalTitle: 'Zastrzeżenie medyczne',
     medical:
       'LetterLift nie jest wyrobem medycznym. Nie służy do diagnozowania ani leczenia ADHD ani żadnych innych zaburzeń i nie zastępuje konsultacji ze specjalistą.',
@@ -177,9 +183,12 @@ export const pl = {
     hosting: 'Strona jest hostowana na GitHub Pages. GitHub może przetwarzać dane techniczne, np. adres IP, zgodnie ze swoją polityką prywatności:',
     hostingLink: 'Polityka prywatności GitHuba',
     external: 'Linki do GitHuba i Facebooka prowadzą do zewnętrznych serwisów, które mają własne zasady prywatności.',
+    tipply:
+      'Link do Tipply prowadzi do zewnętrznego serwisu, który ma własne zasady prywatności. Wpłaty są dobrowolne i nie odblokowują żadnych funkcji.',
     termsTitle: 'Zasady korzystania',
     terms: [
       'Korzystanie jest bezpłatne i nie wymaga rejestracji.',
+      'Wsparcie finansowe jest całkowicie dobrowolne; korzystanie z LetterLift zawsze pozostaje bezpłatne.',
       'Wymagania: aktualna przeglądarka internetowa z włączonym JavaScriptem.',
       'Narzędzie jest udostępniane „tak jak jest”, bez gwarancji poprawnego działania w każdej sytuacji. Nie odpowiadamy za skutki korzystania z niego.',
       'Odpowiadasz za treści, które otwierasz w aplikacji (one i tak nie opuszczają Twojego urządzenia).',

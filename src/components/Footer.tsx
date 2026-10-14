@@ -1,5 +1,6 @@
 import { useI18n } from '../i18n';
-import { REPO_URL } from '../links';
+import { REPO_URL, TIPPLY_URL } from '../links';
+import { ExternalLink } from './ExternalLink';
 import styles from './Footer.module.css';
 
 type Props = { onPrivacy: () => void };
@@ -22,6 +23,7 @@ export function Footer({ onPrivacy }: Props) {
         >
           {t.footer.privacy}
         </a>
+        <ExternalLink href={TIPPLY_URL}>{t.footer.support}</ExternalLink>
         <span>{t.footer.license}</span>
       </p>
     </footer>
