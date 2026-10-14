@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { resetLangForTests } from './i18n'
 
@@ -42,5 +42,15 @@ describe('App', () => {
     render(<App />)
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
     window.history.replaceState(null, '', '/')
+  })
+
+  it('scrolls to the top when a document is opened', () => {
+    const scrollTo = vi.fn()
+    vi.spyOn(window, 'scrollTo').mockImplementation(scrollTo)
+    render(<App />)
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Hello there world' } })
+    fireEvent.click(screen.getByRole('button', { name: /^(Read|Czytaj)$/ }))
+    expect(scrollTo).toHaveBeenCalledWith(0, 0)
+    vi.restoreAllMocks()
   })
 })

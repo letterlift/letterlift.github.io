@@ -32,11 +32,11 @@
   --ink-soft: #5b5248;
   --line: #e7dfd3;
   --accent: #ff6b4a;
-  --accent-ink: #1f1b16;
   --on-accent: #1f1b16;
   --highlight: #ffe27a;
   --ruler: #ffd24a;
   --focus: #2b59ff;
+  color-scheme: light;
 }
 
 /* dark */
@@ -47,11 +47,11 @@
   --ink-soft: #b8ad9c;
   --line: #3a352b;
   --accent: #ff8a6e;
-  --accent-ink: #17150f;
   --on-accent: #17150f;
   --highlight: #6b5a12;
   --ruler: #5a4c11;
   --focus: #8aa6ff;
+  color-scheme: dark;
 }
 
 /* system preference when no explicit theme is chosen */
@@ -63,11 +63,11 @@
     --ink-soft: #b8ad9c;
     --line: #3a352b;
     --accent: #ff8a6e;
-    --accent-ink: #17150f;
     --on-accent: #17150f;
     --highlight: #6b5a12;
     --ruler: #5a4c11;
     --focus: #8aa6ff;
+    color-scheme: dark;
   }
 }
 
@@ -79,9 +79,9 @@
   --ink-soft: #6e5d45;
   --line: #e2d5b8;
   --accent: #ff6b4a;
-  --accent-ink: #1f1b16;
   --on-accent: #1f1b16;
   --highlight: #ffe27a;
   --ruler: #f0c84e;
   --focus: #2b59ff;
+  color-scheme: light;
 }

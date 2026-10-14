@@ -12,6 +12,12 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      try {
+        var t = JSON.parse(localStorage.getItem('letterlift:settings:v1')).theme;
+        if (t === 'light' || t === 'dark' || t === 'sepia') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

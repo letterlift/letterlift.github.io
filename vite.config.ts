@@ -41,6 +41,16 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rolldownOptions: {
+      output: {
+        // Split react (and rolldown's runtime helper) into shared chunks so the lazy docx chunk is not preloaded at startup.
+        codeSplitting: {
+          groups: [{ name: 'react-vendor', test: /node_modules[\/](react|react-dom|scheduler)[\/]/ }],
+        },
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['src/test/setup.ts'],

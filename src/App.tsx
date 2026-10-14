@@ -35,6 +35,8 @@ export default function App() {
 
   const go = useCallback((next: Screen) => {
     window.history.pushState({ screen: next }, '', urlFor(next));
+    // Forward navigation starts at the top; popstate leaves scroll to the browser.
+    window.scrollTo(0, 0);
     setScreen(next);
   }, []);
 
@@ -51,7 +53,7 @@ export default function App() {
       firstRender.current = false;
       return;
     }
-    mainRef.current?.focus();
+    mainRef.current?.focus({ preventScroll: true });
   }, [screen]);
 
   const open = useCallback(

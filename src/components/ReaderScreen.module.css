@@ -178,7 +178,7 @@
 
 /* Paragraph focus: only the block nearest the centre stays at full strength. */
 .dimming [data-block-index] {
-  opacity: 0.5;
+  opacity: 0.6;
   transition: opacity 200ms ease-out;
 }
 
