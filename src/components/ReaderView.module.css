@@ -1,0 +1,35 @@
+.reader {
+  max-width: var(--reader-measure, 62ch);
+  margin-inline: auto;
+  font-family: var(--reader-font, var(--font-body));
+  font-size: var(--reader-size, 20px);
+  line-height: var(--reader-leading, 1.7);
+  letter-spacing: var(--reader-tracking, 0.01em);
+  font-weight: 400;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.reader b {
+  font-weight: 700;
+}
+
+.reader p,
+.reader ul {
+  margin-block: 0 1em;
+}
+
+.reader h2 {
+  font-family: var(--font-display, var(--reader-font));
+  font-weight: 700;
+  line-height: 1.25;
+  margin-block: 1.5em 0.5em;
+}
+
+.reader ul {
+  padding-inline-start: 1.4em;
+}
+
+.reader li + li {
+  margin-top: 0.4em;
+}
