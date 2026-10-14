@@ -21,6 +21,8 @@ type Props = {
 
 type CopyState = 'idle' | 'ok' | 'fail';
 
+const TOAST_MS = { ok: 2600, fail: 6000 };
+
 /** Plain text of the document: blocks separated by blank lines, list items by single newlines. */
 export function toPlainText(blocks: Block[]): string {
   let out = '';
@@ -57,9 +59,17 @@ async function copyToClipboard(text: string): Promise<boolean> {
   }
 }
 
-/** Index of the block whose centre is nearest the middle of the viewport (blocks are in document order). */
-function nearestToCentre(nodes: HTMLElement[]): HTMLElement | null {
+/**
+ * Block nearest the middle of the viewport (blocks are in document order).
+ * At the very top the first block wins, at the very bottom the last one, so
+ * neither end of the text is unreachable.
+ */
+export function nearestToCentre(nodes: HTMLElement[]): HTMLElement | null {
   if (nodes.length === 0) return null;
+  if (window.scrollY <= 0) return nodes[0];
+  if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 1) {
+    return nodes[nodes.length - 1];
+  }
   const mid = window.innerHeight / 2;
   let lo = 0;
   let hi = nodes.length - 1;
@@ -95,6 +105,7 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
   const [focus, patchFocus] = useFocusTools();
   const [copyState, setCopyState] = useState<CopyState>('idle');
   const screenRef = useRef<HTMLDivElement>(null);
+  const settingsBtnRef = useRef<HTMLButtonElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const copyTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -143,10 +154,14 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
   ]);
 
   const onCopy = useCallback(async () => {
-    const ok = await copyToClipboard(toPlainText(blocks));
-    setCopyState(ok ? 'ok' : 'fail');
     clearTimeout(copyTimer.current);
-    copyTimer.current = setTimeout(() => setCopyState('idle'), 2600);
+    // Empty the live region first so a repeated message is announced again.
+    setCopyState('idle');
+    const ok = await copyToClipboard(toPlainText(blocks));
+    await new Promise((r) => setTimeout(r, 60));
+    const next: CopyState = ok ? 'ok' : 'fail';
+    setCopyState(next);
+    copyTimer.current = setTimeout(() => setCopyState('idle'), TOAST_MS[next]);
   }, [blocks]);
 
   const status =
@@ -156,7 +171,7 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
     <div ref={screenRef} className={styles.screen}>
       <ProgressBar targetRef={bodyRef} />
 
-      <div className={styles.bar} data-no-print>
+      <div className={styles.bar} data-no-print inert={panelOpen}>
         <div className={styles.barInner}>
           <button type="button" className={styles.back} onClick={onBack}>
             {t.reader.back}
@@ -189,6 +204,7 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
             </button>
             <button
               type="button"
+              ref={settingsBtnRef}
               className={`${styles.iconBtn} ${styles.primary}`}
               onClick={() => setPanelOpen(true)}
               aria-haspopup="dialog"
@@ -205,7 +221,10 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
         </div>
       </div>
 
-      <div className={styles.content}>
+      <div
+        className={`${styles.content} ${focus.paragraph ? styles.contentDimming : ''}`}
+        inert={panelOpen}
+      >
         <div
           ref={bodyRef}
           className={`${styles.body} ${focus.paragraph ? styles.dimming : ''}`}
@@ -229,12 +248,31 @@ export function ReaderScreen({ blocks, title, settings, patch, reset, onBack }: 
           focus={focus}
           onFocusChange={patchFocus}
           onClose={() => setPanelOpen(false)}
+          returnFocusRef={settingsBtnRef}
         />
       )}
 
-      <p className={styles.srOnly} role="status" aria-live="polite">
-        {status}
-      </p>
+      {/* Always mounted so screen readers pick up changes; visible for everyone while it has text. */}
+      <div
+        className={styles.toast}
+        role="status"
+        aria-live="polite"
+        data-state={status ? copyState : 'idle'}
+        data-no-print
+      >
+        {status && (
+          <>
+            <svg {...icon} width={20} height={20}>
+              {copyState === 'ok' ? (
+                <path d="M5 12.5l4.5 4.5L19 7.5" />
+              ) : (
+                <path d="M12 7v6M12 16.8v.2M10.3 3.6L2.8 17a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3L13.7 3.6a2 2 0 0 0-3.4 0z" />
+              )}
+            </svg>
+            <span>{status}</span>
+          </>
+        )}
+      </div>
     </div>
   );
 }

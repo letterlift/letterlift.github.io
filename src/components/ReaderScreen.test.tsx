@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { LANG_KEY, resetLangForTests } from '../i18n'
@@ -104,6 +104,17 @@ describe('ReaderScreen', () => {
       expect(screen.getByRole('radio', { name: 'System' , checked: true })).toBeInTheDocument()
     })
 
+    it('exposes the on-screen value to assistive tech and makes the page inert behind the sheet', async () => {
+      render(<Harness />)
+      const trigger = screen.getByRole('button', { name: 'Settings' })
+      await userEvent.click(trigger)
+      expect(screen.getByLabelText('Text size')).toHaveAttribute('aria-valuetext', '20 px')
+      expect(screen.getByLabelText('Bold strength')).toHaveAttribute('aria-valuetext', '45%')
+      expect(trigger.closest('[inert]')).not.toBeNull()
+      await userEvent.keyboard('{Escape}')
+      expect(trigger.closest('[inert]')).toBeNull()
+    })
+
     it('closes on Escape and returns focus to the trigger', async () => {
       render(<Harness />)
       const trigger = screen.getByRole('button', { name: 'Settings' })
@@ -161,6 +172,26 @@ describe('ReaderScreen', () => {
       expect(screen.getByTestId('reader-body').className).toMatch(/dimming/)
     })
 
+    const scrollTo = (y: number, scrollHeight: number) => {
+      Object.defineProperty(window, 'scrollY', { value: y, configurable: true })
+      Object.defineProperty(document.documentElement, 'scrollHeight', { value: scrollHeight, configurable: true })
+    }
+
+    it('paragraph focus activates the first block at scroll 0 and the last at the bottom', async () => {
+      scrollTo(0, 5000)
+      render(<Harness />)
+      await userEvent.click(screen.getByRole('button', { name: 'Settings' }))
+      await userEvent.click(screen.getByRole('switch', { name: /Paragraph focus/ }))
+      expect(document.querySelector('[data-focus-active]')).toHaveAttribute('data-block-index', '0')
+
+      scrollTo(4300, 5000)
+      fireEvent.scroll(window)
+      await waitFor(() =>
+        expect(document.querySelector('[data-focus-active]')).toHaveAttribute('data-block-index', '4'),
+      )
+      scrollTo(0, 0)
+    })
+
     it('reading ruler shows and hides', async () => {
       render(<Harness />)
       expect(screen.queryByTestId('reading-ruler')).not.toBeInTheDocument()
@@ -188,7 +219,10 @@ describe('ReaderScreen', () => {
       expect(writeText).toHaveBeenCalledWith(
         'A calm title\n\nFirst paragraph of the text.\n\n- one\n- two\n\nLast paragraph.',
       )
-      expect(await screen.findByRole('status')).toHaveTextContent('Copied')
+      const status = screen.getByRole('status')
+      await waitFor(() => expect(status).toHaveTextContent('Copied'))
+      expect(status).toBeVisible()
+      expect(status).toHaveAttribute('data-state', 'ok')
     })
 
     it('says what to do when copying fails', async () => {
@@ -199,7 +233,10 @@ describe('ReaderScreen', () => {
       document.execCommand = vi.fn().mockReturnValue(false)
       render(<Harness />)
       await userEvent.click(screen.getByRole('button', { name: 'Copy text' }))
-      expect(await screen.findByRole('status')).toHaveTextContent(/Couldn't copy/)
+      const status = screen.getByRole('status')
+      await waitFor(() => expect(status).toHaveTextContent(/Couldn't copy/))
+      expect(status).toBeVisible()
+      expect(status).toHaveAttribute('data-state', 'fail')
     })
 
     it('print calls window.print', async () => {

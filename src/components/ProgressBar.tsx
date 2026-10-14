@@ -25,7 +25,11 @@ export function ProgressBar({ targetRef }: Props) {
     update();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
+    // Content can change height without scrolling (font size, width, wrapping).
+    const ro = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(schedule);
+    if (targetRef.current) ro?.observe(targetRef.current);
     return () => {
+      ro?.disconnect();
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
       if (frame) cancelAnimationFrame(frame);

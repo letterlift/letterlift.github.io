@@ -166,9 +166,14 @@
   letter-spacing: -0.02em;
 }
 
+/* Room for the last block to reach the middle of the screen. */
+.contentDimming {
+  padding-block-end: 45vh;
+}
+
 /* Paragraph focus: only the block nearest the centre stays at full strength. */
 .dimming [data-block-index] {
-  opacity: 0.35;
+  opacity: 0.5;
   transition: opacity 200ms ease-out;
 }
 
@@ -176,13 +181,48 @@
   opacity: 1;
 }
 
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+.toast {
+  position: fixed;
+  inset: auto var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom, 0px)) var(--space-4);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: fit-content;
+  max-width: min(100% - 2 * var(--space-4), 440px);
+  margin-inline: auto;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--ink);
+  color: var(--bg);
+  font-weight: 700;
+  line-height: 1.35;
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  animation: toastIn 180ms ease-out;
+}
+
+.toast[data-state='idle'] {
+  display: none;
+}
+
+.toast[data-state='ok'] svg {
+  color: var(--highlight);
+}
+
+/* Failure: coral frame plus the warning icon, so it is not colour alone. */
+.toast[data-state='fail'] {
+  outline: 3px solid var(--accent);
+  outline-offset: 0;
+}
+
+.toast svg {
+  flex: none;
+}
+
+@keyframes toastIn {
+  from { transform: translateY(8px); opacity: 0; }
 }
 
 @media print {

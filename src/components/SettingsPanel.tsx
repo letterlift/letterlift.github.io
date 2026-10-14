@@ -1,4 +1,13 @@
-import { useEffect, useId, useRef, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react';
+import {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  type CSSProperties,
+  type KeyboardEvent,
+  type ReactNode,
+  type RefObject,
+} from 'react';
 import { useI18n } from '../i18n';
 import {
   RANGES,
@@ -19,6 +28,8 @@ type Props = {
   focus: FocusTools;
   onFocusChange: (p: Partial<FocusTools>) => void;
   onClose: () => void;
+  /** Element that opened the sheet; focus goes back to it on close. */
+  returnFocusRef: RefObject<HTMLElement | null>;
 };
 
 const FOCUSABLE =
@@ -88,21 +99,23 @@ function Switch(props: {
   );
 }
 
-export function SettingsPanel({ settings, patch, reset, focus, onFocusChange, onClose }: Props) {
+export function SettingsPanel({ settings, patch, reset, focus, onFocusChange, onClose, returnFocusRef }: Props) {
   const { t } = useI18n();
   const sheetRef = useRef<HTMLElement>(null);
   const titleId = useId();
   const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  useLayoutEffect(() => {
+    onCloseRef.current = onClose;
+  });
 
   // Move focus into the sheet on open; give it back to the trigger on close.
   useEffect(() => {
-    const previous = document.activeElement as HTMLElement | null;
     sheetRef.current?.focus();
+    const trigger = returnFocusRef.current;
     return () => {
-      if (previous && previous.isConnected) previous.focus();
+      if (trigger?.isConnected) trigger.focus();
     };
-  }, []);
+  }, [returnFocusRef]);
 
   // Esc closes; focus that escapes the sheet is pulled back in.
   useEffect(() => {
@@ -166,6 +179,7 @@ export function SettingsPanel({ settings, patch, reset, focus, onFocusChange, on
           step={step}
           value={value}
           disabled={disabled}
+          aria-valuetext={FORMAT[key](value)}
           onChange={(e) =>
             patch({ [key]: snapToStep(Number(e.target.value), min, max, step) })
           }
