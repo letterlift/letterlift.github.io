@@ -9,11 +9,16 @@ const HAS_LETTER = /\p{L}/u;
 
 const segmenters = new Map<string, Intl.Segmenter>();
 
-function getSegmenter(locale: string | undefined): Intl.Segmenter {
-  const key = locale ?? '';
+function getSegmenter(locale: string | undefined, granularity: 'word' | 'grapheme'): Intl.Segmenter {
+  const key = `${granularity}:${locale ?? ''}`;
   let segmenter = segmenters.get(key);
   if (!segmenter) {
-    segmenter = new Intl.Segmenter(locale, { granularity: 'word' });
+    try {
+      segmenter = new Intl.Segmenter(locale, { granularity });
+    } catch {
+      // Invalid locale tag (RangeError): fall back to the default locale.
+      segmenter = getSegmenter(undefined, granularity);
+    }
     segmenters.set(key, segmenter);
   }
   return segmenter;
@@ -44,9 +49,9 @@ export function bolden(text: string, options: BoldenOptions = {}): Segment[] {
   const strength = clamp(Number.isNaN(raw) ? DEFAULT_STRENGTH : raw, MIN_STRENGTH, MAX_STRENGTH);
   const out: Segment[] = [];
 
-  for (const { segment, isWordLike } of getSegmenter(options.locale).segment(text)) {
+  for (const { segment, isWordLike } of getSegmenter(options.locale, 'word').segment(text)) {
     if (isWordLike === true && HAS_LETTER.test(segment)) {
-      const chars = Array.from(segment);
+      const chars = Array.from(getSegmenter(options.locale, 'grapheme').segment(segment), (g) => g.segment);
       const count = clamp(Math.round(chars.length * strength), 1, chars.length);
       push(out, chars.slice(0, count).join(''), true);
       push(out, chars.slice(count).join(''), false);

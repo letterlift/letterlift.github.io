@@ -48,4 +48,21 @@ describe('bolden', () => {
       expect(segments[i].bold).not.toBe(segments[i - 1].bold);
     }
   });
+
+  it('keeps combining marks attached to their base letter (NFD)', () => {
+    const word = 'e\u0301te'; // "été" decomposed: 3 graphemes, 4 code points
+    expect(bolden(word)).toEqual([b('e\u0301'), n('te')]);
+    const polish = 'Zazo\u0301łc\u0301'; // decomposed ó and ć
+    const segs = bolden(polish);
+    expect(segs.map((x) => x.text).join('')).toBe(polish);
+    expect(segs[0].bold).toBe(true);
+    expect(segs[1].text.startsWith('\u0301')).toBe(false);
+  });
+
+  it('does not throw on invalid locale tags and falls back to default', () => {
+    const expected = [b('peo'), n('ple')];
+    expect(bolden('people', { locale: 'en_US' })).toEqual(expected);
+    expect(bolden('people', { locale: '' })).toEqual(expected);
+    expect(bolden('people')).toEqual(expected);
+  });
 });
