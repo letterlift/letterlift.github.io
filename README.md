@@ -44,7 +44,11 @@ Planowane, jeszcze niedostępne: rozszerzenie do przeglądarki, OCR (zdjęcia te
 
 ## Licencja
 
-MIT, zobacz [LICENSE](LICENSE).
+GPL-3.0-or-later, zobacz [LICENSE](LICENSE). Możesz używać, zmieniać i udostępniać kod; jeśli rozpowszechniasz zmienioną wersję, musisz udostępnić jej kod na tej samej licencji.
+
+Copyright (C) 2026 Zem (drogazem-design)
+
+Zasady korzystania i informacje o prywatności są na stronie „Prywatność i zasady” w aplikacji (`#privacy`). LetterLift nie jest wyrobem medycznym. Nie służy do diagnozowania ani leczenia ADHD ani żadnych innych zaburzeń i nie zastępuje konsultacji ze specjalistą.
 
 Powstaje z okazji Miesiąca Świadomości ADHD (październik 2026).
 
@@ -96,6 +100,10 @@ Planned, not available yet: browser extension, OCR (photos of text), EPUB, text 
 
 ## Licence
 
-MIT, see [LICENSE](LICENSE).
+GPL-3.0-or-later, see [LICENSE](LICENSE). You can use, change and share the code; if you distribute a modified version, you must make its source available under the same licence.
+
+Copyright (C) 2026 Zem (drogazem-design)
+
+Terms and privacy information live on the "Privacy & terms" page in the app (`#privacy`). LetterLift is not a medical device. It is not meant to diagnose or treat ADHD or any other condition and does not replace consulting a specialist.
 
 Built for ADHD Awareness Month, October 2026.
