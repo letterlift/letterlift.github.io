@@ -6,7 +6,12 @@ import { DropZone } from './DropZone';
 import { HeroDemo } from './HeroDemo';
 import styles from './Home.module.css';
 
-type Props = { onOpen: (blocks: Block[]) => void };
+type Props = {
+  onOpen: (blocks: Block[]) => void;
+  /** Pasted text lives in App so it survives visiting other screens. */
+  text: string;
+  onTextChange: (text: string) => void;
+};
 type Tab = 'paste' | 'upload';
 const TABS: Tab[] = ['paste', 'upload'];
 
@@ -29,10 +34,9 @@ function Icon({ children }: { children: ReactNode }) {
   );
 }
 
-export function Home({ onOpen }: Props) {
+export function Home({ onOpen, text, onTextChange }: Props) {
   const { t } = useI18n();
   const [tab, setTab] = useState<Tab>('paste');
-  const [text, setText] = useState('');
   const tabRefs = useRef<Record<Tab, HTMLButtonElement | null>>({ paste: null, upload: null });
 
   const canRead = text.trim().length > 0;
@@ -128,7 +132,7 @@ export function Home({ onOpen }: Props) {
               type="button"
               role="tab"
               aria-selected={tab === id}
-              aria-controls={`panel-${id}`}
+              aria-controls={tab === id ? `panel-${id}` : undefined}
               tabIndex={tab === id ? 0 : -1}
               className={styles.tab}
               onClick={() => setTab(id)}
@@ -148,7 +152,7 @@ export function Home({ onOpen }: Props) {
               className={styles.textarea}
               value={text}
               placeholder={t.input.placeholder}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => onTextChange(e.target.value)}
               rows={8}
             />
             <div className={styles.pasteFooter}>

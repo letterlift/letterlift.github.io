@@ -25,14 +25,14 @@
     border-color 150ms ease-out;
 }
 
-.pick:hover:not(:disabled),
+.pick:hover:not([aria-disabled]),
 .zone[data-dragging] .pick {
   background: var(--highlight);
   border-color: var(--ink);
   border-style: solid;
 }
 
-.pick:disabled {
+.pick[aria-disabled] {
   cursor: progress;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .zone[data-dragging] .or,
-.pick:hover:not(:disabled) .or {
+.pick:hover:not([aria-disabled]) .or {
   color: var(--ink);
 }
 
@@ -95,4 +95,15 @@
   background: var(--bg);
   border-radius: 0 var(--radius-card) var(--radius-card) 0;
   font-weight: 700;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

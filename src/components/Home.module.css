@@ -95,14 +95,22 @@
 .tab {
   flex: 1;
   min-height: 44px;
-  padding-inline: var(--space-5);
-  white-space: nowrap;
+  min-width: 0;
+  padding: var(--space-1) var(--space-3);
+  line-height: 1.25;
   background: transparent;
   border: 0;
   border-radius: var(--radius-pill);
   font-weight: 700;
   cursor: pointer;
   transition: background-color 150ms ease-out;
+}
+
+@media (min-width: 400px) {
+  .tab {
+    padding-inline: var(--space-5);
+    white-space: nowrap;
+  }
 }
 
 .tab:not([aria-selected='true']):hover {

@@ -84,7 +84,7 @@ export const en: Dict = {
     title: 'About',
     lead: 'LetterLift is a free tool that bolds the beginnings of words so text is easier to follow with your eyes.',
     whatTitle: 'How the technique works',
-    what: 'In every word we bold the first few letters. Your eye gets anchor points and hops from word to word more easily. You choose how many letters are bold, and you can switch bolding off at any time.',
+    what: 'In every word we bold the first few letters. This may give your eye anchor points and make it easier to hop from word to word, though it does not help everyone. You choose how many letters are bold, and you can switch bolding off at any time.',
     researchTitle: 'What the research says',
     research:
       'To be honest: the research is mixed. There is no evidence that it makes you read faster or understand more. Some people, including people with ADHD, say the emphasis helps them keep their place. Try it and see what works for your brain. If it does not help, that is fine too.',

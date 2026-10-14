@@ -89,7 +89,7 @@
 
 .toggle[aria-checked='true'] .track {
   background: var(--accent);
-  border-color: var(--accent);
+  border-color: var(--ink);
 }
 
 .toggle[aria-checked='true'] .thumb {

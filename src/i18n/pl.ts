@@ -82,7 +82,7 @@ export const pl = {
     title: 'O projekcie',
     lead: 'LetterLift to darmowe narzędzie, które pogrubia początki słów, żeby łatwiej było śledzić tekst wzrokiem.',
     whatTitle: 'Na czym polega ta technika',
-    what: 'W każdym słowie pogrubiamy kilka pierwszych liter. Oko dostaje punkty zaczepienia i łatwiej przeskakuje od słowa do słowa. Możesz ustawić, ile liter ma być pogrubionych, i w każdej chwili wyłączyć pogrubianie.',
+    what: 'W każdym słowie pogrubiamy kilka pierwszych liter. Może to dać oku punkty zaczepienia i ułatwić przeskakiwanie od słowa do słowa, ale nie każdemu to pomaga. Możesz ustawić, ile liter ma być pogrubionych, i w każdej chwili wyłączyć pogrubianie.',
     researchTitle: 'Co mówią badania',
     research:
       'Szczerze: wyniki badań są niejednoznaczne. Nie ma dowodów, że to przyspiesza czytanie albo poprawia zrozumienie. Część osób, także z ADHD, mówi jednak, że takie wyróżnienie pomaga im nie gubić linijki. Spróbuj i zobacz, co działa u Ciebie. Jeśli nie pomaga, to też w porządku.',

@@ -5,6 +5,12 @@ import App from '../App'
 import { resetLangForTests } from '../i18n'
 import { DropZone } from './DropZone'
 import { pl } from '../i18n/pl'
+import * as ingest from '../ingest'
+
+vi.mock('../ingest', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../ingest')>()
+  return { ...actual, ingestFile: vi.fn(actual.ingestFile) }
+})
 
 function setNavigatorLanguage(lang: string) {
   vi.spyOn(window.navigator, 'language', 'get').mockReturnValue(lang)
@@ -37,7 +43,7 @@ describe('language default', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'Read the way your brain likes it.',
     )
-    await userEvent.click(screen.getByRole('button', { name: 'Polski' }))
+    await userEvent.click(screen.getByRole('button', { name: 'PL' }))
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'Czytaj tak, jak lubi Twój mózg.',
     )
@@ -102,5 +108,39 @@ describe('DropZone', () => {
       target: { files: [new File(['   \n  '], 'a.txt', { type: 'text/plain' })] },
     })
     expect(await screen.findByText(/There is no text in this file/)).toBeInTheDocument()
+  })
+})
+
+describe('upload race', () => {
+  it('ignores a slow file result after leaving the Upload tab', async () => {
+    setNavigatorLanguage('en-US')
+    let resolve!: (b: ingest.Block[]) => void
+    vi.mocked(ingest.ingestFile).mockImplementationOnce(
+      () => new Promise<ingest.Block[]>((r) => (resolve = r)),
+    )
+    render(<App />)
+    await userEvent.click(screen.getByRole('tab', { name: 'Upload a file' }))
+    fireEvent.change(screen.getByTestId('file-input'), {
+      target: { files: [new File(['x'], 'slow.pdf', { type: 'application/pdf' })] },
+    })
+    expect(screen.getByRole('status')).toHaveTextContent('Loading your file')
+
+    await userEvent.click(screen.getByRole('tab', { name: 'Paste text' }))
+    resolve([{ type: 'paragraph', text: 'Late arrival' }])
+    await Promise.resolve()
+
+    expect(screen.queryByRole('heading', { level: 1, name: 'Late arrival' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Read' })).toBeInTheDocument()
+  })
+})
+
+describe('pasted text', () => {
+  it('survives a visit to About and back', async () => {
+    setNavigatorLanguage('en-US')
+    render(<App />)
+    await userEvent.type(screen.getByLabelText('Text to read'), 'keep me')
+    await userEvent.click(screen.getByRole('link', { name: 'About' }))
+    await userEvent.click(await screen.findByRole('button', { name: '← Back' }))
+    expect(await screen.findByLabelText('Text to read')).toHaveValue('keep me')
   })
 })

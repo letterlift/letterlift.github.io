@@ -45,7 +45,7 @@ export function Header({ current, onHome, onAbout }: Props) {
               lang={l}
               className={styles.langBtn}
               aria-pressed={lang === l}
-              aria-label={t.nav[l]}
+              title={t.nav[l]}
               onClick={() => setLang(l)}
             >
               {l.toUpperCase()}

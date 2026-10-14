@@ -1,4 +1,4 @@
-import { useRef, useState, type DragEvent } from 'react';
+import { useEffect, useRef, useState, type DragEvent } from 'react';
 import { useI18n } from '../i18n';
 import { IngestError, ingestFile, type Block, type IngestErrorCode } from '../ingest';
 import styles from './DropZone.module.css';
@@ -11,14 +11,29 @@ export function DropZone({ onBlocks }: Props) {
   const [dragging, setDragging] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<IngestErrorCode | null>(null);
+  // Id of the latest request. Bumped on unmount and on every new file, so a slow
+  // result from an older file (or after leaving this tab) is ignored.
+  const requestId = useRef(0);
+  const dragDepth = useRef(0);
+
+  useEffect(
+    () => () => {
+      requestId.current += 1;
+    },
+    [],
+  );
 
   async function handleFile(file: File | undefined) {
     if (!file) return;
+    const id = ++requestId.current;
     setError(null);
     setLoading(true);
     try {
-      onBlocks(await ingestFile(file));
+      const blocks = await ingestFile(file);
+      if (id !== requestId.current) return;
+      onBlocks(blocks);
     } catch (e) {
+      if (id !== requestId.current) return;
       setError(e instanceof IngestError ? e.code : 'read-failed');
       setLoading(false);
     }
@@ -26,8 +41,8 @@ export function DropZone({ onBlocks }: Props) {
 
   function onDrop(e: DragEvent) {
     e.preventDefault();
+    dragDepth.current = 0;
     setDragging(false);
-    if (loading) return;
     void handleFile(e.dataTransfer.files[0]);
   }
 
@@ -35,11 +50,16 @@ export function DropZone({ onBlocks }: Props) {
     <div
       className={styles.zone}
       data-dragging={dragging || undefined}
-      onDragOver={(e) => {
+      onDragEnter={(e) => {
         e.preventDefault();
+        dragDepth.current += 1;
         setDragging(true);
       }}
-      onDragLeave={() => setDragging(false)}
+      onDragOver={(e) => e.preventDefault()}
+      onDragLeave={() => {
+        dragDepth.current = Math.max(0, dragDepth.current - 1);
+        if (dragDepth.current === 0) setDragging(false);
+      }}
       onDrop={onDrop}
     >
       <input
@@ -60,11 +80,13 @@ export function DropZone({ onBlocks }: Props) {
       <button
         type="button"
         className={styles.pick}
-        disabled={loading}
-        onClick={() => inputRef.current?.click()}
+        aria-disabled={loading || undefined}
+        onClick={() => {
+          if (!loading) inputRef.current?.click();
+        }}
       >
         {loading ? (
-          <span className={styles.busy} role="status">
+          <span className={styles.busy}>
             <span className={styles.spinner} aria-hidden="true" />
             {t.drop.loading}
           </span>
@@ -93,6 +115,10 @@ export function DropZone({ onBlocks }: Props) {
           </>
         )}
       </button>
+
+      <div className={styles.srOnly} role="status" aria-live="polite">
+        {loading ? t.drop.loading : ''}
+      </div>
 
       <p className={styles.formats}>{t.drop.formats}</p>
 

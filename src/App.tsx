@@ -30,6 +30,7 @@ export default function App() {
   const [settings] = useSettings();
   const [screen, setScreen] = useState<Screen>(() => screenFromLocation(null));
   const [doc, setDoc] = useState<Doc | null>(null);
+  const [pasted, setPasted] = useState('');
   const mainRef = useRef<HTMLElement>(null);
   const firstRender = useRef(true);
 
@@ -73,7 +74,7 @@ export default function App() {
     <div className={styles.app}>
       <Header current={shown} onHome={() => go('home')} onAbout={() => go('about')} />
       <main ref={mainRef} tabIndex={-1} className={styles.main}>
-        {shown === 'home' && <Home onOpen={open} />}
+        {shown === 'home' && <Home onOpen={open} text={pasted} onTextChange={setPasted} />}
         {shown === 'about' && <About onBack={() => go('home')} />}
         {shown === 'reader' && doc && (
           <div className={styles.reader}>
