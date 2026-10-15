@@ -4,6 +4,7 @@ import { parsePlainText, type Block } from '../ingest';
 import { BoldText } from './BoldText';
 import { DropZone } from './DropZone';
 import { HeroDemo } from './HeroDemo';
+import { promptInstall, useInstallState } from '../install';
 import { MobileHowTo } from './MobileHowTo';
 import styles from './Home.module.css';
 
@@ -41,6 +42,7 @@ export function Home({ onOpen, text, onTextChange }: Props) {
   const tabRefs = useRef<Record<Tab, HTMLButtonElement | null>>({ paste: null, upload: null });
 
   const canRead = text.trim().length > 0;
+  const install = useInstallState();
 
   function submit() {
     if (!canRead) return;
@@ -119,12 +121,25 @@ export function Home({ onOpen, text, onTextChange }: Props) {
             </svg>
             {t.hero.privacy}
           </p>
-          <button type="button" className={styles.mobileLink} onClick={showMobile}>
-            {t.hero.mobile}
-            <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M10 4v12M5 11l5 5 5-5" />
-            </svg>
-          </button>
+          {install === 'available' ? (
+            <div className={styles.install}>
+              <button type="button" className={styles.installButton} onClick={() => void promptInstall()}>
+                {t.hero.install}
+              </button>
+              <p className={styles.installHint}>{t.hero.installHint}</p>
+            </div>
+          ) : install === 'installed' ? (
+            <p className={styles.installHint} role="status">
+              {t.hero.installed}
+            </p>
+          ) : (
+            <button type="button" className={styles.mobileLink} onClick={showMobile}>
+              {t.hero.mobile}
+              <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M10 4v12M5 11l5 5 5-5" />
+              </svg>
+            </button>
+          )}
         </div>
         <div className={styles.heroDemo}>
           <HeroDemo />

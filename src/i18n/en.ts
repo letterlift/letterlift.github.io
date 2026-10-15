@@ -13,7 +13,10 @@ export const en: Dict = {
     headline: 'Read the way your brain likes it.',
     sub: 'LetterLift bolds the start of every word so your eye has something to hold on to. Some people find that easier to follow. Try it and see if you do.',
     privacy: 'Your text never leaves your device.',
-    mobile: 'Use it on your phone',
+    mobile: 'Read emails and texts like this on your phone',
+    install: 'Install to read emails and texts like this',
+    installHint: 'Then select text, tap “Share” and choose LetterLift.',
+    installed: 'Done. Select text in an email or a text message, tap “Share” and choose LetterLift.',
   },
   demo: {
     title: 'See the difference right away',

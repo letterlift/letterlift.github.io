@@ -6,6 +6,7 @@ import { resetLangForTests } from '../i18n'
 import { DropZone } from './DropZone'
 import { pl } from '../i18n/pl'
 import * as ingest from '../ingest'
+import { resetInstallForTests } from '../install'
 
 vi.mock('../ingest', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../ingest')>()
@@ -22,6 +23,7 @@ beforeEach(() => {
   resetLangForTests()
 })
 afterEach(() => {
+  resetInstallForTests()
   vi.restoreAllMocks()
   localStorage.clear()
   resetLangForTests()
@@ -65,7 +67,7 @@ describe('mobile section', () => {
     setNavigatorLanguage('pl-PL')
     render(<App />)
     const before = window.location.href
-    await userEvent.click(screen.getByRole('button', { name: 'Używaj na telefonie' }))
+    await userEvent.click(screen.getByRole('button', { name: /Czytaj tak maile i SMS-y na telefonie/ }))
     expect(screen.getByRole('heading', { level: 2, name: 'Na telefonie' })).toHaveFocus()
     expect(window.location.href).toBe(before)
   })
@@ -200,5 +202,37 @@ describe('pasted text', () => {
     await userEvent.click(screen.getByRole('link', { name: 'About' }))
     await userEvent.click(await screen.findByRole('button', { name: '← Back' }))
     expect(await screen.findByLabelText('Text to read')).toHaveValue('keep me')
+  })
+
+  it('offers one-tap install on Android and confirms after accepting', async () => {
+    setNavigatorLanguage('pl-PL')
+    render(<App />)
+    const prompt = vi.fn(() => Promise.resolve())
+    const event = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
+      prompt,
+      userChoice: Promise.resolve({ outcome: 'accepted' as const }),
+    })
+    act(() => {
+      window.dispatchEvent(event)
+    })
+    expect(event.defaultPrevented).toBe(true)
+    expect(screen.queryByRole('button', { name: /Czytaj tak maile i SMS-y na telefonie/ })).not.toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: 'Zainstaluj i czytaj tak maile i SMS-y' }))
+    expect(prompt).toHaveBeenCalledOnce()
+    expect(await screen.findByRole('status')).toHaveTextContent(/^Gotowe\./)
+  })
+
+  it('falls back to the how-to link when install is dismissed', async () => {
+    setNavigatorLanguage('pl-PL')
+    render(<App />)
+    const event = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
+      prompt: () => Promise.resolve(),
+      userChoice: Promise.resolve({ outcome: 'dismissed' as const }),
+    })
+    act(() => {
+      window.dispatchEvent(event)
+    })
+    await userEvent.click(screen.getByRole('button', { name: 'Zainstaluj i czytaj tak maile i SMS-y' }))
+    expect(await screen.findByRole('button', { name: /Czytaj tak maile i SMS-y na telefonie/ })).toBeInTheDocument()
   })
 })

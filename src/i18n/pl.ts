@@ -11,7 +11,10 @@ export const pl = {
     headline: 'Czytaj tak, jak lubi Twój mózg.',
     sub: 'LetterLift pogrubia początek każdego słowa, żeby oko miało się czego złapać. Niektórym osobom czyta się dzięki temu łatwiej. Sprawdź, czy Tobie.',
     privacy: 'Twój tekst nie opuszcza Twojego urządzenia.',
-    mobile: 'Używaj na telefonie',
+    mobile: 'Czytaj tak maile i SMS-y na telefonie',
+    install: 'Zainstaluj i czytaj tak maile i SMS-y',
+    installHint: 'Potem zaznacz tekst, stuknij „Udostępnij” i wybierz LetterLift.',
+    installed: 'Gotowe. Zaznacz tekst w mailu albo SMS-ie, stuknij „Udostępnij” i wybierz LetterLift.',
   },
   demo: {
     title: 'Zobacz różnicę od razu',

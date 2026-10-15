@@ -83,6 +83,36 @@
   text-decoration-thickness: 3px;
 }
 
+.install {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.installButton {
+  min-height: 48px;
+  padding: var(--space-2) var(--space-5);
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 150ms ease-out;
+}
+
+.installButton:hover {
+  transform: translateY(-2px);
+}
+
+.installHint {
+  max-width: 44ch;
+  color: var(--ink-soft);
+}
+
 @media (min-width: 1024px) {
   .hero {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
