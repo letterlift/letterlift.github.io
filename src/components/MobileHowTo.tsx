@@ -23,7 +23,7 @@ const svgProps = {
 
 function ShareIcon() {
   return (
-    <svg {...svgProps} aria-hidden="true">
+    <svg {...svgProps}>
       <circle cx="22" cy="8" r="3" />
       <circle cx="10" cy="16" r="3" />
       <circle cx="22" cy="24" r="3" />
@@ -34,7 +34,7 @@ function ShareIcon() {
 
 function PhoneIcon() {
   return (
-    <svg {...svgProps} aria-hidden="true">
+    <svg {...svgProps}>
       <rect x="9" y="4" width="14" height="24" rx="3" />
       <path d="M14 7h4" />
     </svg>
