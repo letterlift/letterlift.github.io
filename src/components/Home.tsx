@@ -4,6 +4,7 @@ import { parsePlainText, type Block } from '../ingest';
 import { BoldText } from './BoldText';
 import { DropZone } from './DropZone';
 import { HeroDemo } from './HeroDemo';
+import { MobileHowTo } from './MobileHowTo';
 import styles from './Home.module.css';
 
 type Props = {
@@ -185,6 +186,8 @@ export function Home({ onOpen, text, onTextChange }: Props) {
           ))}
         </ul>
       </section>
+
+      <MobileHowTo />
     </div>
   );
 }

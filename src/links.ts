@@ -3,6 +3,10 @@ export const ISSUES_URL = 'https://github.com/letterlift/letterlift.github.io/is
 export const SURVEY_URL = 'https://tally.so/r/KpQQ0V';
 export const TALLY_PRIVACY_URL = 'https://tally.so/help/privacy-policy';
 export const TIPPLY_URL = 'https://tipply.pl/@zem';
+
+/** iCloud link to the "LetterLift" Apple Shortcut. Empty until the owner publishes it. */
+export const IOS_SHORTCUT_URL = '';
+
 export const GITHUB_PRIVACY_URL =
   'https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement';
 

@@ -51,6 +51,14 @@ describe('language default', () => {
   })
 })
 
+describe('mobile section', () => {
+  it('shows the phone how-to on Home', () => {
+    setNavigatorLanguage('pl-PL')
+    render(<App />)
+    expect(screen.getByRole('heading', { level: 2, name: 'Na telefonie' })).toBeInTheDocument()
+  })
+})
+
 describe('paste flow', () => {
   it('disables Read while the textarea is empty or blank', async () => {
     setNavigatorLanguage('en-US')

@@ -53,6 +53,33 @@ export const pl = {
         'Nie udało się odczytać pliku. Spróbuj jeszcze raz, wybierz inny plik albo wklej tekst.',
     },
   },
+  mobile: {
+    heading: 'Na telefonie',
+    intro: 'Zaznacz tekst w mailu, SMS-ie albo na stronie i otwórz go w LetterLift bez kopiowania.',
+    android: {
+      title: 'Android',
+      steps: [
+        'Otwórz letterlift.github.io w Chrome.',
+        'Stuknij ⋮ i wybierz „Zainstaluj aplikację” albo „Dodaj do ekranu głównego”.',
+        'W dowolnej aplikacji zaznacz tekst, stuknij „Udostępnij” i wybierz LetterLift.',
+      ],
+      note: 'Nie widzisz LetterLift na liście? Uruchom telefon ponownie.',
+    },
+    ios: {
+      title: 'iPhone',
+      shortcutSteps: [
+        'Stuknij „Dodaj skrót” i potwierdź w aplikacji Skróty.',
+        'W dowolnej aplikacji zaznacz tekst, stuknij „Udostępnij” i wybierz LetterLift.',
+      ],
+      addShortcut: 'Dodaj skrót',
+      shortcutNote: 'Możesz też skopiować tekst i uruchomić skrót. Wtedy weźmie tekst ze schowka.',
+      fallbackSteps: [
+        'Otwórz letterlift.github.io w Safari.',
+        'Stuknij „Udostępnij” i wybierz „Do ekranu początkowego”.',
+        'Skopiuj tekst, otwórz LetterLift i wklej go w polu powyżej.',
+      ],
+    },
+  },
   tiles: {
     heading: 'Jak to może pomóc',
     privacy: {

@@ -55,6 +55,33 @@ export const en: Dict = {
         'The file could not be read. Try again, choose another file, or paste your text.',
     },
   },
+  mobile: {
+    heading: 'On your phone',
+    intro: 'Select text in an email, a text message or a web page and open it in LetterLift without copying.',
+    android: {
+      title: 'Android',
+      steps: [
+        'Open letterlift.github.io in Chrome.',
+        'Tap ⋮ and choose “Install app” or “Add to Home screen”.',
+        'In any app, select text, tap “Share” and choose LetterLift.',
+      ],
+      note: 'LetterLift not on the list? Restart your phone.',
+    },
+    ios: {
+      title: 'iPhone',
+      shortcutSteps: [
+        'Tap “Add shortcut” and confirm in the Shortcuts app.',
+        'In any app, select text, tap “Share” and choose LetterLift.',
+      ],
+      addShortcut: 'Add shortcut',
+      shortcutNote: 'You can also copy text and run the shortcut. It will take the text from the clipboard.',
+      fallbackSteps: [
+        'Open letterlift.github.io in Safari.',
+        'Tap “Share” and choose “Add to Home Screen”.',
+        'Copy text, open LetterLift and paste it in the box above.',
+      ],
+    },
+  },
   tiles: {
     heading: 'How it can help',
     privacy: {

@@ -1,0 +1,58 @@
+.section {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.intro {
+  max-width: 60ch;
+  color: var(--ink-soft);
+}
+
+.cards {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+}
+
+.icon {
+  color: var(--accent);
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.steps {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: 1.25em;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.note {
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 640px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
