@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { useI18n } from '../i18n';
 import { parsePlainText, type Block } from '../ingest';
 import { BoldText } from './BoldText';
@@ -42,7 +42,22 @@ export function Home({ onOpen, text, onTextChange }: Props) {
   const tabRefs = useRef<Record<Tab, HTMLButtonElement | null>>({ paste: null, upload: null });
 
   const canRead = text.trim().length > 0;
-  const install = useInstallState();
+  const installState = useInstallState();
+  // After the install dialog closes its button unmounts; move focus somewhere useful.
+  const [focusAfterInstall, setFocusAfterInstall] = useState<'status' | 'link' | null>(null);
+  const installedRef = useRef<HTMLParagraphElement>(null);
+  const mobileLinkRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!focusAfterInstall) return;
+    (focusAfterInstall === 'status' ? installedRef : mobileLinkRef).current?.focus();
+    setFocusAfterInstall(null);
+  }, [focusAfterInstall]);
+
+  async function install() {
+    const accepted = await promptInstall();
+    setFocusAfterInstall(accepted ? 'status' : 'link');
+  }
 
   function submit() {
     if (!canRead) return;
@@ -121,25 +136,31 @@ export function Home({ onOpen, text, onTextChange }: Props) {
             </svg>
             {t.hero.privacy}
           </p>
-          {install === 'available' ? (
-            <div className={styles.install}>
-              <button type="button" className={styles.installButton} onClick={() => void promptInstall()}>
-                {t.hero.install}
+          <div className={styles.cta}>
+            {installState === 'available' ? (
+              <div className={styles.install}>
+                <button type="button" className={styles.installButton} onClick={() => void install()}>
+                  {t.hero.install}
+                </button>
+                <p className={styles.installHint}>{t.hero.installHint}</p>
+              </div>
+            ) : installState === 'unavailable' ? (
+              <button ref={mobileLinkRef} type="button" className={styles.mobileLink} onClick={showMobile}>
+                {t.hero.mobile}
+                <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M10 4v12M5 11l5 5 5-5" />
+                </svg>
               </button>
-              <p className={styles.installHint}>{t.hero.installHint}</p>
+            ) : null}
+            {/* Always mounted so screen readers announce the message when it appears. */}
+            <div aria-live="polite">
+              {installState === 'installed' && (
+                <p ref={installedRef} tabIndex={-1} className={styles.installHint}>
+                  {t.hero.installed}
+                </p>
+              )}
             </div>
-          ) : install === 'installed' ? (
-            <p className={styles.installHint} role="status">
-              {t.hero.installed}
-            </p>
-          ) : (
-            <button type="button" className={styles.mobileLink} onClick={showMobile}>
-              {t.hero.mobile}
-              <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M10 4v12M5 11l5 5 5-5" />
-              </svg>
-            </button>
-          )}
+          </div>
         </div>
         <div className={styles.heroDemo}>
           <HeroDemo />

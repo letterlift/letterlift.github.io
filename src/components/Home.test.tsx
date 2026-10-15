@@ -203,36 +203,126 @@ describe('pasted text', () => {
     await userEvent.click(await screen.findByRole('button', { name: '← Back' }))
     expect(await screen.findByLabelText('Text to read')).toHaveValue('keep me')
   })
+})
 
-  it('offers one-tap install on Android and confirms after accepting', async () => {
+describe('install prompt', () => {
+  const LINK = /Czytaj tak maile i SMS-y na telefonie/
+  const INSTALL = 'Zainstaluj i czytaj tak maile i SMS-y'
+
+  /** jsdom has no matchMedia; fake a phone (coarse pointer) or a desktop, with reduced motion on by default. */
+  function setDevice({ touch, reduceMotion = true }: { touch: boolean; reduceMotion?: boolean }) {
+    window.matchMedia = vi.fn((query: string) => ({
+      matches: query.includes('coarse') ? touch : query.includes('reduce') ? reduceMotion : false,
+      media: query,
+      onchange: null,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      addListener: () => {},
+      removeListener: () => {},
+      dispatchEvent: () => false,
+    })) as unknown as typeof window.matchMedia
+  }
+
+  function installEvent(userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>, prompt = vi.fn(() => Promise.resolve())) {
+    return Object.assign(new Event('beforeinstallprompt', { cancelable: true }), { prompt, userChoice })
+  }
+
+  const original = window.matchMedia
+  afterEach(() => {
+    window.matchMedia = original
+  })
+
+  it('offers one-tap install on a phone and focuses the confirmation after accepting', async () => {
     setNavigatorLanguage('pl-PL')
+    setDevice({ touch: true })
     render(<App />)
     const prompt = vi.fn(() => Promise.resolve())
-    const event = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
-      prompt,
-      userChoice: Promise.resolve({ outcome: 'accepted' as const }),
-    })
+    const event = installEvent(Promise.resolve({ outcome: 'accepted' }), prompt)
     act(() => {
       window.dispatchEvent(event)
     })
     expect(event.defaultPrevented).toBe(true)
-    expect(screen.queryByRole('button', { name: /Czytaj tak maile i SMS-y na telefonie/ })).not.toBeInTheDocument()
-    await userEvent.click(screen.getByRole('button', { name: 'Zainstaluj i czytaj tak maile i SMS-y' }))
+    expect(screen.queryByRole('button', { name: LINK })).not.toBeInTheDocument()
+    await userEvent.click(screen.getByRole('button', { name: INSTALL }))
     expect(prompt).toHaveBeenCalledOnce()
-    expect(await screen.findByRole('status')).toHaveTextContent(/^Gotowe\./)
+    const done = await screen.findByText(/^Gotowe\./)
+    expect(done.closest('[aria-live="polite"]')).not.toBeNull()
+    await waitFor(() => expect(done).toHaveFocus())
   })
 
-  it('falls back to the how-to link when install is dismissed', async () => {
+  it('catches an install event that fired before the app rendered', () => {
     setNavigatorLanguage('pl-PL')
+    setDevice({ touch: true })
+    window.dispatchEvent(installEvent(Promise.resolve({ outcome: 'dismissed' })))
     render(<App />)
-    const event = Object.assign(new Event('beforeinstallprompt', { cancelable: true }), {
-      prompt: () => Promise.resolve(),
-      userChoice: Promise.resolve({ outcome: 'dismissed' as const }),
-    })
+    expect(screen.getByRole('button', { name: INSTALL })).toBeInTheDocument()
+  })
+
+  it('leaves the browser install UI alone on desktop and shows the how-to link', () => {
+    setNavigatorLanguage('pl-PL')
+    setDevice({ touch: false })
+    render(<App />)
+    const event = installEvent(Promise.resolve({ outcome: 'accepted' }))
     act(() => {
       window.dispatchEvent(event)
     })
-    await userEvent.click(screen.getByRole('button', { name: 'Zainstaluj i czytaj tak maile i SMS-y' }))
-    expect(await screen.findByRole('button', { name: /Czytaj tak maile i SMS-y na telefonie/ })).toBeInTheDocument()
+    expect(event.defaultPrevented).toBe(false)
+    expect(screen.queryByRole('button', { name: INSTALL })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: LINK })).toBeInTheDocument()
+  })
+
+  it('falls back to the how-to link and focuses it when install is dismissed', async () => {
+    setNavigatorLanguage('pl-PL')
+    setDevice({ touch: true })
+    render(<App />)
+    act(() => {
+      window.dispatchEvent(installEvent(Promise.resolve({ outcome: 'dismissed' })))
+    })
+    await userEvent.click(screen.getByRole('button', { name: INSTALL }))
+    const link = await screen.findByRole('button', { name: LINK })
+    await waitFor(() => expect(link).toHaveFocus())
+  })
+
+  it('falls back to the how-to link when the install dialog fails', async () => {
+    setNavigatorLanguage('pl-PL')
+    setDevice({ touch: true })
+    render(<App />)
+    act(() => {
+      window.dispatchEvent(
+        installEvent(Promise.resolve({ outcome: 'accepted' }), vi.fn(() => Promise.reject(new Error('blocked')))),
+      )
+    })
+    await userEvent.click(screen.getByRole('button', { name: INSTALL }))
+    expect(await screen.findByRole('button', { name: LINK })).toBeInTheDocument()
+  })
+
+  it('shows the confirmation when the app gets installed from the browser menu', async () => {
+    setNavigatorLanguage('pl-PL')
+    render(<App />)
+    act(() => {
+      window.dispatchEvent(new Event('appinstalled'))
+    })
+    expect(await screen.findByText(/^Gotowe\./)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: LINK })).not.toBeInTheDocument()
+  })
+
+  it('scrolls to the how-to instantly under reduced motion and smoothly otherwise', async () => {
+    setNavigatorLanguage('pl-PL')
+    const scroll = vi.fn()
+    Element.prototype.scrollIntoView = scroll
+    try {
+      setDevice({ touch: false, reduceMotion: true })
+      const { unmount } = render(<App />)
+      await userEvent.click(screen.getByRole('button', { name: LINK }))
+      expect(scroll).toHaveBeenLastCalledWith({ behavior: 'auto', block: 'start' })
+      unmount()
+
+      setDevice({ touch: false, reduceMotion: false })
+      render(<App />)
+      await userEvent.click(screen.getByRole('button', { name: LINK }))
+      expect(scroll).toHaveBeenLastCalledWith({ behavior: 'smooth', block: 'start' })
+    } finally {
+      delete (Element.prototype as { scrollIntoView?: unknown }).scrollIntoView
+    }
   })
 })

@@ -17,9 +17,16 @@ function set(next: InstallState) {
   listeners.forEach((l) => l());
 }
 
+/** Share to LetterLift only exists on phones and tablets, so only offer install there. */
+function isTouchDevice(win: Window): boolean {
+  return typeof win.matchMedia === 'function' && win.matchMedia('(pointer: coarse)').matches;
+}
+
 /** Registered at import time: Chrome may fire the event before React mounts. */
 export function listenForInstall(win: Window = window) {
   win.addEventListener('beforeinstallprompt', (e) => {
+    // On desktop leave the browser's own install UI alone.
+    if (!isTouchDevice(win)) return;
     e.preventDefault();
     deferred = e as InstallPromptEvent;
     set('available');
@@ -37,20 +44,30 @@ export async function promptInstall(): Promise<boolean> {
   const e = deferred;
   if (!e) return false;
   deferred = null;
-  await e.prompt();
-  const { outcome } = await e.userChoice;
-  set(outcome === 'accepted' ? 'installed' : 'unavailable');
-  return outcome === 'accepted';
+  try {
+    await e.prompt();
+    const { outcome } = await e.userChoice;
+    set(outcome === 'accepted' ? 'installed' : 'unavailable');
+    return outcome === 'accepted';
+  } catch {
+    set('unavailable');
+    return false;
+  }
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
+function getSnapshot(): InstallState {
+  return state;
 }
 
 export function useInstallState(): InstallState {
-  return useSyncExternalStore(
-    (l) => {
-      listeners.add(l);
-      return () => listeners.delete(l);
-    },
-    () => state,
-  );
+  return useSyncExternalStore(subscribe, getSnapshot);
 }
 
 /** Test helper. */
