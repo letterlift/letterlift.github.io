@@ -48,6 +48,14 @@ export function Home({ onOpen, text, onTextChange }: Props) {
     if (blocks.length > 0) onOpen(blocks);
   }
 
+  function showMobile() {
+    const heading = document.getElementById('mobile-heading');
+    if (!heading) return;
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    heading.scrollIntoView?.({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    heading.focus({ preventScroll: true });
+  }
+
   function onTabKey(e: KeyboardEvent) {
     const i = TABS.indexOf(tab);
     let next: Tab | null = null;
@@ -111,6 +119,12 @@ export function Home({ onOpen, text, onTextChange }: Props) {
             </svg>
             {t.hero.privacy}
           </p>
+          <button type="button" className={styles.mobileLink} onClick={showMobile}>
+            {t.hero.mobile}
+            <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M10 4v12M5 11l5 5 5-5" />
+            </svg>
+          </button>
         </div>
         <div className={styles.heroDemo}>
           <HeroDemo />

@@ -11,6 +11,7 @@ export const pl = {
     headline: 'Czytaj tak, jak lubi Twój mózg.',
     sub: 'LetterLift pogrubia początek każdego słowa, żeby oko miało się czego złapać. Niektórym osobom czyta się dzięki temu łatwiej. Sprawdź, czy Tobie.',
     privacy: 'Twój tekst nie opuszcza Twojego urządzenia.',
+    mobile: 'Używaj na telefonie',
   },
   demo: {
     title: 'Zobacz różnicę od razu',

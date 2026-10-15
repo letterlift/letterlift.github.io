@@ -48,7 +48,7 @@ export function MobileHowTo({ shortcutUrl = IOS_SHORTCUT_URL }: Props) {
 
   return (
     <section className={styles.section} aria-labelledby="mobile-heading">
-      <h2 id="mobile-heading" className={styles.heading}>
+      <h2 id="mobile-heading" className={styles.heading} tabIndex={-1}>
         {m.heading}
       </h2>
       <p className={styles.intro}>{m.intro}</p>

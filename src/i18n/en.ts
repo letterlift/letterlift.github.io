@@ -13,6 +13,7 @@ export const en: Dict = {
     headline: 'Read the way your brain likes it.',
     sub: 'LetterLift bolds the start of every word so your eye has something to hold on to. Some people find that easier to follow. Try it and see if you do.',
     privacy: 'Your text never leaves your device.',
+    mobile: 'Use it on your phone',
   },
   demo: {
     title: 'See the difference right away',

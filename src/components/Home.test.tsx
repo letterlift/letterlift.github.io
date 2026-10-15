@@ -60,6 +60,15 @@ describe('mobile section', () => {
     expect(mobile).toBeInTheDocument()
     expect(tiles.compareDocumentPosition(mobile) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })
+
+  it('hero link moves focus to the phone how-to without changing the URL', async () => {
+    setNavigatorLanguage('pl-PL')
+    render(<App />)
+    const before = window.location.href
+    await userEvent.click(screen.getByRole('button', { name: 'Używaj na telefonie' }))
+    expect(screen.getByRole('heading', { level: 2, name: 'Na telefonie' })).toHaveFocus()
+    expect(window.location.href).toBe(before)
+  })
 })
 
 describe('paste flow', () => {

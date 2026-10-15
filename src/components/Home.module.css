@@ -55,6 +55,34 @@
   color: var(--accent);
 }
 
+.mobileLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.mobileLink svg {
+  flex: none;
+  color: var(--accent);
+}
+
+.mobileLink:hover {
+  text-decoration-thickness: 3px;
+}
+
 @media (min-width: 1024px) {
   .hero {
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
