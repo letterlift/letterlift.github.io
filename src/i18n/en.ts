@@ -62,7 +62,7 @@ export const en: Dict = {
       title: 'Android',
       steps: [
         'Open letterlift.github.io in Chrome.',
-        'Tap ⋮ and choose “Install app” or “Add to Home screen”.',
+        'Tap the ⋮ menu and choose “Install app” or “Add to Home screen”.',
         'In any app, select text, tap “Share” and choose LetterLift.',
       ],
       note: 'LetterLift not on the list? Restart your phone.',

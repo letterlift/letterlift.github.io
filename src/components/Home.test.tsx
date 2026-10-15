@@ -55,7 +55,10 @@ describe('mobile section', () => {
   it('shows the phone how-to on Home', () => {
     setNavigatorLanguage('pl-PL')
     render(<App />)
-    expect(screen.getByRole('heading', { level: 2, name: 'Na telefonie' })).toBeInTheDocument()
+    const mobile = screen.getByRole('heading', { level: 2, name: 'Na telefonie' })
+    const tiles = screen.getByRole('heading', { level: 2, name: 'Jak to może pomóc' })
+    expect(mobile).toBeInTheDocument()
+    expect(tiles.compareDocumentPosition(mobile) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })
 })
 

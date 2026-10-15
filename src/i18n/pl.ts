@@ -60,7 +60,7 @@ export const pl = {
       title: 'Android',
       steps: [
         'Otwórz letterlift.github.io w Chrome.',
-        'Stuknij ⋮ i wybierz „Zainstaluj aplikację” albo „Dodaj do ekranu głównego”.',
+        'Stuknij menu ⋮ i wybierz „Zainstaluj aplikację” albo „Dodaj do ekranu głównego”.',
         'W dowolnej aplikacji zaznacz tekst, stuknij „Udostępnij” i wybierz LetterLift.',
       ],
       note: 'Nie widzisz LetterLift na liście? Uruchom telefon ponownie.',

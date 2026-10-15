@@ -9,11 +9,6 @@ function setLang(lang: 'pl' | 'en') {
   resetLangForTests()
 }
 
-function listAfter(title: string) {
-  const heading = screen.getByRole('heading', { level: 3, name: title })
-  return within(heading.parentElement as HTMLElement).getByRole('list')
-}
-
 describe('MobileHowTo', () => {
   beforeEach(() => setLang('pl'))
   afterEach(() => {
@@ -26,12 +21,12 @@ describe('MobileHowTo', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Na telefonie' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 3, name: 'Android' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 3, name: 'iPhone' })).toBeInTheDocument()
-    expect(within(listAfter('Android')).getAllByRole('listitem')).toHaveLength(3)
+    expect(within(screen.getByRole('article', { name: 'Android' })).getAllByRole('listitem')).toHaveLength(3)
   })
 
   it('shows the fallback steps and no shortcut link when no shortcut URL is set', () => {
     render(<MobileHowTo shortcutUrl="" />)
-    const items = within(listAfter('iPhone')).getAllByRole('listitem')
+    const items = within(screen.getByRole('article', { name: 'iPhone' })).getAllByRole('listitem')
     expect(items.map((li) => li.textContent)).toEqual(pl.mobile.ios.fallbackSteps)
     expect(screen.queryByRole('link', { name: /Dodaj skrót/ })).not.toBeInTheDocument()
     expect(screen.queryByText(pl.mobile.ios.shortcutNote)).not.toBeInTheDocument()
@@ -43,7 +38,7 @@ describe('MobileHowTo', () => {
     expect(link).toHaveAttribute('href', 'https://www.icloud.com/shortcuts/abc')
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-    const items = within(listAfter('iPhone')).getAllByRole('listitem')
+    const items = within(screen.getByRole('article', { name: 'iPhone' })).getAllByRole('listitem')
     expect(items.map((li) => li.textContent)).toEqual(pl.mobile.ios.shortcutSteps)
     expect(screen.queryByText(pl.mobile.ios.fallbackSteps[0])).not.toBeInTheDocument()
     expect(screen.getByText(pl.mobile.ios.shortcutNote)).toBeInTheDocument()
